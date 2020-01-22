@@ -1,8 +1,10 @@
-package com.alura.wiseroom;
+package com.alura.wiseroom.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.alura.wiseroom.R;
 
 public class ActivityEscolha extends AppCompatActivity {
 

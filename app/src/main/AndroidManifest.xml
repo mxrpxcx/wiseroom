@@ -12,9 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityAdicionarSala"></activity>
-        <activity android:name=".ActivityEscolha" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.ActivityAdicionarSala"></activity>
+        <activity android:name=".ui.ActivityEscolha" />
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

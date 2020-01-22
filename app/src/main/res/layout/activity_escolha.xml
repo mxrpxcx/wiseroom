@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".ActivityEscolha">
+    tools:context=".ui.ActivityEscolha">
 
     <Button
         android:id="@+id/btVerifica"
