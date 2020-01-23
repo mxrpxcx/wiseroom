@@ -46,6 +46,26 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
+        android:id="@+id/editNomeCadastro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="Digite seu nome"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@id/editEmailCadastro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
         android:id="@+id/editSenhaCadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

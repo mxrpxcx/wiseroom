@@ -6,9 +6,10 @@ public class ColaboradorModel {
    private int idOrganizacao;
    private String email;
    private boolean administrador;
+   private String senha;
 
 
-   public ColaboradorModel(int id, String nome, int idOrganizacao, String email, boolean administrador) {
+   public ColaboradorModel(int id, String nome, int idOrganizacao, String email, boolean administrador, String senha) {
       this.id = id;
       this.nome = nome;
       this.idOrganizacao = idOrganizacao;
@@ -17,6 +18,14 @@ public class ColaboradorModel {
    }
 
    public ColaboradorModel() {
+   }
+
+   public String getSenha() {
+      return senha;
+   }
+
+   public void setSenha(String senha) {
+      this.senha = senha;
    }
 
    public int getId() {
