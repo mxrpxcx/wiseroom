@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.alura.wiseroom.model.SalaModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WiseRoomDB extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "dbWiseroom";
@@ -61,7 +64,6 @@ public class WiseRoomDB extends SQLiteOpenHelper {
 
     public SalaModel getSala(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
-
         Cursor cursor = db.query(COLUNA_NOME_SALA,
                 new String[]{COLUNA_NOME_SALA, COLUNA_CAPACIDADE_SALA, COLUNA_DATA, COLUNA_DESCRICAO_SALA},
                 COLUNA_ID_SALA + "=?",
@@ -71,9 +73,12 @@ public class WiseRoomDB extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         SalaModel SalaModel = new SalaModel(
-           //     cursor.getInt(cursor.getColumnIndex(COLUNA_ID_SALA)
-
-                        );
+            cursor.getInt(cursor.getColumnIndex(COLUNA_ID_SALA)),
+            cursor.getString(cursor.getColumnIndex(COLUNA_NOME_SALA)),
+            cursor.getInt(cursor.getColumnIndex(COLUNA_CAPACIDADE_SALA)),
+            cursor.getString(cursor.getColumnIndex(COLUNA_DESCRICAO_SALA)),
+            cursor.getString(cursor.getColumnIndex(COLUNA_DATA))
+            );
 
 
         cursor.close();
@@ -81,4 +86,26 @@ public class WiseRoomDB extends SQLiteOpenHelper {
         return SalaModel;
     }
 
+    public List<SalaModel> getTodasSalas(int codigoSala) {
+        List<SalaModel> listaSalas = new ArrayList<>();
+
+        String selectQuery = "SELECT  * FROM " + TABELA_NOME_SALA + " WHERE "+ COLUNA_ID_SALA +" = "+ codigoSala + " ORDER BY " +
+                COLUNA_DATA + " DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                SalaModel sala = new SalaModel();
+                sala.setId(cursor.getInt(cursor.getColumnIndex(COLUNA_ID_SALA)));
+                sala.setDescricaoSala(cursor.getString(cursor.getColumnIndex(COLUNA_DESCRICAO_SALA)));
+                sala.setDataSala(cursor.getString(cursor.getColumnIndex(COLUNA_DATA)));
+                listaSalas.add(sala);
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+        return listaSalas;
+    }
 }

@@ -59,9 +59,11 @@ public class ActivityEscolha extends AppCompatActivity {
 
     private void recebeDominio() {
         Intent intentMain = getIntent();
-        String emailColaborador = intentMain.getStringExtra("emailColaborador");
-        int indexArroba = emailColaborador.indexOf("@");
-        int indexPonto = emailColaborador.indexOf(".");
-        dominioAtual = emailColaborador.substring(indexArroba + 1, indexPonto);
+        if(intentMain.hasExtra("emailColaborador")) {
+            String emailColaborador = intentMain.getStringExtra("emailColaborador");
+            int indexArroba = emailColaborador.indexOf("@");
+            int indexPonto = emailColaborador.indexOf(".");
+            dominioAtual = emailColaborador.substring(indexArroba + 1, indexPonto);
+        }
     }
 }

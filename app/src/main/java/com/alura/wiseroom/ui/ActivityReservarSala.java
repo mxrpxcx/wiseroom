@@ -3,7 +3,6 @@ package com.alura.wiseroom.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +34,7 @@ public class ActivityReservarSala extends AppCompatActivity {
         if(intentResult != null){
             if (intentResult.getContents() !=  null){
                 // Selecionado
-                Intent intent = new Intent(ActivityReservarSala.this, ActivityEscolha.class);
+                Intent intent = new Intent(ActivityReservarSala.this, ListaSalasParaReserva.class);
                 intent.putExtra("codigoSala", intentResult.getContents().toString());
                 startActivity(intent);
             }else{

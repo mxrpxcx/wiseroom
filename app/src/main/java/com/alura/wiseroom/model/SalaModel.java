@@ -1,23 +1,30 @@
 package com.alura.wiseroom.model;
 
-import java.util.Calendar;
-
 public class SalaModel {
     private int id;
     private String nome;
     private int capacidade;
     private double areaDaSala;
     private String descricaoSala;
+    private String dataSala;
 
-    public SalaModel(int id, String nome, int capacidade, double areaDaSala, String descricaoSala) {
+    public SalaModel(int id, String nome, int capacidade, String descricaoSala, String dataSala) {
         this.id = id;
         this.nome = nome;
         this.capacidade = capacidade;
-        this.areaDaSala = areaDaSala;
         this.descricaoSala = descricaoSala;
+        this.dataSala = dataSala;
     }
 
     public SalaModel() {
+    }
+
+    public String getDataSala() {
+        return dataSala;
+    }
+
+    public void setDataSala(String dataSala) {
+        this.dataSala = dataSala;
     }
 
     public int getId() {
