@@ -19,6 +19,9 @@ import com.alura.wiseroom.R;
 import com.alura.wiseroom.database.WiseRoomDB;
 import com.alura.wiseroom.model.ColaboradorModel;
 
+import gr.net.maroulis.library.EasySplashScreen;
+
+
 public class MainActivity extends AppCompatActivity {
     private Button btLogin;
     private Button btCadastro;
@@ -29,12 +32,14 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase db;
     Cursor cursor;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btLogin = findViewById(R.id.btLogin);
         btCadastro = findViewById(R.id.btCadastro);
+
 
 
 
@@ -66,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
+
 
     private void logaColaborador(ColaboradorModel colaborador) {
         colaborador.setEmail(tvEmail.getText().toString());
