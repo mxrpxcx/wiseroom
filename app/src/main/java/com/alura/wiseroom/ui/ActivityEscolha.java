@@ -13,8 +13,9 @@ public class ActivityEscolha extends AppCompatActivity {
     private Button btAdicionarNovaSala;
     private Button btDisponibilidadeSala;
     private Button btReservarSala;
-
     private String dominioAtual;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,8 @@ public class ActivityEscolha extends AppCompatActivity {
     }
 
     private void recebeDominio() {
-        String emailColaborador = new Intent().getStringExtra("emailColaborador");
+        Intent intentMain = getIntent();
+        String emailColaborador = intentMain.getStringExtra("emailColaborador");
         int indexArroba = emailColaborador.indexOf("@");
         int indexPonto = emailColaborador.indexOf(".");
         dominioAtual = emailColaborador.substring(indexArroba + 1, indexPonto);
