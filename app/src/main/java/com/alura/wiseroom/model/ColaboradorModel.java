@@ -9,12 +9,10 @@ public class ColaboradorModel {
    private String senha;
 
 
-   public ColaboradorModel(int id, String nome, int idOrganizacao, String email, boolean administrador, String senha) {
-      this.id = id;
+   public ColaboradorModel(String nome, String email, String senha) {
+      this.senha = senha;
       this.nome = nome;
-      this.idOrganizacao = idOrganizacao;
       this.email = email;
-      this.administrador = administrador;
    }
 
    public ColaboradorModel() {
