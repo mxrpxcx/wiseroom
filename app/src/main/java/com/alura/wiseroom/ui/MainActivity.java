@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
                         String intentEmail = cursor.getString(cursor.getColumnIndex(ColaboradorDAO.COLUNA_EMAIL));
                         Toast.makeText(MainActivity.this, "Login Realizado com Sucesso", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, ActivityEscolha.class);
-                        intent.putExtra("nome", intentNome);
-                        intent.putExtra("email", intentEmail);
+                        intent.putExtra("nomeColaborador", intentNome);
+                        intent.putExtra("emailColaborador", intentEmail);
                         startActivity(intent);
                         db.close();
                         finish();
