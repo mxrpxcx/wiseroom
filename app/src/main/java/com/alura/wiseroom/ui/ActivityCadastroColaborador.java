@@ -14,7 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
-import com.alura.wiseroom.database.ColaboradorDAO;
+import com.alura.wiseroom.database.WiseRoomDB;
 
 public class ActivityCadastroColaborador extends AppCompatActivity {
     SQLiteOpenHelper openHelper;
@@ -28,7 +28,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.hide();
 
-        openHelper = new ColaboradorDAO(this);
+        openHelper = new WiseRoomDB(this);
 
         final EditText txtNome = (EditText) findViewById(R.id.editNomeCadastro);
         final EditText txtEmail = (EditText) findViewById(R.id.editEmailCadastro);
@@ -68,9 +68,9 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
     public void inserirCliente(String nome, String email, String senha) {
         ContentValues values = new ContentValues();
-        values.put(ColaboradorDAO.COLUNA_NOME, nome);
-        values.put(ColaboradorDAO.COLUNA_EMAIL, email);
-        values.put(ColaboradorDAO.COLUNA_SENHA, senha);
-        long id = db.insert(ColaboradorDAO.TABELA_NOME, null, values);
+        values.put(WiseRoomDB.COLUNA_NOME, nome);
+        values.put(WiseRoomDB.COLUNA_EMAIL, email);
+        values.put(WiseRoomDB.COLUNA_SENHA, senha);
+        long id = db.insert(WiseRoomDB.TABELA_NOME, null, values);
     }
 }

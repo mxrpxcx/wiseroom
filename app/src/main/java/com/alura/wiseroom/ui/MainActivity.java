@@ -16,7 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
-import com.alura.wiseroom.database.ColaboradorDAO;
+import com.alura.wiseroom.database.WiseRoomDB;
 import com.alura.wiseroom.model.ColaboradorModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         tvEmail = (EditText) findViewById(R.id.editEmail);
         tvSenha = (EditText) findViewById(R.id.editSenha);
 
-        dbHelper = new ColaboradorDAO(this);
+        dbHelper = new WiseRoomDB(this);
         db = dbHelper.getWritableDatabase();
         final ColaboradorModel colaborador = new ColaboradorModel();
 
@@ -63,17 +63,17 @@ public class MainActivity extends AppCompatActivity {
                 colaborador.setEmail(tvEmail.getText().toString());
                 colaborador.setSenha(tvSenha.getText().toString());
 
-                cursor = db.rawQuery("SELECT *FROM " + ColaboradorDAO.TABELA_NOME + " WHERE " +
-                                ColaboradorDAO.COLUNA_EMAIL + "=? AND " +
-                                ColaboradorDAO.COLUNA_SENHA + "=?",
+                cursor = db.rawQuery("SELECT *FROM " + WiseRoomDB.TABELA_NOME + " WHERE " +
+                                WiseRoomDB.COLUNA_EMAIL + "=? AND " +
+                                WiseRoomDB.COLUNA_SENHA + "=?",
                         new String[]{colaborador.getEmail(), colaborador.getSenha()});
                 if (cursor != null) {
                     if (cursor.getCount() > 0) {
 
                         cursor.moveToFirst();
 
-                        String intentNome = cursor.getString(cursor.getColumnIndex(ColaboradorDAO.COLUNA_NOME));
-                        String intentEmail = cursor.getString(cursor.getColumnIndex(ColaboradorDAO.COLUNA_EMAIL));
+                        String intentNome = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME));
+                        String intentEmail = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_EMAIL));
                         Toast.makeText(MainActivity.this, "Login Realizado com Sucesso", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, ActivityEscolha.class);
                         intent.putExtra("nomeColaborador", intentNome);

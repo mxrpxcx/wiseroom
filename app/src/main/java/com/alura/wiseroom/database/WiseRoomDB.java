@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-public class ColaboradorDAO extends SQLiteOpenHelper {
+public class WiseRoomDB extends SQLiteOpenHelper {
 
 
     private static final String DATABASE_NAME = "dbWiseroom";
@@ -35,7 +35,7 @@ public class ColaboradorDAO extends SQLiteOpenHelper {
                     COLUNA_CAPACIDADE_SALA + " TEXT, " +
                     COLUNA_DESCRICAO_SALA + " TEXT " + ")";
 
-    public ColaboradorDAO(Context context) {
+    public WiseRoomDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
