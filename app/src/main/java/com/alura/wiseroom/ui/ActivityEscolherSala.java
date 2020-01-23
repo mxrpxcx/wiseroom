@@ -16,9 +16,6 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class ActivityEscolherSala extends AppCompatActivity {
-
-    Button btn;
-    TextView textView;
     final Activity activity= this;
 
 
@@ -26,27 +23,14 @@ public class ActivityEscolherSala extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        componentesDaTela();
-        eventoButton();
-    }
-
-    private void eventoButton() {
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        setContentView(R.layout.activity_escolher_sala);
                 IntentIntegrator intentIntegrator = new IntentIntegrator(activity);
                 intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-                intentIntegrator.setPrompt("SCAN");
+                intentIntegrator.setPrompt("Escolha a sala");
                 intentIntegrator.setCameraId(0);
                 intentIntegrator.initiateScan();
-            }
-        });
     }
 
-    private void componentesDaTela() {
-        btn = (Button)findViewById(R.id.button);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -58,7 +42,7 @@ public class ActivityEscolherSala extends AppCompatActivity {
             if (intentResult.getContents() !=  null){
                 alert(intentResult.getContents().toString());
             }else{
-                alert("Scan cancelado");
+                alert("Cancelado");
             }
         }else{
             super.onActivityResult(requestCode, resultCode, data);
