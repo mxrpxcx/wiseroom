@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
@@ -21,6 +22,8 @@ public class ActivityEscolha extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_escolha);
+        ActionBar ab = getSupportActionBar();
+        ab.hide();
         criarBotaoPlusAcoes();
         recebeDominio();
 
@@ -30,6 +33,7 @@ public class ActivityEscolha extends AppCompatActivity {
         btAdicionarNovaSala = findViewById(R.id.btAdiciona);
         btDisponibilidadeSala = findViewById(R.id.btVerifica);
         btReservarSala = findViewById(R.id.btReserva);
+
 
         btReservarSala.setOnClickListener(new View.OnClickListener() {
             @Override

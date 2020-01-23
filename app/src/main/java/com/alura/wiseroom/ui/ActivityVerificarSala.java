@@ -37,6 +37,8 @@ public class ActivityVerificarSala extends AppCompatActivity {
                 alert(intentResult.getContents().toString());
             }else{
                 alert("Cancelado");
+                Intent intent = new Intent(ActivityVerificarSala.this, ActivityEscolha.class);
+                startActivity(intent);
             }
         }else{
             super.onActivityResult(requestCode, resultCode, data);

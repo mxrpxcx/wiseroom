@@ -25,7 +25,6 @@ import gr.net.maroulis.library.EasySplashScreen;
 public class MainActivity extends AppCompatActivity {
     private Button btLogin;
     private Button btCadastro;
-
     private EditText tvEmail;
     private EditText tvSenha;
     SQLiteOpenHelper dbHelper;
@@ -37,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActionBar ab = getSupportActionBar();
+        ab.hide();
         btLogin = findViewById(R.id.btLogin);
         btCadastro = findViewById(R.id.btCadastro);
 
@@ -51,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        ActionBar ab = getSupportActionBar();
-        ab.hide();
+
 
         tvEmail = (EditText) findViewById(R.id.editEmail);
         tvSenha = (EditText) findViewById(R.id.editSenha);
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("emailColaborador", intentEmail);
                 startActivity(intent);
                 db.close();
-                finish();
+
             } else {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Erro de autenticacao");
