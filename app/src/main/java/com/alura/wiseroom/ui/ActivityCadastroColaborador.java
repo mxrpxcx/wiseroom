@@ -44,7 +44,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                 String email = txtEmail.getText().toString();
                 String senha = txtSenha.getText().toString();
 
-                inserirCliente(nome, email, senha);
+                inserirColaborador(nome, email, senha);
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityCadastroColaborador.this);
                 builder.setTitle("Sucesso");
@@ -66,11 +66,11 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
     }
 
-    public void inserirCliente(String nome, String email, String senha) {
+    public void inserirColaborador(String nome, String email, String senha) {
         ContentValues values = new ContentValues();
-        values.put(WiseRoomDB.COLUNA_NOME, nome);
-        values.put(WiseRoomDB.COLUNA_EMAIL, email);
+        values.put(WiseRoomDB.COLUNA_NOME_COLABORADOR, nome);
+        values.put(WiseRoomDB.COLUNA_EMAIL_COLABORADOR, email);
         values.put(WiseRoomDB.COLUNA_SENHA, senha);
-        long id = db.insert(WiseRoomDB.TABELA_NOME, null, values);
+        long id = db.insert(WiseRoomDB.TABELA_NOME_COLABORADOR, null, values);
     }
 }

@@ -32,7 +32,6 @@ public class ActivityEscolherSala extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
 
         if(intentResult != null){

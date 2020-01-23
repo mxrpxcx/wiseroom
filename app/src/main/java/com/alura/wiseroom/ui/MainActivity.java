@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ActivityCadastroColaborador.class));
             }
+
         });
 
         ActionBar ab = getSupportActionBar();
@@ -59,12 +60,11 @@ public class MainActivity extends AppCompatActivity {
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 colaborador.setEmail(tvEmail.getText().toString());
                 colaborador.setSenha(tvSenha.getText().toString());
 
-                cursor = db.rawQuery("SELECT *FROM " + WiseRoomDB.TABELA_NOME + " WHERE " +
-                                WiseRoomDB.COLUNA_EMAIL + "=? AND " +
+                cursor = db.rawQuery("SELECT *FROM " + WiseRoomDB.TABELA_NOME_COLABORADOR + " WHERE " +
+                                WiseRoomDB.COLUNA_EMAIL_COLABORADOR + "=? AND " +
                                 WiseRoomDB.COLUNA_SENHA + "=?",
                         new String[]{colaborador.getEmail(), colaborador.getSenha()});
                 if (cursor != null) {
@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
                         cursor.moveToFirst();
 
-                        String intentNome = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME));
-                        String intentEmail = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_EMAIL));
+                        String intentNome = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME_COLABORADOR));
+                        String intentEmail = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_EMAIL_COLABORADOR));
                         Toast.makeText(MainActivity.this, "Login Realizado com Sucesso", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, ActivityEscolha.class);
                         intent.putExtra("nomeColaborador", intentNome);
