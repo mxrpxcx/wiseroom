@@ -60,47 +60,50 @@ public class MainActivity extends AppCompatActivity {
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                colaborador.setEmail(tvEmail.getText().toString());
-                colaborador.setSenha(tvSenha.getText().toString());
-
-                cursor = db.rawQuery("SELECT *FROM " + WiseRoomDB.TABELA_NOME_COLABORADOR + " WHERE " +
-                                WiseRoomDB.COLUNA_EMAIL_COLABORADOR + "=? AND " +
-                                WiseRoomDB.COLUNA_SENHA + "=?",
-                        new String[]{colaborador.getEmail(), colaborador.getSenha()});
-                if (cursor != null) {
-                    if (cursor.getCount() > 0) {
-
-                        cursor.moveToFirst();
-
-                        String intentNome = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME_COLABORADOR));
-                        String intentEmail = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_EMAIL_COLABORADOR));
-                        Toast.makeText(MainActivity.this, "Login Realizado com Sucesso", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, ActivityEscolha.class);
-                        intent.putExtra("nomeColaborador", intentNome);
-                        intent.putExtra("emailColaborador", intentEmail);
-                        startActivity(intent);
-                        db.close();
-                        finish();
-                    } else {
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setTitle("Erro de autenticacao");
-                        builder.setMessage("O nome de usuário e/ou senha estão incorretos.");
-                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                dialogInterface.dismiss();
-
-                            }
-                        });
-
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                    }
-                }
+                logaColaborador(colaborador);
 
             }
         });
 
+    }
+
+    private void logaColaborador(ColaboradorModel colaborador) {
+        colaborador.setEmail(tvEmail.getText().toString());
+        colaborador.setSenha(tvSenha.getText().toString());
+
+        cursor = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_COLABORADOR + " WHERE " +
+                        WiseRoomDB.COLUNA_EMAIL_COLABORADOR + "=? AND " +
+                        WiseRoomDB.COLUNA_SENHA + "=?",
+                new String[]{colaborador.getEmail(), colaborador.getSenha()});
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
+
+                cursor.moveToFirst();
+
+                String intentNome = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME_COLABORADOR));
+                String intentEmail = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_EMAIL_COLABORADOR));
+                Toast.makeText(MainActivity.this, "Login Realizado com Sucesso", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, ActivityEscolha.class);
+                intent.putExtra("nomeColaborador", intentNome);
+                intent.putExtra("emailColaborador", intentEmail);
+                startActivity(intent);
+                db.close();
+                finish();
+            } else {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Erro de autenticacao");
+                builder.setMessage("O nome de usuário e/ou senha estão incorretos.");
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+            }
+        }
     }
 }

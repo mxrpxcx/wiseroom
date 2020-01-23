@@ -34,14 +34,14 @@ public class ActivityEscolha extends AppCompatActivity {
         btReservarSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ActivityEscolha.this, ActivityEscolherSala.class));
+                startActivity(new Intent(ActivityEscolha.this, ActivityReservarSala.class));
             }
         });
 
         btDisponibilidadeSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ActivityEscolha.this, ActivityEscolherSala.class));
+                startActivity(new Intent(ActivityEscolha.this, ActivityReservarSala.class));
             }
         });
 

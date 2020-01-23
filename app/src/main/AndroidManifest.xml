@@ -12,8 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.ActivityCadastroColaborador"></activity>
-        <activity android:name=".ui.ActivityEscolherSala" />
+        <activity android:name=".ui.ActivityVerificarSala"></activity>
+        <activity android:name=".ui.ActivityCadastroColaborador" />
+        <activity android:name=".ui.ActivityReservarSala" />
         <activity android:name=".ui.ActivityAdicionarSala" />
         <activity android:name=".ui.ActivityEscolha" />
         <activity android:name=".ui.MainActivity">
