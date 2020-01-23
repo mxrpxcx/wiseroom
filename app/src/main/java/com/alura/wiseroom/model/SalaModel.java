@@ -1,12 +1,13 @@
 package com.alura.wiseroom.model;
 
+import java.util.Calendar;
+
 public class SalaModel {
     private int id;
     private String nome;
     private int capacidade;
     private double areaDaSala;
     private String descricaoSala;
-
 
     public SalaModel(int id, String nome, int capacidade, double areaDaSala, String descricaoSala) {
         this.id = id;

@@ -19,8 +19,6 @@ import com.alura.wiseroom.R;
 import com.alura.wiseroom.database.WiseRoomDB;
 import com.alura.wiseroom.model.ColaboradorModel;
 
-import gr.net.maroulis.library.EasySplashScreen;
-
 
 public class MainActivity extends AppCompatActivity {
     private Button btLogin;

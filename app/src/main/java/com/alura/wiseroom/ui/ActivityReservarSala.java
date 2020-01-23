@@ -34,9 +34,12 @@ public class ActivityReservarSala extends AppCompatActivity {
 
         if(intentResult != null){
             if (intentResult.getContents() !=  null){
-                alert(intentResult.getContents().toString());
+                // Selecionado
+                Intent intent = new Intent(ActivityReservarSala.this, ActivityEscolha.class);
+                intent.putExtra("codigoSala", intentResult.getContents().toString());
+                startActivity(intent);
             }else{
-                alert("Cancelado");
+
                 Intent intent = new Intent(ActivityReservarSala.this, ActivityEscolha.class);
                 startActivity(intent);
             }
@@ -46,7 +49,4 @@ public class ActivityReservarSala extends AppCompatActivity {
 
     }
 
-    private void alert(String msg){
-        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
-    }
 }

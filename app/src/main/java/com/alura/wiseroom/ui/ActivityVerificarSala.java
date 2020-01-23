@@ -1,12 +1,12 @@
 package com.alura.wiseroom.ui;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -34,9 +34,12 @@ public class ActivityVerificarSala extends AppCompatActivity {
 
         if(intentResult != null){
             if (intentResult.getContents() !=  null){
-                alert(intentResult.getContents().toString());
+                // Selecionado
+                Intent intent = new Intent(ActivityVerificarSala.this, ActivityEscolha.class);
+                intent.putExtra("codigoSala", intentResult.getContents().toString());
+                startActivity(intent);
+
             }else{
-                alert("Cancelado");
                 Intent intent = new Intent(ActivityVerificarSala.this, ActivityEscolha.class);
                 startActivity(intent);
             }
@@ -46,7 +49,4 @@ public class ActivityVerificarSala extends AppCompatActivity {
 
     }
 
-    private void alert(String msg){
-        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
-    }
 }
