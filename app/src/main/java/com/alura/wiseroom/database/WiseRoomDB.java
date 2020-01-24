@@ -128,7 +128,6 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     }
 
     public static long inserirData (SQLiteDatabase db, ContentValues cv) {
-
         return db.insert(TABELA_NOME_DATA, null, cv);
     }
 
@@ -137,7 +136,6 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     }
 
     public static int deletarData (SQLiteDatabase db,String whereClause) {
-
         return db.delete(TABELA_NOME_DATA, whereClause, null);
     }
 
