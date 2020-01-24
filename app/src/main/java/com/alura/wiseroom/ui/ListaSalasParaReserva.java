@@ -2,6 +2,7 @@ package com.alura.wiseroom.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,24 +26,22 @@ import java.util.List;
 public class ListaSalasParaReserva extends AppCompatActivity {
     private SalaAdapter salasAdapter;
     private List<SalaModel> listaSalas = new ArrayList<>();
-    private ConstraintLayout constraintLayout;
     private RecyclerView recyclerView;
-    private TextView salasVaziasView;
     private WiseRoomDB db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_salas_para_reserva);
-        constraintLayout = findViewById(R.id.constraint_layout);
         recyclerView = findViewById(R.id.recycler_view);
-        salasVaziasView = findViewById(R.id.salas_vazias);
 
         db = new WiseRoomDB(this);
         Intent intentReserva = getIntent();
         String codigo = intentReserva.getStringExtra("codigoSala");
         int codigoDaSala = Integer.parseInt(codigo);
-        listaSalas.addAll(db.getTodasSalas(codigoDaSala));
+        listaSalas.add(db.getSala(codigoDaSala));
+
+        Log.i("TesteSala", "lista Salas? "+listaSalas.get(codigoDaSala).getNome());
 
         salasAdapter = new SalaAdapter(this, listaSalas);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());

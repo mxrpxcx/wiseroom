@@ -13,7 +13,7 @@ import java.util.List;
 public class WiseRoomDB extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "dbWiseroom";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     // Colaborador
     public static final String TABELA_NOME_COLABORADOR =  "tbColaborador";
@@ -22,7 +22,7 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     public static final String COLUNA_EMAIL_COLABORADOR = "emailColaborador";
     public static final String COLUNA_SENHA = "senhaColaborador";
     // Sala
-    public static final String TABELA_NOME_SALA =  "tbColaborador";
+    public static final String TABELA_NOME_SALA =  "tbSala";
     public static final String COLUNA_ID_SALA = "idSala";
     public static final String COLUNA_NOME_SALA = "nomeSala";
     public static final String COLUNA_CAPACIDADE_SALA  = "capacidadeSala";
@@ -64,26 +64,24 @@ public class WiseRoomDB extends SQLiteOpenHelper {
 
     public SalaModel getSala(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(COLUNA_NOME_SALA,
+        Cursor cursor = db.query(TABELA_NOME_SALA,
                 new String[]{COLUNA_NOME_SALA, COLUNA_CAPACIDADE_SALA, COLUNA_DATA, COLUNA_DESCRICAO_SALA},
                 COLUNA_ID_SALA + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
-        if (cursor != null)
+        while (cursor.moveToNext()) {
             cursor.moveToFirst();
 
-        SalaModel SalaModel = new SalaModel(
-            cursor.getInt(cursor.getColumnIndex(COLUNA_ID_SALA)),
-            cursor.getString(cursor.getColumnIndex(COLUNA_NOME_SALA)),
-            cursor.getInt(cursor.getColumnIndex(COLUNA_CAPACIDADE_SALA)),
-            cursor.getString(cursor.getColumnIndex(COLUNA_DESCRICAO_SALA)),
-            cursor.getString(cursor.getColumnIndex(COLUNA_DATA))
+            SalaModel SalaModel = new SalaModel(
+                    cursor.getString(cursor.getColumnIndex(COLUNA_NOME_SALA)),
+                    cursor.getInt(cursor.getColumnIndex(COLUNA_CAPACIDADE_SALA)),
+                    cursor.getString(cursor.getColumnIndex(COLUNA_DESCRICAO_SALA)),
+                    cursor.getString(cursor.getColumnIndex(COLUNA_DATA))
             );
-
-
-        cursor.close();
-
-        return SalaModel;
+            cursor.close();
+            return SalaModel;
+        }
+        return null;
     }
 
     public List<SalaModel> getTodasSalas(int codigoSala) {

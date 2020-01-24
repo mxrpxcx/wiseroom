@@ -1,11 +1,13 @@
 package com.alura.wiseroom.ui;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
         btLogin = findViewById(R.id.btLogin);
         btCadastro = findViewById(R.id.btCadastro);
 
-
-
-
         btCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +67,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        ContentValues cv1 = new ContentValues();
+        cv1.put(WiseRoomDB.COLUNA_NOME_COLABORADOR, "b");
+        cv1.put(WiseRoomDB.COLUNA_EMAIL_COLABORADOR, "b@b.com");
+        cv1.put(WiseRoomDB.COLUNA_SENHA, "b");
+        db.insert(WiseRoomDB.TABELA_NOME_COLABORADOR, null, cv1);
+
+        ContentValues cv2 = new ContentValues();
+        cv2.put(WiseRoomDB.COLUNA_ID_SALA, 0);
+        cv2.put(WiseRoomDB.COLUNA_NOME_SALA, "sala 0");
+        cv2.put(WiseRoomDB.COLUNA_CAPACIDADE_SALA, 50);
+        cv2.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala");
+        cv2.put(WiseRoomDB.COLUNA_DATA, "18/02/2020");
+        db.insert(WiseRoomDB.TABELA_NOME_SALA, null, cv2);
+
+        Log.i("Teste Sala", "sala adicionada? "+cv2.toString());
     }
 
 

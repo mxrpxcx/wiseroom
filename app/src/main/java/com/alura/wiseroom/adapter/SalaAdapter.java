@@ -1,6 +1,10 @@
 package com.alura.wiseroom.adapter;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +24,8 @@ import java.util.List;
 public class SalaAdapter extends RecyclerView.Adapter<SalaAdapter.MyViewHolder> {
 
     private Context context;
-    private List<SalaModel> listaSalas;
+    private final List<SalaModel> listaSalas;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView sala;
@@ -49,11 +54,12 @@ public class SalaAdapter extends RecyclerView.Adapter<SalaAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        WiseRoomDB db = new WiseRoomDB(context);
         SalaModel sala = listaSalas.get(position);
 
-        holder.sala.setText(db.getSala(position).getNome());
-        holder.data.setText(formatDate(db.getSala(position).getDataSala()));
+        Log.i("TesteSala", "Sala "+sala.getNome());
+
+        holder.sala.setText(sala.getNome());
+        holder.data.setText(formatDate(sala.getDataSala()));
     }
 
     @Override
@@ -64,7 +70,7 @@ public class SalaAdapter extends RecyclerView.Adapter<SalaAdapter.MyViewHolder> 
 
     private String formatDate(String dateStr) {
         try {
-            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             Date date = fmt.parse(dateStr);
             SimpleDateFormat fmtOut = new SimpleDateFormat("MMM d");
             return fmtOut.format(date);

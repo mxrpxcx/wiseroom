@@ -8,7 +8,7 @@ public class SalaModel {
     private String descricaoSala;
     private String dataSala;
 
-    public SalaModel(int id, String nome, int capacidade, String descricaoSala, String dataSala) {
+    public SalaModel(String nome, int capacidade, String descricaoSala, String dataSala) {
         this.id = id;
         this.nome = nome;
         this.capacidade = capacidade;
