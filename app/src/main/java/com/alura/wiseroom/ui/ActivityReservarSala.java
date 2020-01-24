@@ -13,6 +13,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 public class ActivityReservarSala extends AppCompatActivity {
     final Activity activity= this;
+    String idColaborador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class ActivityReservarSala extends AppCompatActivity {
                 intentIntegrator.setPrompt("Escolha a sala");
                 intentIntegrator.setCameraId(0);
                 intentIntegrator.initiateScan();
+                recebeDados();
     }
 
 
@@ -33,10 +35,12 @@ public class ActivityReservarSala extends AppCompatActivity {
 
         if(intentResult != null){
             if (intentResult.getContents() !=  null){
-                // Selecionado
+
                 Intent intent = new Intent(ActivityReservarSala.this, AgendarDataSala.class);
-                intent.putExtra("codigoSala", intentResult.getContents().toString());
+                intent.putExtra("idSala", intentResult.getContents().toString());
+                intent.putExtra("idColaborador", idColaborador);
                 startActivity(intent);
+                finish();
             }else{
 
                 Intent intent = new Intent(ActivityReservarSala.this, ActivityEscolha.class);
@@ -46,6 +50,17 @@ public class ActivityReservarSala extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
 
+    }
+
+    private void recebeDados() {
+        Intent intentMain = getIntent();
+
+        if(intentMain.hasExtra("idColaborador")){
+
+            String idRecebido = intentMain.getStringExtra("idColaborador");
+            idColaborador = idRecebido;
+
+        }
     }
 
 }

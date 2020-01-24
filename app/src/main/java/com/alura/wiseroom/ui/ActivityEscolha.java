@@ -40,14 +40,20 @@ public class ActivityEscolha extends AppCompatActivity {
         btReservarSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ActivityEscolha.this, ActivityReservarSala.class));
+                Intent intent = new Intent(ActivityEscolha.this, ActivityReservarSala.class);
+                intent.putExtra("idColaborador", idColaborador);
+                startActivity(intent);
+                finish();
             }
         });
 
         btDisponibilidadeSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ActivityEscolha.this, ActivityVerificarSala.class));
+                Intent intent = new Intent(ActivityEscolha.this, ActivityVerificarSala.class);
+                intent.putExtra("idColaborador", idColaborador);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -56,23 +62,25 @@ public class ActivityEscolha extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityEscolha.this, ActivityListarSalaReservada.class);
                 intent.putExtra("idColaborador", idColaborador);
+                startActivity(intent);
+                finish();
             }
         });
     }
 
     private void recebeDados() {
-        Intent intentMain = getIntent();
-        if(intentMain.hasExtra("emailColaborador")) {
-            String emailColaborador = intentMain.getStringExtra("emailColaborador");
-            int indexArroba = emailColaborador.indexOf("@");
-            int indexPonto = emailColaborador.indexOf(".");
-            dominioAtual = emailColaborador.substring(indexArroba + 1, indexPonto);
-        }
-        if(intentMain.hasExtra("idColaborador")){
+            Intent intentMain = getIntent();
+            if(intentMain.hasExtra("emailColaborador")) {
+                String emailColaborador = intentMain.getStringExtra("emailColaborador");
+                int indexArroba = emailColaborador.indexOf("@");
+                int indexPonto = emailColaborador.indexOf(".");
+                dominioAtual = emailColaborador.substring(indexArroba + 1, indexPonto);
+            }
+            if(intentMain.hasExtra("idColaborador")){
 
-            String idRecebido = intentMain.getStringExtra("idColaborador");
-            idColaborador = idRecebido;
+                String idRecebido = intentMain.getStringExtra("idColaborador");
+                idColaborador = idRecebido;
 
-        }
+            }
     }
 }

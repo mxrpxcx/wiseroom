@@ -47,15 +47,15 @@ public class AgendarDataSala extends AppCompatActivity {
     ArrayList<DataModel> listaDatas = new ArrayList<>();
     ArrayList<Integer> listaIds = new ArrayList<>();
     AlarmManager alarmManager;
-    String idRecebido;
     boolean flagDeleteAlarm = false;
     boolean flagEditAlarm = false;
+    String idSala;
+    String idColaborador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agendar_data_sala);
-        idRecebido = getIntent().getStringExtra("codigoSala");
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         init();
         setListeners();
@@ -71,6 +71,7 @@ public class AgendarDataSala extends AppCompatActivity {
         tvVoltar = (TextView) findViewById(R.id.tvVoltar);
         btParar.setVisibility(View.INVISIBLE);
         tvVoltar.setVisibility(View.INVISIBLE);
+        recebeDados();
     }
 
 
@@ -127,7 +128,7 @@ public class AgendarDataSala extends AppCompatActivity {
         cv.put(wise.COLUNA_NOME_DATA, etNome);
         cv.put(wise.COLUNA_DATA_MARCADA, etData);
         cv.put(wise.COLUNA_HORARIO_MARCADO, etHora);
-        cv.put(wise.COLUNA_ID_SALA_MARCADA, idRecebido);
+        cv.put(wise.COLUNA_ID_SALA_MARCADA, idSala);
 
         long id = wise.inserirData(db, cv);
         if (id>0) {
@@ -170,7 +171,7 @@ public class AgendarDataSala extends AppCompatActivity {
         i.putExtra(wise.COLUNA_NOME_DATA,nome);
         i.putExtra(wise.COLUNA_DATA_MARCADA,data);
         i.putExtra(wise.COLUNA_HORARIO_MARCADO,hora);
-        i.putExtra(wise.COLUNA_ID_SALA_MARCADA, idRecebido);
+        i.putExtra(wise.COLUNA_ID_SALA_MARCADA, idSala);
 
         PendingIntent pendingIntent= PendingIntent.getBroadcast(this,(int)id,i,0);
 
@@ -343,6 +344,24 @@ public class AgendarDataSala extends AppCompatActivity {
             long id = ActivityEditarDataAgendada.idUpdate;
             definirReserva(id);
             flagEditAlarm=false;
+        }
+    }
+
+    private void recebeDados() {
+        Intent intentMain = getIntent();
+
+        if(intentMain.hasExtra("idColaborador")){
+
+            String idRecebidoColaborador = intentMain.getStringExtra("idColaborador");
+            idColaborador = idRecebidoColaborador;
+
+        }
+
+        if(intentMain.hasExtra("idSala")){
+
+            String idRecebidoSala = intentMain.getStringExtra("idSala");
+            idSala = idRecebidoSala;
+
         }
     }
 }
