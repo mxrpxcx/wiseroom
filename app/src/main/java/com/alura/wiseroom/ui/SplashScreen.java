@@ -1,6 +1,5 @@
 package com.alura.wiseroom.ui;
 
-import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +8,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
-import com.alura.wiseroom.database.WiseRoomDB;
 
 import gr.net.maroulis.library.EasySplashScreen;
 

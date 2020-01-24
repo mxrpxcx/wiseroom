@@ -1,9 +1,6 @@
 package com.alura.wiseroom.adapter;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +10,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alura.wiseroom.R;
-import com.alura.wiseroom.database.WiseRoomDB;
 import com.alura.wiseroom.model.SalaModel;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class SalaAdapter extends RecyclerView.Adapter<SalaAdapter.MyViewHolder> {
@@ -59,7 +52,7 @@ public class SalaAdapter extends RecyclerView.Adapter<SalaAdapter.MyViewHolder> 
         Log.i("TesteSala", "Sala "+sala.getNome());
 
         holder.sala.setText(sala.getNome());
-        holder.data.setText(formatDate(sala.getDataSala()));
+        holder.data.setText(sala.getDataSala());
     }
 
     @Override
@@ -67,17 +60,4 @@ public class SalaAdapter extends RecyclerView.Adapter<SalaAdapter.MyViewHolder> 
         return listaSalas.size();
     }
 
-
-    private String formatDate(String dateStr) {
-        try {
-            SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            Date date = fmt.parse(dateStr);
-            SimpleDateFormat fmtOut = new SimpleDateFormat("MMM d");
-            return fmtOut.format(date);
-        } catch (ParseException e) {
-
-        }
-
-        return "";
-    }
 }
