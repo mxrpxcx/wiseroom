@@ -27,8 +27,14 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     public static final String COLUNA_NOME_SALA = "nomeSala";
     public static final String COLUNA_CAPACIDADE_SALA  = "capacidadeSala";
     public static final String COLUNA_DESCRICAO_SALA = "descricaoSala";
-    public static final String COLUNA_DATA = "dataReserva";
 
+    // Data marcada
+    public static final String TABELA_NOME_DATA = "tbData";
+    public static final String COLUNA_ID_DATA = "idData";
+    public static final String COLUNA_TODO_DATA = "todo";
+    public static final String COLUNA_DATA_MARCADA = "dataMarcada";
+    public static final String COLUNA_HORARIO_MARCADO = "horarioMarcado";
+    public static final String COLUNA_ID_SALA_MARCADA = "idSalaxData";
 
 
     private static final String CREATE_TABLE_QUERY_COLABORADOR =
@@ -40,9 +46,15 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_QUERY_SALA =
             "CREATE TABLE IF NOT EXISTS " + TABELA_NOME_SALA + " (" + COLUNA_ID_SALA + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUNA_NOME_SALA + " TEXT, " +
-                    COLUNA_DATA + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                     COLUNA_CAPACIDADE_SALA + " TEXT, " +
                     COLUNA_DESCRICAO_SALA + " TEXT " + ")";
+
+    private static final String CREATE_TABLE_QUERY_DATA =
+            "CREATE TABLE IF NOT EXISTS " + TABELA_NOME_DATA + " (" + COLUNA_ID_DATA + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUNA_TODO_DATA + " TEXT, " +
+                    COLUNA_DATA_MARCADA + " TEXT, " +
+                    COLUNA_HORARIO_MARCADO + " TEXT, " +
+                    COLUNA_ID_SALA + " TEXT" + ")";
 
     public WiseRoomDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -52,12 +64,14 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_TABLE_QUERY_COLABORADOR);
         sqLiteDatabase.execSQL(CREATE_TABLE_QUERY_SALA);
+        sqLiteDatabase.execSQL(CREATE_TABLE_QUERY_DATA);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABELA_NOME_COLABORADOR);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABELA_NOME_SALA);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABELA_NOME_DATA);
         onCreate(sqLiteDatabase);
     }
 
@@ -65,7 +79,7 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     public SalaModel getSala(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABELA_NOME_SALA,
-                new String[]{COLUNA_NOME_SALA, COLUNA_CAPACIDADE_SALA, COLUNA_DATA, COLUNA_DESCRICAO_SALA},
+                new String[]{COLUNA_NOME_SALA, COLUNA_CAPACIDADE_SALA, COLUNA_DESCRICAO_SALA},
                 COLUNA_ID_SALA + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -75,9 +89,8 @@ public class WiseRoomDB extends SQLiteOpenHelper {
             SalaModel SalaModel = new SalaModel(
                     cursor.getString(cursor.getColumnIndex(COLUNA_NOME_SALA)),
                     cursor.getInt(cursor.getColumnIndex(COLUNA_CAPACIDADE_SALA)),
-                    cursor.getString(cursor.getColumnIndex(COLUNA_DESCRICAO_SALA)),
-                    cursor.getString(cursor.getColumnIndex(COLUNA_DATA))
-            );
+                    cursor.getString(cursor.getColumnIndex(COLUNA_DESCRICAO_SALA)
+            ));
             cursor.close();
             return SalaModel;
         }
@@ -87,8 +100,7 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     public List<SalaModel> getTodasSalas(int codigoSala) {
         List<SalaModel> listaSalas = new ArrayList<>();
 
-        String selectQuery = "SELECT  * FROM " + TABELA_NOME_SALA + " WHERE "+ COLUNA_ID_SALA +" = "+ codigoSala + " ORDER BY " +
-                COLUNA_DATA + " DESC";
+        String selectQuery = "SELECT  * FROM " + TABELA_NOME_SALA + " WHERE "+ COLUNA_ID_SALA +" = "+ codigoSala;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -98,7 +110,6 @@ public class WiseRoomDB extends SQLiteOpenHelper {
                 SalaModel sala = new SalaModel();
                 sala.setId(cursor.getInt(cursor.getColumnIndex(COLUNA_ID_SALA)));
                 sala.setDescricaoSala(cursor.getString(cursor.getColumnIndex(COLUNA_DESCRICAO_SALA)));
-                sala.setDataSala(cursor.getString(cursor.getColumnIndex(COLUNA_DATA)));
                 listaSalas.add(sala);
             } while (cursor.moveToNext());
         }
