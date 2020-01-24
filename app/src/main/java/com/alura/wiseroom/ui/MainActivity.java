@@ -100,11 +100,11 @@ public class MainActivity extends AppCompatActivity {
 
                 cursor.moveToFirst();
 
-                String intentNome = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME_COLABORADOR));
+                String intentId = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_ID_COLABORADOR));
                 String intentEmail = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_EMAIL_COLABORADOR));
                 Toast.makeText(MainActivity.this, "Login Realizado com Sucesso", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, ActivityEscolha.class);
-                intent.putExtra("nomeColaborador", intentNome);
+                intent.putExtra("idColaborador", intentId);
                 intent.putExtra("emailColaborador", intentEmail);
                 startActivity(intent);
                 db.close();

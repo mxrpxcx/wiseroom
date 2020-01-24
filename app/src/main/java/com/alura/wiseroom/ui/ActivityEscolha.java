@@ -15,6 +15,7 @@ public class ActivityEscolha extends AppCompatActivity {
     private Button btDisponibilidadeSala;
     private Button btReservarSala;
     private String dominioAtual;
+    private String idColaborador;
 
 
 
@@ -25,7 +26,8 @@ public class ActivityEscolha extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.hide();
         criarBotaoPlusAcoes();
-        recebeDominio();
+        recebeDados();
+
 
     }
 
@@ -52,18 +54,25 @@ public class ActivityEscolha extends AppCompatActivity {
         btAdicionarNovaSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ActivityEscolha.this, ActivityListarSalaReservada.class));
+                Intent intent = new Intent(ActivityEscolha.this, ActivityListarSalaReservada.class);
+                intent.putExtra("idColaborador", idColaborador);
             }
         });
     }
 
-    private void recebeDominio() {
+    private void recebeDados() {
         Intent intentMain = getIntent();
         if(intentMain.hasExtra("emailColaborador")) {
             String emailColaborador = intentMain.getStringExtra("emailColaborador");
             int indexArroba = emailColaborador.indexOf("@");
             int indexPonto = emailColaborador.indexOf(".");
             dominioAtual = emailColaborador.substring(indexArroba + 1, indexPonto);
+        }
+        if(intentMain.hasExtra("idColaborador")){
+
+            String idRecebido = intentMain.getStringExtra("idColaborador");
+            idColaborador = idRecebido;
+
         }
     }
 }
