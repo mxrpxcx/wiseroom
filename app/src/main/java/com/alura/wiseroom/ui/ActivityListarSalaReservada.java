@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
 
-public class ActivityListarSala extends AppCompatActivity {
+public class ActivityListarSalaReservada extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

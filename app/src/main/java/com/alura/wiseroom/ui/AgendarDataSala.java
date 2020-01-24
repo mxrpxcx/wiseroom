@@ -47,6 +47,7 @@ public class AgendarDataSala extends AppCompatActivity {
     ArrayList<DataModel> listaDatas = new ArrayList<>();
     ArrayList<Integer> listaIds = new ArrayList<>();
     AlarmManager alarmManager;
+    String idRecebido;
     boolean flagDeleteAlarm = false;
     boolean flagEditAlarm = false;
 
@@ -54,7 +55,7 @@ public class AgendarDataSala extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agendar_data_sala);
-
+        idRecebido = getIntent().getStringExtra("codigoSala");
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         init();
         setListeners();
@@ -68,7 +69,6 @@ public class AgendarDataSala extends AppCompatActivity {
         btData = (Button) findViewById(R.id.btData);
         btHora = (Button) findViewById(R.id.btHora);
         tvVoltar = (TextView) findViewById(R.id.tvVoltar);
-        btParar = (Button) findViewById(R.id.btParar);
         btParar.setVisibility(View.INVISIBLE);
         tvVoltar.setVisibility(View.INVISIBLE);
     }
@@ -127,6 +127,7 @@ public class AgendarDataSala extends AppCompatActivity {
         cv.put(wise.COLUNA_NOME_DATA, etNome);
         cv.put(wise.COLUNA_DATA_MARCADA, etData);
         cv.put(wise.COLUNA_HORARIO_MARCADO, etHora);
+        cv.put(wise.COLUNA_ID_SALA_MARCADA, idRecebido);
 
         long id = wise.inserirData(db, cv);
         if (id>0) {
@@ -169,7 +170,7 @@ public class AgendarDataSala extends AppCompatActivity {
         i.putExtra(wise.COLUNA_NOME_DATA,nome);
         i.putExtra(wise.COLUNA_DATA_MARCADA,data);
         i.putExtra(wise.COLUNA_HORARIO_MARCADO,hora);
-        i.putExtra(wise.COLUNA_ID_SALA_MARCADA, 1);
+        i.putExtra(wise.COLUNA_ID_SALA_MARCADA, idRecebido);
 
         PendingIntent pendingIntent= PendingIntent.getBroadcast(this,(int)id,i,0);
 
@@ -188,7 +189,7 @@ public class AgendarDataSala extends AppCompatActivity {
             for(String s: hora.split(":")) {
                 etHora[k++]=s;
             }
-            //Log.d("1234", ""+dateET[2]+" "+dateET[1]+" "+dateET[0]+" "+timeET[1]+" "+timeET[0]);
+
             Calendar calendario = Calendar.getInstance();
             calendario.set(Integer.parseInt(etData[2]),Integer.parseInt(etData[1])-1,
                     Integer.parseInt(etData[0]),

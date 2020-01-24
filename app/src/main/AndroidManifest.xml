@@ -22,7 +22,7 @@
         <activity android:name="com.alura.wiseroom.ui.ActivityVerificarSala" />
         <activity android:name="com.alura.wiseroom.ui.ActivityCadastroColaborador" />
         <activity android:name="com.alura.wiseroom.ui.ActivityReservarSala" />
-        <activity android:name="com.alura.wiseroom.ui.ActivityListarSala" />
+        <activity android:name="com.alura.wiseroom.ui.ActivityListarSalaReservada" />
         <activity android:name="com.alura.wiseroom.ui.ActivityEscolha" />
         <activity android:name="com.alura.wiseroom.ui.MainActivity">
             <intent-filter>

@@ -22,11 +22,13 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     ArrayList<DataModel> listaDatas = new ArrayList<>();
     ArrayList<Integer> listIds = new ArrayList<>();
     boolean flagEditAlarm = false;
+    String idRecebido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datas_reservadas);
+        idRecebido = getIntent().getStringExtra("codigoSala");
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         init();
         fetchDatabaseToArrayList();
@@ -44,7 +46,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         SQLiteDatabase db = wise.getReadableDatabase();
         int k=0;
 
-        Cursor cursor = wise.selecionarData(db, null);
+        Cursor cursor = wise.selecionarData(db, idRecebido);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(0);

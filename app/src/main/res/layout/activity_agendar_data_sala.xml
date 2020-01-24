@@ -74,13 +74,4 @@
         android:background="@color/colorPrimaryDark"
         android:textColor="@color/colorPrimary" />
 
-    <Button
-        android:id="@+id/btParar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@color/colorPrimary"
-        android:text="Parar\nAlarme"
-        android:textColor="@color/colorPrimaryDark" />
-
 </RelativeLayout>

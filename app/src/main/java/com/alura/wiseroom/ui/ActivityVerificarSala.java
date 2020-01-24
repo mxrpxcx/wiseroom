@@ -12,7 +12,8 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class ActivityVerificarSala extends AppCompatActivity {
-    final Activity activity= this;
+    final Activity activity = this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class ActivityVerificarSala extends AppCompatActivity {
         intentIntegrator.setPrompt("Escolha a sala");
         intentIntegrator.setCameraId(0);
         intentIntegrator.initiateScan();
+
     }
 
 
@@ -34,7 +36,7 @@ public class ActivityVerificarSala extends AppCompatActivity {
         if(intentResult != null){
             if (intentResult.getContents() !=  null){
                 // Selecionado
-                Intent intent = new Intent(ActivityVerificarSala.this, ListaSalasParaReserva.class);
+                Intent intent = new Intent(ActivityVerificarSala.this, ActivityDatasReservadas.class);
                 intent.putExtra("codigoSala", intentResult.getContents().toString());
                 startActivity(intent);
 

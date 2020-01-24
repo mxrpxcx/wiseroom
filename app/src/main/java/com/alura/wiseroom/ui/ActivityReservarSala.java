@@ -34,7 +34,7 @@ public class ActivityReservarSala extends AppCompatActivity {
         if(intentResult != null){
             if (intentResult.getContents() !=  null){
                 // Selecionado
-                Intent intent = new Intent(ActivityReservarSala.this, ListaSalasParaReserva.class);
+                Intent intent = new Intent(ActivityReservarSala.this, AgendarDataSala.class);
                 intent.putExtra("codigoSala", intentResult.getContents().toString());
                 startActivity(intent);
             }else{
