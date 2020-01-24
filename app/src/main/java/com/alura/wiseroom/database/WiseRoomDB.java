@@ -54,7 +54,11 @@ public class WiseRoomDB extends SQLiteOpenHelper {
                     COLUNA_TODO_DATA + " TEXT, " +
                     COLUNA_DATA_MARCADA + " TEXT, " +
                     COLUNA_HORARIO_MARCADO + " TEXT, " +
-                    COLUNA_ID_SALA + " TEXT" + ")";
+                    COLUNA_ID_SALA_MARCADA + " TEXT," +
+                    "FOREIGN KEY "+ "("+COLUNA_ID_SALA_MARCADA+")"+ "REFERENCES "+ TABELA_NOME_SALA+"("+
+                    COLUNA_ID_SALA+")"+")";
+
+
 
     public WiseRoomDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
