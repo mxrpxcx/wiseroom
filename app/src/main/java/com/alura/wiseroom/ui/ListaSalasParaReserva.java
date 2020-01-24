@@ -51,6 +51,8 @@ public class ListaSalasParaReserva extends AppCompatActivity {
                 recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, final int position) {
+
+
             }
 
             @Override
@@ -59,5 +61,4 @@ public class ListaSalasParaReserva extends AppCompatActivity {
             }
         }));
     }
-
 }
