@@ -11,7 +11,7 @@ import com.alura.wiseroom.model.SalaModel;
 public class WiseRoomDB extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "dbWiseroom";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     // Colaborador
     public static final String TABELA_NOME_COLABORADOR =  "tbColaborador";
@@ -19,12 +19,14 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     public static final String COLUNA_NOME_COLABORADOR = "nomeColaborador";
     public static final String COLUNA_EMAIL_COLABORADOR = "emailColaborador";
     public static final String COLUNA_SENHA = "senhaColaborador";
+
     // Sala
     public static final String TABELA_NOME_SALA =  "tbSala";
     public static final String COLUNA_ID_SALA = "idSala";
     public static final String COLUNA_NOME_SALA = "nomeSala";
     public static final String COLUNA_CAPACIDADE_SALA  = "capacidadeSala";
     public static final String COLUNA_DESCRICAO_SALA = "descricaoSala";
+    public static final String COLUNA_ID_CRIADOR_SALA = "idColaboradorxSala";
 
     // Data marcada
     public static final String TABELA_NOME_DATA = "tbData";
@@ -41,11 +43,16 @@ public class WiseRoomDB extends SQLiteOpenHelper {
                     COLUNA_EMAIL_COLABORADOR + " TEXT, " +
                     COLUNA_SENHA + " TEXT " + ")";
 
+
     private static final String CREATE_TABLE_QUERY_SALA =
             "CREATE TABLE IF NOT EXISTS " + TABELA_NOME_SALA + " (" + COLUNA_ID_SALA + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUNA_NOME_SALA + " TEXT, " +
                     COLUNA_CAPACIDADE_SALA + " TEXT, " +
-                    COLUNA_DESCRICAO_SALA + " TEXT " + ")";
+                    COLUNA_DESCRICAO_SALA + " TEXT, " +
+                    COLUNA_ID_CRIADOR_SALA + " TEXT, " +
+                    "FOREIGN KEY "+ "("+COLUNA_ID_CRIADOR_SALA+")"+ "REFERENCES "+ TABELA_NOME_COLABORADOR+"("+
+                    COLUNA_ID_COLABORADOR+")"+")";
+
 
     private static final String CREATE_TABLE_QUERY_DATA =
             "CREATE TABLE IF NOT EXISTS " + TABELA_NOME_DATA + " (" + COLUNA_ID_DATA + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -93,6 +100,27 @@ public class WiseRoomDB extends SQLiteOpenHelper {
                     cursor.getInt(cursor.getColumnIndex(COLUNA_CAPACIDADE_SALA)),
                     cursor.getString(cursor.getColumnIndex(COLUNA_DESCRICAO_SALA)
             ));
+            cursor.close();
+            return SalaModel;
+        }
+        return null;
+    }
+
+    public SalaModel selecionarSalaPorCriador(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABELA_NOME_SALA,
+                new String[]{COLUNA_NOME_SALA, COLUNA_CAPACIDADE_SALA, COLUNA_DESCRICAO_SALA},
+                COLUNA_ID_CRIADOR_SALA + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            cursor.moveToFirst();
+
+            SalaModel SalaModel = new SalaModel(
+                    cursor.getString(cursor.getColumnIndex(COLUNA_NOME_SALA)),
+                    cursor.getInt(cursor.getColumnIndex(COLUNA_CAPACIDADE_SALA)),
+                    cursor.getString(cursor.getColumnIndex(COLUNA_DESCRICAO_SALA)
+                    ));
             cursor.close();
             return SalaModel;
         }

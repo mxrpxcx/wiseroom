@@ -6,6 +6,8 @@ public class SalaModel {
     private int capacidade;
     private double areaDaSala;
     private String descricaoSala;
+    private Long idColaboradorxSala;
+
 
     public SalaModel(String nome, int capacidade, String descricaoSala) {
         this.id = id;
@@ -15,6 +17,14 @@ public class SalaModel {
     }
 
     public SalaModel() {
+    }
+
+    public Long getIdColaboradorxSala() {
+        return idColaboradorxSala;
+    }
+
+    public void setIdColaboradorxSala(Long idColaboradorxSala) {
+        this.idColaboradorxSala = idColaboradorxSala;
     }
 
     public int getId() {
