@@ -227,7 +227,7 @@ public class AgendarDataSala extends AppCompatActivity {
                 dataModel.setNomeData(nome);
                 dataModel.setDataData(data);
                 dataModel.setHoraData(hora);
-                dataModel.setIdSalaxData();
+                dataModel.setIdSalaxData(idexterno);
                 listaDatas.add(dataModel);
                 listaIds.add(id);
             }
