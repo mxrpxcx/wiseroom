@@ -52,7 +52,7 @@ public class ActivityEscolha extends AppCompatActivity {
         btAdicionarNovaSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ActivityEscolha.this, ActivityAdicionarSala.class));
+                startActivity(new Intent(ActivityEscolha.this, ActivityListarSala.class));
             }
         });
     }

@@ -22,12 +22,12 @@ public class SalaAdapter extends RecyclerView.Adapter<SalaAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView sala;
-        public TextView data;
+        public TextView capacidade;
 
         public MyViewHolder(View view) {
             super(view);
             sala = view.findViewById(R.id.sala);
-            data = view.findViewById(R.id.data);
+            capacidade = view.findViewById(R.id.capacidade);
         }
     }
 
@@ -52,7 +52,7 @@ public class SalaAdapter extends RecyclerView.Adapter<SalaAdapter.MyViewHolder> 
         Log.i("TesteSala", "Sala "+sala.getNome());
 
         holder.sala.setText(sala.getNome());
-        holder.data.setText(sala.getDataSala());
+        holder.capacidade.setText(sala.getCapacidade());
     }
 
     @Override

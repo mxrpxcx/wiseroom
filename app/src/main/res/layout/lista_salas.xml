@@ -21,7 +21,7 @@
         android:textSize="40sp" />
 
     <TextView
-        android:id="@+id/data"
+        android:id="@+id/capacidade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/dot"
@@ -32,7 +32,7 @@
         android:id="@+id/sala"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/data"
+        android:layout_below="@id/capacidade"
         android:layout_toRightOf="@id/dot"
         android:textColor="@color/colorAccent"
         android:textSize="20sp" />

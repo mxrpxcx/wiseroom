@@ -11,7 +11,7 @@ import com.alura.wiseroom.model.SalaModel;
 public class WiseRoomDB extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "dbWiseroom";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     // Colaborador
     public static final String TABELA_NOME_COLABORADOR =  "tbColaborador";
@@ -78,7 +78,7 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     }
 
 
-    public SalaModel getSala(long id) {
+    public SalaModel selecionarSala(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABELA_NOME_SALA,
                 new String[]{COLUNA_NOME_SALA, COLUNA_CAPACIDADE_SALA, COLUNA_DESCRICAO_SALA},
@@ -100,18 +100,23 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     }
 
     public static long inserirData (SQLiteDatabase db, ContentValues cv) {
+
         return db.insert(TABELA_NOME_DATA, null, cv);
     }
+
     public static Cursor selecionarData (SQLiteDatabase db,String selection) {
         return db.query(TABELA_NOME_DATA, null, selection, null, null, null, null, null);
     }
+
     public static int deletarData (SQLiteDatabase db,String whereClause) {
+
         return db.delete(TABELA_NOME_DATA, whereClause, null);
     }
+
     public static int atualizarData (SQLiteDatabase db,String whereClause,ContentValues cv) {
+
         return db.update(TABELA_NOME_DATA,cv,whereClause,null);
     }
-
 
    /* public List<SalaModel> getTodasSalas(int codigoSala) {
         List<SalaModel> listaSalas = new ArrayList<>();

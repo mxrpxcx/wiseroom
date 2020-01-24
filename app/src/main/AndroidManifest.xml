@@ -12,24 +12,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.ListaSalasParaReserva"></activity>
-        <activity android:name=".ui.SplashScreen">
+        <activity android:name="com.alura.wiseroom.ui.ListaSalasParaReserva"></activity>
+        <activity android:name="com.alura.wiseroom.ui.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ActivityVerificarSala" />
-        <activity android:name=".ui.ActivityCadastroColaborador" />
-        <activity android:name=".ui.ActivityReservarSala" />
-        <activity android:name=".ui.ActivityAdicionarSala" />
-        <activity android:name=".ui.ActivityEscolha" />
-        <activity android:name=".ui.MainActivity">
+        <activity android:name="com.alura.wiseroom.ui.ActivityVerificarSala" />
+        <activity android:name="com.alura.wiseroom.ui.ActivityCadastroColaborador" />
+        <activity android:name="com.alura.wiseroom.ui.ActivityReservarSala" />
+        <activity android:name="com.alura.wiseroom.ui.ActivityListarSala" />
+        <activity android:name="com.alura.wiseroom.ui.ActivityEscolha" />
+        <activity android:name="com.alura.wiseroom.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
     </application>

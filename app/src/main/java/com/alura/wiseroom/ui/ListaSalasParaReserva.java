@@ -36,7 +36,7 @@ public class ListaSalasParaReserva extends AppCompatActivity {
         Intent intentReserva = getIntent();
         String codigo = intentReserva.getStringExtra("codigoSala");
         int codigoDaSala = Integer.parseInt(codigo);
-        listaSalas.add(db.getSala(codigoDaSala));
+        listaSalas.add(db.selecionarSala(codigoDaSala));
 
         Log.i("TesteSala", "lista Salas? "+listaSalas.get(codigoDaSala).getNome());
 

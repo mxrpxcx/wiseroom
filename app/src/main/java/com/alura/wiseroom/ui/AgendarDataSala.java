@@ -169,7 +169,7 @@ public class AgendarDataSala extends AppCompatActivity {
         i.putExtra(wise.COLUNA_NOME_DATA,nome);
         i.putExtra(wise.COLUNA_DATA_MARCADA,data);
         i.putExtra(wise.COLUNA_HORARIO_MARCADO,hora);
-        i.putExtra(wise.COLUNA_ID_SALA_MARCADA, );
+        i.putExtra(wise.COLUNA_ID_SALA_MARCADA, 1);
 
         PendingIntent pendingIntent= PendingIntent.getBroadcast(this,(int)id,i,0);
 
@@ -227,7 +227,7 @@ public class AgendarDataSala extends AppCompatActivity {
                 dataModel.setNomeData(nome);
                 dataModel.setDataData(data);
                 dataModel.setHoraData(hora);
-                dataModel.setIdSalaxData(idexterno );
+                dataModel.setIdSalaxData(null);
                 listaDatas.add(dataModel);
                 listaIds.add(id);
             }
