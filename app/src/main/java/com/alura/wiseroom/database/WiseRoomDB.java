@@ -43,7 +43,6 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     public static final String COLUNA_ID_COLABORADOR_RESERVA = "idColaboradorxReserva";
 
 
-
     private static final String CREATE_TABLE_QUERY_COLABORADOR =
             "CREATE TABLE IF NOT EXISTS " + TABELA_NOME_COLABORADOR + " (" + COLUNA_ID_COLABORADOR + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUNA_NOME_COLABORADOR + " TEXT, " +
@@ -56,7 +55,6 @@ public class WiseRoomDB extends SQLiteOpenHelper {
                     COLUNA_NOME_SALA + " TEXT, " +
                     COLUNA_CAPACIDADE_SALA + " TEXT, " +
                     COLUNA_DESCRICAO_SALA + " TEXT " + ")";
-
 
 
     private static final String CREATE_TABLE_QUERY_DATA =
