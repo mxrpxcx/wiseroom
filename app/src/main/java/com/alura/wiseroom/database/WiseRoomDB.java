@@ -1,5 +1,6 @@
 package com.alura.wiseroom.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,7 +32,7 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     // Data marcada
     public static final String TABELA_NOME_DATA = "tbData";
     public static final String COLUNA_ID_DATA = "idData";
-    public static final String COLUNA_TODO_DATA = "todo";
+    public static final String COLUNA_TODO_DATA = "todoData";
     public static final String COLUNA_DATA_MARCADA = "dataMarcada";
     public static final String COLUNA_HORARIO_MARCADO = "horarioMarcado";
     public static final String COLUNA_ID_SALA_MARCADA = "idSalaxData";
@@ -101,7 +102,21 @@ public class WiseRoomDB extends SQLiteOpenHelper {
         return null;
     }
 
-    public List<SalaModel> getTodasSalas(int codigoSala) {
+    public static long insert (SQLiteDatabase db, ContentValues cv) {
+        return db.insert(TABELA_NOME_DATA, null, cv);
+    }
+    public static Cursor select(SQLiteDatabase db,String selection) {
+        return db.query(TABELA_NOME_DATA, null, selection, null, null, null, null, null);
+    }
+    public static int delete(SQLiteDatabase db,String whereClause) {
+        return db.delete(TABELA_NOME_DATA, whereClause, null);
+    }
+    public static int update(SQLiteDatabase db,String whereClause,ContentValues cv) {
+        return db.update(TABELA_NOME_DATA,cv,whereClause,null);
+    }
+
+
+   /* public List<SalaModel> getTodasSalas(int codigoSala) {
         List<SalaModel> listaSalas = new ArrayList<>();
 
         String selectQuery = "SELECT  * FROM " + TABELA_NOME_SALA + " WHERE "+ COLUNA_ID_SALA +" = "+ codigoSala;
@@ -120,5 +135,5 @@ public class WiseRoomDB extends SQLiteOpenHelper {
 
         db.close();
         return listaSalas;
-    }
+    } */
 }
