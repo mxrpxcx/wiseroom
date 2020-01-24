@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.alura.wiseroom.model.SalaModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class WiseRoomDB extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "dbWiseroom";
@@ -32,7 +29,7 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     // Data marcada
     public static final String TABELA_NOME_DATA = "tbData";
     public static final String COLUNA_ID_DATA = "idData";
-    public static final String COLUNA_TODO_DATA = "todoData";
+    public static final String COLUNA_NOME_DATA = "nomeData";
     public static final String COLUNA_DATA_MARCADA = "dataMarcada";
     public static final String COLUNA_HORARIO_MARCADO = "horarioMarcado";
     public static final String COLUNA_ID_SALA_MARCADA = "idSalaxData";
@@ -52,7 +49,7 @@ public class WiseRoomDB extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_QUERY_DATA =
             "CREATE TABLE IF NOT EXISTS " + TABELA_NOME_DATA + " (" + COLUNA_ID_DATA + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUNA_TODO_DATA + " TEXT, " +
+                    COLUNA_NOME_DATA + " TEXT, " +
                     COLUNA_DATA_MARCADA + " TEXT, " +
                     COLUNA_HORARIO_MARCADO + " TEXT, " +
                     COLUNA_ID_SALA_MARCADA + " TEXT," +
@@ -102,16 +99,16 @@ public class WiseRoomDB extends SQLiteOpenHelper {
         return null;
     }
 
-    public static long insert (SQLiteDatabase db, ContentValues cv) {
+    public static long inserirData (SQLiteDatabase db, ContentValues cv) {
         return db.insert(TABELA_NOME_DATA, null, cv);
     }
-    public static Cursor select(SQLiteDatabase db,String selection) {
+    public static Cursor selecionarData (SQLiteDatabase db,String selection) {
         return db.query(TABELA_NOME_DATA, null, selection, null, null, null, null, null);
     }
-    public static int delete(SQLiteDatabase db,String whereClause) {
+    public static int deletarData (SQLiteDatabase db,String whereClause) {
         return db.delete(TABELA_NOME_DATA, whereClause, null);
     }
-    public static int update(SQLiteDatabase db,String whereClause,ContentValues cv) {
+    public static int atualizarData (SQLiteDatabase db,String whereClause,ContentValues cv) {
         return db.update(TABELA_NOME_DATA,cv,whereClause,null);
     }
 

@@ -6,25 +6,15 @@ public class SalaModel {
     private int capacidade;
     private double areaDaSala;
     private String descricaoSala;
-    private String dataSala;
 
     public SalaModel(String nome, int capacidade, String descricaoSala) {
         this.id = id;
         this.nome = nome;
         this.capacidade = capacidade;
         this.descricaoSala = descricaoSala;
-        this.dataSala = dataSala;
     }
 
     public SalaModel() {
-    }
-
-    public String getDataSala() {
-        return dataSala;
-    }
-
-    public void setDataSala(String dataSala) {
-        this.dataSala = dataSala;
     }
 
     public int getId() {

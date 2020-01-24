@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         cv2.put(WiseRoomDB.COLUNA_NOME_SALA, "sala 0");
         cv2.put(WiseRoomDB.COLUNA_CAPACIDADE_SALA, 50);
         cv2.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala");
-        cv2.put(WiseRoomDB.COLUNA_DATA, "18/02/2020");
         db.insert(WiseRoomDB.TABELA_NOME_SALA, null, cv2);
 
         Log.i("Teste Sala", "sala adicionada? "+cv2.toString());
