@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        btCadastro.setOnClickListener(new View.OnClickListener() {
+        btTutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, help.class));
