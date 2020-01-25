@@ -36,8 +36,8 @@ public class ActivityReservarSala extends AppCompatActivity {
         if(intentResult != null){
             if (intentResult.getContents() !=  null){
 
-                Intent intent = new Intent(ActivityReservarSala.this, AgendarDataSala.class);
-                intent.putExtra("idSala", intentResult.getContents().toString());
+                Intent intent = new Intent(ActivityReservarSala.this, ActivityAgendarDataSala.class);
+                intent.putExtra("idSala", intentResult.getContents());
                 intent.putExtra("idColaborador", idColaborador);
                 startActivity(intent);
                 finish();

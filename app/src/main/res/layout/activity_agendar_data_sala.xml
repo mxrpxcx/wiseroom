@@ -23,12 +23,12 @@
             android:id="@+id/etSobre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/btAdiciona"
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@id/btAdiciona"
-            android:hint=" Entre com o seu lembrete"
+            android:hint="Descreva a reserva"
             android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/colorPrimary"
-            android:layout_alignBottom="@id/btAdiciona"/>
+            android:textColorHint="@color/colorPrimary" />
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/Linear1"
@@ -65,13 +65,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>
-
-    <TextView
-        android:id="@+id/tvVoltar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.7"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="@color/colorPrimary" />
 
 </RelativeLayout>

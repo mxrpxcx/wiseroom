@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -18,7 +19,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -33,11 +33,10 @@ import com.alura.wiseroom.model.DataModel;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AgendarDataSala extends AppCompatActivity {
+public class ActivityAgendarDataSala extends AppCompatActivity {
 
 
-    Button btParar;
-    TextView tvVoltar;
+
     Button btData, btHora;
     EditText etSobre;
     ImageButton btAdiciona;
@@ -68,9 +67,6 @@ public class AgendarDataSala extends AppCompatActivity {
         etSobre = (EditText) findViewById(R.id.etSobre);
         btData = (Button) findViewById(R.id.btData);
         btHora = (Button) findViewById(R.id.btHora);
-        tvVoltar = (TextView) findViewById(R.id.tvVoltar);
-        btParar.setVisibility(View.INVISIBLE);
-        tvVoltar.setVisibility(View.INVISIBLE);
         recebeDados();
     }
 
@@ -95,13 +91,13 @@ public class AgendarDataSala extends AppCompatActivity {
                 String txtHora = btHora.getText().toString();
                 String txtData = btData.getText().toString();
                 if(etNome.equals("")) {
-                    Toast.makeText(AgendarDataSala.this, "Adicionar nome", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityAgendarDataSala.this, "Adicione um nome", Toast.LENGTH_SHORT).show();
                 }
                 else if(txtData.equals("Selecione a data")) {
-                    Toast.makeText(AgendarDataSala.this, "Adicionar data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityAgendarDataSala.this, "Adicione uma data", Toast.LENGTH_SHORT).show();
                 }
                 else if(txtHora.equals("Selecione a hora")) {
-                    Toast.makeText(AgendarDataSala.this, "Adicionar hora", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     long id = inserirBanco();
@@ -121,7 +117,7 @@ public class AgendarDataSala extends AppCompatActivity {
 
     private long inserirBanco() {
 
-        WiseRoomDB wise = new WiseRoomDB(AgendarDataSala.this);
+        WiseRoomDB wise = new WiseRoomDB(ActivityAgendarDataSala.this);
         SQLiteDatabase db = wise.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
@@ -132,10 +128,10 @@ public class AgendarDataSala extends AppCompatActivity {
 
         long id = wise.inserirData(db, cv);
         if (id>0) {
-            Toast.makeText(AgendarDataSala.this, "Horario definido", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityAgendarDataSala.this, "Horario definido", Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(AgendarDataSala.this, "Tente novamente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityAgendarDataSala.this, "Tente novamente", Toast.LENGTH_SHORT).show();
         }
         db.close();
 
@@ -173,7 +169,7 @@ public class AgendarDataSala extends AppCompatActivity {
         i.putExtra(wise.COLUNA_HORARIO_MARCADO,hora);
         i.putExtra(wise.COLUNA_ID_SALA_MARCADA, idSala);
 
-        PendingIntent pendingIntent= PendingIntent.getBroadcast(this,(int)id,i,0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,(int)id,i,0);
 
         if(flagDeleteAlarm) {
             alarmManager.cancel(pendingIntent);
@@ -215,7 +211,6 @@ public class AgendarDataSala extends AppCompatActivity {
         listaIds.clear();
         WiseRoomDB wise = new WiseRoomDB(this);
         SQLiteDatabase db = wise.getReadableDatabase();
-        int k=0;
 
         String selecao = WiseRoomDB.COLUNA_ID_SALA_MARCADA +" = ''";
         Cursor cursor = wise.selecionarData(db, selecao );
@@ -225,18 +220,20 @@ public class AgendarDataSala extends AppCompatActivity {
                 String nome = cursor.getString(1);
                 String data = cursor.getString(2);
                 String hora = cursor.getString(3);
+
                 DataModel dataModel = new DataModel();
                 dataModel.setNomeData(nome);
                 dataModel.setDataData(data);
                 dataModel.setHoraData(hora);
-                dataModel.setIdSalaxData(null);
+                dataModel.setIdSalaxData(idSala);
                 listaDatas.add(dataModel);
                 listaIds.add(id);
+
             }
             cursor.close();
             db.close();
 
-            dataAdapter = new DataAdapter(AgendarDataSala.this, R.layout.item_lista_data, listaDatas);
+            dataAdapter = new DataAdapter(ActivityAgendarDataSala.this, R.layout.item_lista_data, listaDatas);
             listView.setAdapter(dataAdapter);
         }
 
@@ -249,7 +246,7 @@ public class AgendarDataSala extends AppCompatActivity {
         int mes = calendar.get(Calendar.MONTH);
         int ano = calendar.get(Calendar.YEAR);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(AgendarDataSala.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(ActivityAgendarDataSala.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int ano, int mes, int dia) {
                 mes=mes+1;
@@ -264,7 +261,7 @@ public class AgendarDataSala extends AppCompatActivity {
         Calendar calendario = Calendar.getInstance();
         int hora = calendario.get(Calendar.HOUR);
         int minuto = calendario.get(Calendar.MINUTE);
-        TimePickerDialog timePickerDialog = new TimePickerDialog(AgendarDataSala.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityAgendarDataSala.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hora, int minuto) {
                 btHora.setText(""+hora+":"+minuto);
@@ -278,7 +275,7 @@ public class AgendarDataSala extends AppCompatActivity {
 
         String[] arr = {"Deletar","Editar"};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(AgendarDataSala.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityAgendarDataSala.this);
         builder.setTitle("Opções");
         builder.setItems(arr, new DialogInterface.OnClickListener() {
             @Override
@@ -288,7 +285,7 @@ public class AgendarDataSala extends AppCompatActivity {
                 }
                 else {
                     int id = listaIds.get(pos);
-                    Intent i = new Intent(AgendarDataSala.this, ActivityEditarDataAgendada.class);
+                    Intent i = new Intent(ActivityAgendarDataSala.this, ActivityEditarDataAgendada.class);
                     i.putExtra("ID", id);
                     flagEditAlarm=true;
                     startActivity(i);
@@ -299,21 +296,22 @@ public class AgendarDataSala extends AppCompatActivity {
         dialog.show();
 
     }
+
     public void confirmaApagar(final int position) {
-        AlertDialog.Builder builder= new AlertDialog.Builder(AgendarDataSala.this);
+        AlertDialog.Builder builder= new AlertDialog.Builder(ActivityAgendarDataSala.this);
         builder.setTitle("Confirmação");
         builder.setMessage("Deseja deletar?");
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                WiseRoomDB wise = new WiseRoomDB(AgendarDataSala.this);
+                WiseRoomDB wise = new WiseRoomDB(ActivityAgendarDataSala.this);
                 SQLiteDatabase db = wise.getWritableDatabase();
                 int id = listaIds.get(position);
                 String whereCluase = WiseRoomDB.COLUNA_ID_DATA +" = '"+id+"'";
 
                 int flag = wise.deletarData(db, whereCluase);
                 if (flag > 0) {
-                    Toast.makeText(AgendarDataSala.this, "Reserva cancelada", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityAgendarDataSala.this, "Reserva cancelada", Toast.LENGTH_SHORT).show();
                     listaDatas.clear();
                     listaIds.clear();
                     fetchDatabaseToArrayList();
@@ -322,7 +320,7 @@ public class AgendarDataSala extends AppCompatActivity {
                     definirReserva(id);
                 }
                 else {
-                    Toast.makeText(AgendarDataSala.this, "Erro ao cancelar", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityAgendarDataSala.this, "Erro ao cancelar", Toast.LENGTH_SHORT).show();
                 }
             }
         });

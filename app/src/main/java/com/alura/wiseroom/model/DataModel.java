@@ -5,7 +5,7 @@ public class DataModel {
             dataData,
             horaData;
 
-    private Long idSalaxData;
+    private String idSalaxData;
 
     public String getNomeData() {
         return nomeData;
@@ -31,11 +31,11 @@ public class DataModel {
         this.horaData = horaData;
     }
 
-    public Long getIdSalaxData() {
+    public String getIdSalaxData() {
         return idSalaxData;
     }
 
-    public void setIdSalaxData(Long idSalaxData) {
+    public void setIdSalaxData(String idSalaxData) {
         this.idSalaxData = idSalaxData;
     }
 
