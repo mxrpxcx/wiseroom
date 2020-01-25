@@ -36,6 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/Relative1"
+        android:layout_marginTop="63dp"
         android:layout_marginBottom="250dp"
         android:weightSum="2">
 
@@ -56,9 +57,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="@color/colorPrimary"
             android:baselineAligned="false"
             android:text="Selecione a hora"
-            android:background="@color/colorPrimary"
             android:textColor="@color/colorPrimaryDark" />
     </LinearLayout>
 </RelativeLayout>

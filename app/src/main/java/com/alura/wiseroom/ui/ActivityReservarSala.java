@@ -3,6 +3,7 @@ package com.alura.wiseroom.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +40,8 @@ public class ActivityReservarSala extends AppCompatActivity {
                 Intent intent = new Intent(ActivityReservarSala.this, ActivityAgendarDataSala.class);
                 intent.putExtra("idSala", intentResult.getContents());
                 intent.putExtra("idColaborador", idColaborador);
+                Log.i("Teste id sala", intent.getStringExtra("idSala"));
+                Log.i("Teste id col", intent.getStringExtra("idColaborador"));
                 startActivity(intent);
                 finish();
             }else{

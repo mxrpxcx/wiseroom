@@ -36,12 +36,11 @@ import java.util.Calendar;
 public class ActivityAgendarDataSala extends AppCompatActivity {
 
 
-
     Button btData, btHora;
     EditText etSobre;
     ImageButton btAdiciona;
     ListView listView;
-    String etHora,etData,etNome;
+    String etHora, etData, etNome;
     DataAdapter dataAdapter;
     ArrayList<DataModel> listaDatas = new ArrayList<>();
     ArrayList<Integer> listaIds = new ArrayList<>();
@@ -84,22 +83,20 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 mostraRelogio();
             }
         });
+
         btAdiciona.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 etNome = etSobre.getText().toString();
                 String txtHora = btHora.getText().toString();
                 String txtData = btData.getText().toString();
-                if(etNome.equals("")) {
+                if (etNome.equals("")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione um nome", Toast.LENGTH_SHORT).show();
-                }
-                else if(txtData.equals("Selecione a data")) {
+                } else if (txtData.equals("Selecione a data")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione uma data", Toast.LENGTH_SHORT).show();
-                }
-                else if(txtHora.equals("Selecione a hora")) {
+                } else if (txtHora.equals("Selecione a hora")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     long id = inserirBanco();
                     definirReserva(id);
                     fetchDatabaseToArrayList();
@@ -127,12 +124,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         cv.put(wise.COLUNA_ID_SALA_MARCADA, idSala);
 
         long id = wise.inserirData(db, cv);
-        if (id>0) {
-            Toast.makeText(ActivityAgendarDataSala.this, "Horario definido", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(ActivityAgendarDataSala.this, "Tente novamente", Toast.LENGTH_SHORT).show();
-        }
+
         db.close();
 
         etSobre.setText("");
@@ -144,39 +136,37 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     private void definirReserva(long id) {
         WiseRoomDB wise = new WiseRoomDB(this);
         SQLiteDatabase db = wise.getReadableDatabase();
-        String selection = WiseRoomDB.COLUNA_ID_DATA +" = '"+id+"'";
-        Cursor cursor = wise.selecionarData(db,selection);
+        String selection = WiseRoomDB.COLUNA_ID_DATA + " = '" + id + "'";
+        Cursor cursor = wise.selecionarData(db, selection);
         String etData[] = new String[3];
         String etHora[] = new String[2];
-        String data = null
-                ,hora = null
-                ,nome = null;
+        String data = null, hora = null, nome = null;
 
-        if(cursor!=null) {
-            while(cursor.moveToNext()) {
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
                 data = cursor.getString(2);
                 hora = cursor.getString(3);
                 nome = cursor.getString(1);
             }
         }
 
-        alarmManager= (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
         Intent i = new Intent();
-        i.putExtra(wise.COLUNA_ID_DATA,id);
-        i.putExtra(wise.COLUNA_NOME_DATA,nome);
-        i.putExtra(wise.COLUNA_DATA_MARCADA,data);
-        i.putExtra(wise.COLUNA_HORARIO_MARCADO,hora);
+        i.putExtra(wise.COLUNA_ID_DATA, id);
+        i.putExtra(wise.COLUNA_NOME_DATA, nome);
+        i.putExtra(wise.COLUNA_DATA_MARCADA, data);
+        i.putExtra(wise.COLUNA_HORARIO_MARCADO, hora);
         i.putExtra(wise.COLUNA_ID_SALA_MARCADA, idSala);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,(int)id,i,0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int) id, i, 0);
 
-        if(flagDeleteAlarm) {
+        if (flagDeleteAlarm) {
             alarmManager.cancel(pendingIntent);
-            flagDeleteAlarm=false;
+            flagDeleteAlarm = false;
         }
 
-        else {
+       else {
             int k=0;
             for(String s: data.split("-")) {
                 etData[k++]=s;
@@ -187,23 +177,24 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 etHora[k++]=s;
             }
 
-            Calendar calendario = Calendar.getInstance();
-            calendario.set(Integer.parseInt(etData[2]),Integer.parseInt(etData[1])-1,
-                    Integer.parseInt(etData[0]),
-                    Integer.parseInt(etHora[0]),
-                    Integer.parseInt(etHora[1]));
-            long mili = calendario.getTimeInMillis();
-            calendario.setTimeInMillis(mili);
-            Calendar calendarCurrent = Calendar.getInstance();
-            long miliCurrent = calendarCurrent.getTimeInMillis();
-            calendarCurrent.setTimeInMillis(miliCurrent);
-            long diff = mili - miliCurrent;
-            long currentTime = System.currentTimeMillis();
-            alarmManager.set(AlarmManager.RTC_WAKEUP, currentTime + diff, pendingIntent);
+        Calendar calendario = Calendar.getInstance();
+        calendario.set(Integer.parseInt(etData[2]), Integer.parseInt(etData[1]) - 1,
+                Integer.parseInt(etData[0]),
+                Integer.parseInt(etHora[0]),
+                Integer.parseInt(etHora[1]));
+        long mili = calendario.getTimeInMillis();
+        calendario.setTimeInMillis(mili);
+        Calendar calendarCurrent = Calendar.getInstance();
+        long miliCurrent = calendarCurrent.getTimeInMillis();
+        calendarCurrent.setTimeInMillis(miliCurrent);
+        long diff = mili - miliCurrent;
+        long currentTime = System.currentTimeMillis();
+        alarmManager.set(AlarmManager.RTC_WAKEUP, currentTime + diff, pendingIntent);
 
-            Toast.makeText(this, "Reservado" , Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(this, "Reservado", Toast.LENGTH_SHORT).show();
     }
+
+}
 
 
     private void fetchDatabaseToArrayList() {
@@ -212,7 +203,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         WiseRoomDB wise = new WiseRoomDB(this);
         SQLiteDatabase db = wise.getReadableDatabase();
 
-        String selecao = WiseRoomDB.COLUNA_ID_SALA_MARCADA +" = ''";
+        String selecao = WiseRoomDB.COLUNA_ID_SALA_MARCADA +" = '"+idSala+"'";
         Cursor cursor = wise.selecionarData(db, selecao );
         if (cursor != null) {
             while (cursor.moveToNext()) {

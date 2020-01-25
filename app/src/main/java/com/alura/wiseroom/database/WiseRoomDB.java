@@ -11,7 +11,7 @@ import com.alura.wiseroom.model.SalaModel;
 public class WiseRoomDB extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "dbWiseroom";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     // Colaborador
     public static final String TABELA_NOME_COLABORADOR =  "tbColaborador";
@@ -62,15 +62,15 @@ public class WiseRoomDB extends SQLiteOpenHelper {
                     COLUNA_NOME_DATA + " TEXT, " +
                     COLUNA_DATA_MARCADA + " TEXT, " +
                     COLUNA_HORARIO_MARCADO + " TEXT, " +
-                    COLUNA_ID_SALA_MARCADA + " TEXT," +
+                    COLUNA_ID_SALA_MARCADA + " INTEGER," +
                     "FOREIGN KEY "+ "("+COLUNA_ID_SALA_MARCADA+")"+ "REFERENCES "+ TABELA_NOME_SALA+"("+
                     COLUNA_ID_SALA+")"+")";
 
     private static final String CREATE_TABLE_QUERY_RESERVA =
             "CREATE TABLE IF NOT EXISTS " + TABELA_NOME_RESERVA + " (" + COLUNA_ID_RESERVA + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUNA_ID_DATA_RESERVADA + " TEXT, " +
-                    COLUNA_ID_COLABORADOR_RESERVA + " TEXT, " +
-                    COLUNA_ID_SALA_RESERVADA + " TEXT, " +
+                    COLUNA_ID_DATA_RESERVADA + " INTEGER, " +
+                    COLUNA_ID_COLABORADOR_RESERVA + " INTEGER, " +
+                    COLUNA_ID_SALA_RESERVADA + " INTEGER, " +
 
                     "FOREIGN KEY "+ "("+COLUNA_ID_DATA_RESERVADA+")"+ "REFERENCES "+ TABELA_NOME_DATA+"("+
                     COLUNA_ID_DATA+"), " +
