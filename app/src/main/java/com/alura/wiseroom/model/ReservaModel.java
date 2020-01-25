@@ -1,40 +1,12 @@
 package com.alura.wiseroom.model;
 
-public class ReservaModel {
+import java.io.Serializable;
+
+public class ReservaModel implements Serializable {
     private int id;
-    private int idReservaxSala;
-    private int idReservaxColaborador;
-    private int idReservaxData;
+    private SalaModel salaReservada;
+    private ColaboradorModel colaboradorQueReservou;
+    private DataModel dataReservada;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getIdReservaxSala() {
-        return idReservaxSala;
-    }
-
-    public void setIdReservaxSala(int idReservaxSala) {
-        this.idReservaxSala = idReservaxSala;
-    }
-
-    public int getIdReservaxColaborador() {
-        return idReservaxColaborador;
-    }
-
-    public void setIdReservaxColaborador(int idReservaxColaborador) {
-        this.idReservaxColaborador = idReservaxColaborador;
-    }
-
-    public int getIdReservaxData() {
-        return idReservaxData;
-    }
-
-    public void setIdReservaxData(int idReservaxData) {
-        this.idReservaxData = idReservaxData;
-    }
+   
 }
