@@ -216,6 +216,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 dataModel.setDataData(data);
                 dataModel.setHoraData(hora);
                 dataModel.setIdSalaxData(idSala);
+
                 listaDatas.add(dataModel);
                 listaIds.add(id);
 

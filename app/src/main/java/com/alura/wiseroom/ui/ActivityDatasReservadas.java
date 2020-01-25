@@ -45,7 +45,8 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         WiseRoomDB wise = new WiseRoomDB(this);
         SQLiteDatabase db = wise.getReadableDatabase();
 
-        Cursor cursor = wise.selecionarData(db, idRecebido);
+        String selecao = WiseRoomDB.COLUNA_ID_SALA_MARCADA +" = '"+idRecebido+"'";
+        Cursor cursor = wise.selecionarData(db, selecao);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(0);
@@ -57,6 +58,8 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                 dataModel.setNomeData(nome);
                 dataModel.setDataData(data);
                 dataModel.setHoraData(hora);
+                dataModel.setIdSalaxData(idRecebido);
+
 
                 listaDatas.add(dataModel);
                 listIds.add(id);

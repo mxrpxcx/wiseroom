@@ -37,7 +37,7 @@ public class ActivityVerificarSala extends AppCompatActivity {
             if (intentResult.getContents() !=  null){
                 // Selecionado
                 Intent intent = new Intent(ActivityVerificarSala.this, ActivityDatasReservadas.class);
-                intent.putExtra("codigoSala", intentResult.getContents().toString());
+                intent.putExtra("idSala", intentResult.getContents().toString());
                 startActivity(intent);
 
             }else{
