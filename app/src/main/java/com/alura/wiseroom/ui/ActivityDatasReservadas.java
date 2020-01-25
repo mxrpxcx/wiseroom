@@ -28,7 +28,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datas_reservadas);
-        idRecebido = getIntent().getStringExtra("codigoSala");
+        idRecebido = getIntent().getStringExtra("idSala");
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         init();
         fetchDatabaseToArrayList();
@@ -36,7 +36,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
 
 
     private void init () {
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listViewX);
     }
 
     private void fetchDatabaseToArrayList() {
@@ -44,7 +44,6 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         listIds.clear();
         WiseRoomDB wise = new WiseRoomDB(this);
         SQLiteDatabase db = wise.getReadableDatabase();
-        int k=0;
 
         Cursor cursor = wise.selecionarData(db, idRecebido);
         if (cursor != null) {
