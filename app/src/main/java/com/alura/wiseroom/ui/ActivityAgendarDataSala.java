@@ -97,7 +97,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário", Toast.LENGTH_SHORT).show();
                 } else {
                     long id = inserirBanco();
-                    definirReserva(id);
+                    definirData(id);
                     fetchDatabaseToArrayList();
                 }
             }
@@ -122,17 +122,36 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         cv.put(wise.COLUNA_HORARIO_MARCADO, etHora);
         cv.put(wise.COLUNA_ID_SALA_MARCADA, idSala);
 
+
+
         long id = wise.inserirData(db, cv);
 
-        db.close();
 
+        String selecao = WiseRoomDB.COLUNA_ID_DATA +" = '"+idSala+"'";
+        Cursor cursor = wise.selecionarData(db, selecao);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                int idReserva = cursor.getInt(0);
+
+                ContentValues cvReserva = new ContentValues();
+                cvReserva.put(wise.COLUNA_ID_COLABORADOR_RESERVA, idColaborador);
+                cvReserva.put(wise.COLUNA_ID_SALA_RESERVADA, idSala);
+                cvReserva.put(wise.COLUNA_ID_DATA_RESERVADA, idReserva);
+                db.insert(wise.TABELA_NOME_RESERVA, null, cvReserva);
+                cursor.close();
+                db.close();
+
+            }
+        }
+
+        db.close();
         etSobre.setText("");
         btHora.setText("Selecione a hora");
         btData.setText("Selecione a data");
         return id;
     }
 
-    private void definirReserva(long id) {
+    private void definirData(long id) {
         WiseRoomDB wise = new WiseRoomDB(this);
         SQLiteDatabase db = wise.getReadableDatabase();
         String selection = WiseRoomDB.COLUNA_ID_DATA + " = '" + id + "'";
@@ -308,7 +327,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                     fetchDatabaseToArrayList();
                     dataAdapter.notifyDataSetChanged();
                     flagDeleteAlarm = true;
-                    definirReserva(id);
+                    definirData(id);
                 }
                 else {
                     Toast.makeText(ActivityAgendarDataSala.this, "Erro ao cancelar", Toast.LENGTH_SHORT).show();
@@ -331,7 +350,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         if(flagEditAlarm==true) {
             fetchDatabaseToArrayList();
             long id = ActivityEditarDataAgendada.idUpdate;
-            definirReserva(id);
+            definirData(id);
             flagEditAlarm=false;
         }
     }
