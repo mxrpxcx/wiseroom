@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alura.wiseroom.R;
 
 public class ActivityEscolha extends AppCompatActivity {
-    private Button btAdicionarNovaSala;
     private Button btDisponibilidadeSala;
     private Button btReservarSala;
     private String dominioAtual;
@@ -32,7 +31,6 @@ public class ActivityEscolha extends AppCompatActivity {
     }
 
     private void criarBotaoPlusAcoes() {
-        btAdicionarNovaSala = findViewById(R.id.btAdiciona);
         btDisponibilidadeSala = findViewById(R.id.btVerifica);
         btReservarSala = findViewById(R.id.btReserva);
 
@@ -57,15 +55,7 @@ public class ActivityEscolha extends AppCompatActivity {
             }
         });
 
-        btAdicionarNovaSala.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ActivityEscolha.this, ActivityListarSalaReservada.class);
-                intent.putExtra("idColaborador", idColaborador);
-                startActivity(intent);
-                finish();
-            }
-        });
+
     }
 
     private void recebeDados() {

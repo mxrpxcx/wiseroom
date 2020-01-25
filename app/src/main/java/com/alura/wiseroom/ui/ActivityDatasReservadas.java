@@ -54,9 +54,9 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                 int id = cursor.getInt(0);
 
                 ReservaModel reservaModel = new ReservaModel();
-                reservaModel.getColaboradorQueReservou().setId(idColaborador);
-                reservaModel.getSalaReservada().setId(idSala);
-                reservaModel.getDataReservada();
+                reservaModel.setIdReservaxColaborador(idColaborador);
+                reservaModel.setIdReservaxSala(idSala);
+                reservaModel.setIdReservaxData("");
 
 
                 listaReservas.add(reservaModel);
