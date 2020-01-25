@@ -38,7 +38,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
 
 
     private void init () {
-        listView = (ListView) findViewById(R.id.listViewX);
+        listView = (ListView) findViewById(R.id.listViewY);
     }
 
     private void fetchDatabaseToArrayList() {
@@ -47,14 +47,11 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         WiseRoomDB wise = new WiseRoomDB(this);
         SQLiteDatabase db = wise.getReadableDatabase();
 
-        String selecao = WiseRoomDB.COLUNA_ID_SALA_RESERVADA +" = '"+idColaborador+"'";
+        String selecao = WiseRoomDB.COLUNA_ID_SALA_RESERVADA +" = '"+idSala+"'";
         Cursor cursor = wise.selecionarReserva(db, selecao);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(0);
-                String nome = cursor.getString(1);
-                String data = cursor.getString(2);
-                String hora = cursor.getString(3);
 
                 ReservaModel reservaModel = new ReservaModel();
                 reservaModel.getColaboradorQueReservou().setId(idColaborador);

@@ -137,7 +137,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 cvReserva.put(wise.COLUNA_ID_COLABORADOR_RESERVA, idColaborador);
                 cvReserva.put(wise.COLUNA_ID_SALA_RESERVADA, idSala);
                 cvReserva.put(wise.COLUNA_ID_DATA_RESERVADA, idReserva);
-                db.insert(wise.TABELA_NOME_RESERVA, null, cvReserva);
+                long id2 = wise.inserirReserva(db, cvReserva);
+
                 cursor.close();
                 db.close();
 

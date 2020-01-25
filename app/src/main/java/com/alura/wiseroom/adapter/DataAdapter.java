@@ -38,9 +38,9 @@ public class DataAdapter extends ArrayAdapter {
 
         View view = inflater.inflate(layoutRes,null);
 
-        TextView data = (TextView) view.findViewById(R.id.tvData);
-        TextView hora = (TextView) view.findViewById(R.id.tvHora);
-        TextView nome = (TextView) view.findViewById(R.id.tvNome);
+            TextView data = (TextView) view.findViewById(R.id.tvData);
+            TextView hora = (TextView) view.findViewById(R.id.tvHora);
+            TextView nome = (TextView) view.findViewById(R.id.tvNome);
 
         DataModel dataModel = listaDatas.get(position);
         nome.setText(dataModel.getNomeData());

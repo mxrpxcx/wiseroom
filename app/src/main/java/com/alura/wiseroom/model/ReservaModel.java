@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class ReservaModel implements Serializable {
     private String id;
-    private SalaModel salaReservada;
-    private ColaboradorModel colaboradorQueReservou;
-    private DataModel dataReservada;
+    private String idReservaxSala;
+    private String idReservaxColaborador;
+    private String idReservaxData;
 
     public String getId() {
         return id;
@@ -16,27 +16,27 @@ public class ReservaModel implements Serializable {
         this.id = id;
     }
 
-    public SalaModel getSalaReservada() {
-        return salaReservada;
+    public String getIdReservaxSala() {
+        return idReservaxSala;
     }
 
-    public void setSalaReservada(SalaModel salaReservada) {
-        this.salaReservada = salaReservada;
+    public void setIdReservaxSala(String idReservaxSala) {
+        this.idReservaxSala = idReservaxSala;
     }
 
-    public ColaboradorModel getColaboradorQueReservou() {
-        return colaboradorQueReservou;
+    public String getIdReservaxColaborador() {
+        return idReservaxColaborador;
     }
 
-    public void setColaboradorQueReservou(ColaboradorModel colaboradorQueReservou) {
-        this.colaboradorQueReservou = colaboradorQueReservou;
+    public void setIdReservaxColaborador(String idReservaxColaborador) {
+        this.idReservaxColaborador = idReservaxColaborador;
     }
 
-    public DataModel getDataReservada() {
-        return dataReservada;
+    public String getIdReservaxData() {
+        return idReservaxData;
     }
 
-    public void setDataReservada(DataModel dataReservada) {
-        this.dataReservada = dataReservada;
+    public void setIdReservaxData(String idReservaxData) {
+        this.idReservaxData = idReservaxData;
     }
 }

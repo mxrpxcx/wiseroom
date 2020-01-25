@@ -18,7 +18,7 @@
         android:layout_alignTop="@id/rl"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/rl"
-        android:text='Nome'
+        android:text="Nome Colaborador"
         android:textColor="#FFF"
         android:textSize="18sp" />
 

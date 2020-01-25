@@ -132,6 +132,10 @@ public class WiseRoomDB extends SQLiteOpenHelper {
         return db.insert(TABELA_NOME_DATA, null, cv);
     }
 
+    public static long inserirReserva (SQLiteDatabase db, ContentValues cv) {
+        return db.insert(TABELA_NOME_RESERVA, null, cv);
+    }
+
     public static Cursor selecionarData (SQLiteDatabase db,String selection) {
         return db.query(TABELA_NOME_DATA, null, selection, null, null, null, null, null);
     }
