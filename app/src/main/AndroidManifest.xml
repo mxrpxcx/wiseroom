@@ -12,26 +12,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.alura.wiseroom.ui.ListaSalasParaReserva"></activity>
-        <activity android:name="com.alura.wiseroom.ui.SplashScreen">
+        <activity android:name=".help"></activity>
+        <activity android:name=".ui.ListaSalasParaReserva" />
+        <activity android:name=".ui.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.alura.wiseroom.ui.ActivityVerificarSala" />
-        <activity android:name="com.alura.wiseroom.ui.ActivityAgendarDataSala" />
-        <activity android:name="com.alura.wiseroom.ui.ActivityDatasReservadas" />
-        <activity android:name="com.alura.wiseroom.ui.ActivityEditarDataAgendada" />
-        <activity android:name="com.alura.wiseroom.ui.ActivityCadastroColaborador" />
-        <activity android:name="com.alura.wiseroom.ui.ActivityReservarSala" />
-        <activity android:name="com.alura.wiseroom.ui.ActivityListarSalaReservada" />
-        <activity android:name="com.alura.wiseroom.ui.ActivityEscolha" />
-        <activity android:name="com.alura.wiseroom.ui.MainActivity">
+        <activity android:name=".ui.ActivityVerificarSala" />
+        <activity android:name=".ui.ActivityAgendarDataSala" />
+        <activity android:name=".ui.ActivityDatasReservadas" />
+        <activity android:name=".ui.ActivityEditarDataAgendada" />
+        <activity android:name=".ui.ActivityCadastroColaborador" />
+        <activity android:name=".ui.ActivityReservarSala" />
+        <activity android:name=".ui.ActivityListarSalaReservada" />
+        <activity android:name=".ui.ActivityEscolha" />
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-
             </intent-filter>
         </activity>
     </application>

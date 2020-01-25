@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.database.WiseRoomDB;
+import com.alura.wiseroom.help;
 import com.alura.wiseroom.model.ColaboradorModel;
 
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     SQLiteOpenHelper dbHelper;
     SQLiteDatabase db;
     Cursor cursor;
+    private Button btTutorial;
 
 
     @Override
@@ -40,11 +42,20 @@ public class MainActivity extends AppCompatActivity {
         ab.hide();
         btLogin = findViewById(R.id.btLogin);
         btCadastro = findViewById(R.id.btCadastro);
+        btTutorial = findViewById(R.id.btAjuda);
 
         btCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ActivityCadastroColaborador.class));
+            }
+
+        });
+
+        btCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, help.class));
             }
 
         });
