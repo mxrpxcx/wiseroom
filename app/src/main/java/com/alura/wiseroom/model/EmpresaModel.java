@@ -1,13 +1,13 @@
 package com.alura.wiseroom.model;
 
 public class EmpresaModel {
-    private int id;
+    private String id;
     private String nome;
-    private int idOrganizacao;
+    private String idOrganizacao;
     private String dominioOrganizacao;
 
 
-    public EmpresaModel(int id, String nome, int idOrganizacao, String dominioOrganizacao) {
+    public EmpresaModel(String id, String nome, String idOrganizacao, String dominioOrganizacao) {
         this.id = id;
         this.nome = nome;
         this.idOrganizacao = idOrganizacao;
@@ -17,11 +17,11 @@ public class EmpresaModel {
     public EmpresaModel() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -33,11 +33,11 @@ public class EmpresaModel {
         this.nome = nome;
     }
 
-    public int getIdOrganizacao() {
+    public String getIdOrganizacao() {
         return idOrganizacao;
     }
 
-    public void setIdOrganizacao(int idOrganizacao) {
+    public void setIdOrganizacao(String idOrganizacao) {
         this.idOrganizacao = idOrganizacao;
     }
 

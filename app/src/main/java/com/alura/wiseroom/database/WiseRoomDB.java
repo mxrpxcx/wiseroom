@@ -136,6 +136,10 @@ public class WiseRoomDB extends SQLiteOpenHelper {
         return db.query(TABELA_NOME_DATA, null, selection, null, null, null, null, null);
     }
 
+    public static Cursor selecionarReserva (SQLiteDatabase db,String selection) {
+        return db.query(TABELA_NOME_RESERVA, null, selection, null, null, null, null, null);
+    }
+
     public static int deletarData (SQLiteDatabase db,String whereClause) {
         return db.delete(TABELA_NOME_DATA, whereClause, null);
     }

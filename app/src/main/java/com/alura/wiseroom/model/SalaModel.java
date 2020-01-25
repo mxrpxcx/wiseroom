@@ -1,7 +1,7 @@
 package com.alura.wiseroom.model;
 
 public class SalaModel {
-    private int id;
+    private String id;
     private String nome;
     private int capacidade;
     private double areaDaSala;
@@ -27,11 +27,11 @@ public class SalaModel {
         this.idColaboradorxSala = idColaboradorxSala;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

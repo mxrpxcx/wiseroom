@@ -9,26 +9,28 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
-import com.alura.wiseroom.adapter.DataAdapter;
+import com.alura.wiseroom.adapter.ReservaAdapter;
 import com.alura.wiseroom.database.WiseRoomDB;
-import com.alura.wiseroom.model.DataModel;
+import com.alura.wiseroom.model.ReservaModel;
 
 import java.util.ArrayList;
 
 public class ActivityDatasReservadas extends AppCompatActivity {
 
     ListView listView;
-    DataAdapter dataAdapter;
-    ArrayList<DataModel> listaDatas = new ArrayList<>();
+    ReservaAdapter reservaAdapter;
+    ArrayList<ReservaModel> listaReservas = new ArrayList<>();
     ArrayList<Integer> listIds = new ArrayList<>();
     boolean flagEditAlarm = false;
-    String idRecebido;
+    String idSala;
+    String idColaborador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datas_reservadas);
-        idRecebido = getIntent().getStringExtra("idSala");
+        idColaborador = getIntent().getStringExtra("idSala");
+        idSala = getIntent().getStringExtra("idColaborador");
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         init();
         fetchDatabaseToArrayList();
@@ -40,13 +42,13 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     }
 
     private void fetchDatabaseToArrayList() {
-        listaDatas.clear();
+        listaReservas.clear();
         listIds.clear();
         WiseRoomDB wise = new WiseRoomDB(this);
         SQLiteDatabase db = wise.getReadableDatabase();
 
-        String selecao = WiseRoomDB.COLUNA_ID_SALA_MARCADA +" = '"+idRecebido+"'";
-        Cursor cursor = wise.selecionarData(db, selecao);
+        String selecao = WiseRoomDB.COLUNA_ID_SALA_RESERVADA +" = '"+idColaborador+"'";
+        Cursor cursor = wise.selecionarReserva(db, selecao);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(0);
@@ -54,21 +56,20 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                 String data = cursor.getString(2);
                 String hora = cursor.getString(3);
 
-                DataModel dataModel = new DataModel();
-                dataModel.setNomeData(nome);
-                dataModel.setDataData(data);
-                dataModel.setHoraData(hora);
-                dataModel.setIdSalaxData(idRecebido);
+                ReservaModel reservaModel = new ReservaModel();
+                reservaModel.getColaboradorQueReservou().setId(idColaborador);
+                reservaModel.getSalaReservada().setId(idSala);
+                reservaModel.getDataReservada();
 
 
-                listaDatas.add(dataModel);
+                listaReservas.add(reservaModel);
                 listIds.add(id);
             }
             cursor.close();
             db.close();
 
-            dataAdapter = new DataAdapter(ActivityDatasReservadas.this, R.layout.item_lista_data, listaDatas);
-            listView.setAdapter(dataAdapter);
+            reservaAdapter = new ReservaAdapter(ActivityDatasReservadas.this, R.layout.item_lista_reserva, listaReservas);
+            listView.setAdapter(reservaAdapter);
         }
 
     }
