@@ -3,6 +3,7 @@ package com.alura.wiseroom.ui;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ListView;
 
@@ -31,6 +32,8 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         setContentView(R.layout.activity_datas_reservadas);
         idColaborador = getIntent().getStringExtra("idSala");
         idSala = getIntent().getStringExtra("idColaborador");
+        Log.i("Reservas ID COL", idColaborador);
+        Log.i("Reservas ID SAL", idSala);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         init();
         fetchDatabaseToArrayList();
@@ -47,10 +50,11 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         WiseRoomDB wise = new WiseRoomDB(this);
         SQLiteDatabase db = wise.getReadableDatabase();
 
+
         String selecao = WiseRoomDB.COLUNA_ID_SALA_RESERVADA +" = '"+idSala+"'";
         Cursor cursor = wise.selecionarReserva(db, selecao);
         if (cursor != null) {
-            while (cursor.moveToNext()) {
+            while (cursor.moveToFirst()) {
                 int id = cursor.getInt(0);
 
                 ReservaModel reservaModel = new ReservaModel();
@@ -58,7 +62,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                 reservaModel.setIdReservaxSala(idSala);
                 reservaModel.setIdReservaxData("");
 
-
+                Log.i("TESTE RESERVA LIST ", reservaModel.toString());
                 listaReservas.add(reservaModel);
                 listIds.add(id);
             }

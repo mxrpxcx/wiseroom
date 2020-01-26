@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
         tvEmail = (EditText) findViewById(R.id.editEmail);
         tvSenha = (EditText) findViewById(R.id.editSenha);
 
+        tvEmail.setText("b@b.com");
+        tvSenha.setText("b");
+
         dbHelper = new WiseRoomDB(this);
         db = dbHelper.getWritableDatabase();
         final ColaboradorModel colaborador = new ColaboradorModel();
@@ -92,7 +95,14 @@ public class MainActivity extends AppCompatActivity {
         cv2.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala");
         db.insert(WiseRoomDB.TABELA_NOME_SALA, null, cv2);
 
-        Log.i("Teste Sala", "sala adicionada? "+cv2.toString());
+        ContentValues cv3 = new ContentValues();
+        cv3.put(WiseRoomDB.COLUNA_ID_SALA_MARCADA, 0);
+        cv3.put(WiseRoomDB.COLUNA_DATA_MARCADA, 0);
+        cv3.put(WiseRoomDB.COLUNA_ID_COLABORADOR_RESERVA, 1);
+        db.insert(WiseRoomDB.TABELA_NOME_RESERVA, null, cv3);
+
+        Log.i("TESTE RESERVA  ", cv3.toString());
+        Log.i("Teste Sala  ", "sala adicionada? "+cv2.toString());
     }
 
 

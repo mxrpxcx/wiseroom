@@ -3,6 +3,7 @@ package com.alura.wiseroom.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +41,9 @@ public class ActivityVerificarSala extends AppCompatActivity {
                 Intent intent = new Intent(ActivityVerificarSala.this, ActivityDatasReservadas.class);
                 intent.putExtra("idSala", intentResult.getContents().toString());
                 intent.putExtra("idColaborador", idColaborador);
+
+                Log.i("VerificaSALA ID COLABORADOR ",idColaborador);
+                Log.i("VERIFICA SALA ID SAL ", intentResult.getContents());
                 startActivity(intent);
 
             }else{
