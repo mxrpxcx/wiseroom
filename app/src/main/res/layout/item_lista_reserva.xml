@@ -19,7 +19,7 @@
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/rl"
         android:text="Nome Colaborador"
-        android:textColor="#FFF"
+        android:textColor="@color/colorAccent"
         android:textSize="18sp" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/rl"
         android:text="Data: 12-6-2017"
-        android:textColor="#dae7ef"
+        android:textColor="@color/colorPrimary"
         android:textSize="15sp" />
 
     <TextView
@@ -41,6 +41,6 @@
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/rl"
         android:text="Hora: 12:3"
-        android:textColor="#dae7ef"
+        android:textColor="@color/colorPrimary"
         android:textSize="15sp" />
 </RelativeLayout>
