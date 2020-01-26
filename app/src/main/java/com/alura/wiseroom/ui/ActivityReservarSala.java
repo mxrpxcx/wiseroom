@@ -26,6 +26,8 @@ public class ActivityReservarSala extends AppCompatActivity {
                 intentIntegrator.setCameraId(0);
                 intentIntegrator.initiateScan();
                 recebeDados();
+
+        Log.i("Teste id col", idColaborador);
     }
 
 
@@ -40,10 +42,9 @@ public class ActivityReservarSala extends AppCompatActivity {
                 Intent intent = new Intent(ActivityReservarSala.this, ActivityAgendarDataSala.class);
                 intent.putExtra("idSala", intentResult.getContents());
                 intent.putExtra("idColaborador", idColaborador);
-                Log.i("Teste id sala", intent.getStringExtra("idSala"));
-                Log.i("Teste id col", intent.getStringExtra("idColaborador"));
                 startActivity(intent);
                 finish();
+                Log.i("Teste id sala", intentResult.getContents());
             }else{
 
                 Intent intent = new Intent(ActivityReservarSala.this, ActivityEscolha.class);

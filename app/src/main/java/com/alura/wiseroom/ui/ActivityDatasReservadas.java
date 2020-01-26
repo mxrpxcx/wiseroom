@@ -1,5 +1,6 @@
 package com.alura.wiseroom.ui;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -30,8 +31,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datas_reservadas);
-        idColaborador = getIntent().getStringExtra("idSala");
-        idSala = getIntent().getStringExtra("idColaborador");
+        recebeDados();
         Log.i("Reservas ID COL", idColaborador);
         Log.i("Reservas ID SAL", idSala);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -54,7 +54,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         String selecao = WiseRoomDB.COLUNA_ID_SALA_RESERVADA +" = '"+idSala+"'";
         Cursor cursor = wise.selecionarReserva(db, selecao);
         if (cursor != null) {
-            while (cursor.moveToFirst()) {
+            while (cursor.moveToNext()) {
                 int id = cursor.getInt(0);
 
                 ReservaModel reservaModel = new ReservaModel();
@@ -75,6 +75,23 @@ public class ActivityDatasReservadas extends AppCompatActivity {
 
     }
 
+    private void recebeDados() {
+        Intent intentMain = getIntent();
+
+        if(intentMain.hasExtra("idColaborador")){
+
+            String idRecebidoColaborador = intentMain.getStringExtra("idColaborador");
+            idColaborador = idRecebidoColaborador;
+
+        }
+
+        if(intentMain.hasExtra("idSala")){
+
+            String idRecebidoSala = intentMain.getStringExtra("idSala");
+            idSala = idRecebidoSala;
+
+        }
+    }
 
     @Override
     protected void onStart() {

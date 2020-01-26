@@ -2,6 +2,7 @@ package com.alura.wiseroom.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -26,6 +27,7 @@ public class ActivityEscolha extends AppCompatActivity {
         ab.hide();
         criarBotaoPlusAcoes();
         recebeDados();
+        Log.i("TESTE ESCOLHA COL ",idColaborador);
 
 
     }
@@ -33,6 +35,7 @@ public class ActivityEscolha extends AppCompatActivity {
     private void criarBotaoPlusAcoes() {
         btDisponibilidadeSala = findViewById(R.id.btVerifica);
         btReservarSala = findViewById(R.id.btReserva);
+
 
 
         btReservarSala.setOnClickListener(new View.OnClickListener() {
