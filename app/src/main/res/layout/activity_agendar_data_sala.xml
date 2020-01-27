@@ -1,69 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     android:background="@color/colorPrimaryDark">
-    <RelativeLayout
-        android:id="@+id/Relative1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/btAdiciona"
-            android:layout_width="38dp"
-            android:layout_height="42dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="16dp"
-            android:background="@color/colorPrimary"
-            />
 
-        <EditText
-            android:id="@+id/etSobre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/btAdiciona"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/btAdiciona"
-            android:hint="Descreva a reserva"
-            android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/colorPrimary" />
-    </RelativeLayout>
-    <LinearLayout
-        android:id="@+id/Linear1"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/btAdiciona"
+        android:layout_width="38dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etSobre"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:layout_below="@id/Relative1">
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Descreva a reserva"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@+id/btAdiciona"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/btData"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Selecione a data"
-            android:background="@color/colorPrimary"
-            android:textAllCaps="true"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_margin="10dp"/>
 
-        <Button
-            android:id="@+id/btHora"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="Selecione a hora"
-            android:textAllCaps="true"
-            android:textColor="@color/colorPrimaryDark" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/btData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:text="Selecione a data"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toTopOf="@+id/listViewX"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etSobre"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:text="Selecione a hora"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintStart_toEndOf="@+id/btData"
+        app:layout_constraintTop_toBottomOf="@+id/etSobre" />
+
     <ListView
         android:id="@+id/listViewX"
-        android:layout_below="@id/Linear1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btHora"></ListView>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
