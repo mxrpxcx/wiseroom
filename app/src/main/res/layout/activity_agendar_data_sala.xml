@@ -25,7 +25,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:hint="Descreva a reserva"
+        android:hint="  Descreva a reserva         "
         android:textColor="@color/colorPrimary"
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toStartOf="@+id/btAdiciona"
@@ -50,16 +50,30 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btHora"
+        android:id="@+id/btHoraInicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
-        android:text="Selecione a hora"
+        android:text="Hora inicio"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toStartOf="@+id/btHoraFim"
         app:layout_constraintStart_toEndOf="@+id/btData"
+        app:layout_constraintTop_toBottomOf="@+id/etSobre" />
+
+    <Button
+        android:id="@+id/btHoraFim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorPrimary"
+        android:text="Hora fim"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etSobre" />
 
     <ListView
@@ -73,6 +87,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btHora"></ListView>
+        app:layout_constraintTop_toBottomOf="@+id/btHoraInicio"></ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
