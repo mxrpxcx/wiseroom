@@ -48,10 +48,11 @@ public class ActivityVerificarSala extends AppCompatActivity {
 
         if(intentResult != null){
             if (intentResult.getContents() !=  null){
-                String args[] = {intentResult.getContents()};
+
+                Log.i("teste qr ",  intentResult.getContents());
 
                 cursor = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_SALA + " WHERE " +
-                        WiseRoomDB.COLUNA_ID_SALA + "=?", args);
+                        WiseRoomDB.COLUNA_ID_SALA + "=?", new String[]{intentResult.getContents()});
                 if (cursor != null) {
                     if (cursor.getCount() > 0) {
 
