@@ -66,7 +66,7 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
         btAdiciona = (ImageButton) findViewById(R.id.btAdicionaU);
         etSobre = (EditText) findViewById(R.id.etNomeU);
         btData = (Button) findViewById(R.id.btDataU);
-        btHora = (Button) findViewById(R.id.btHoraU);
+        btHora = (Button) findViewById(R.id.btHoraInicioU);
     }
 
 

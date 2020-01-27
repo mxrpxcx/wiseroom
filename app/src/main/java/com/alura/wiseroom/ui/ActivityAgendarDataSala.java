@@ -68,7 +68,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         btAdiciona = (ImageButton) findViewById(R.id.btAdiciona);
         etSobre = (EditText) findViewById(R.id.etSobre);
         btData = (Button) findViewById(R.id.btData);
-        btHora = (Button) findViewById(R.id.btHora);
+        btHora = (Button) findViewById(R.id.btHoraInicio);
         recebeDados();
     }
 
