@@ -77,7 +77,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
 
                         String dataSelecionadaData = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_DATA_MARCADA));
                         String horaSelecionadaComeco = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
-                       // String horaSelecionadaFim = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
+                       //String horaSelecionadaFim = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
                         String descricaoReuniao = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME_DATA));
 
                         DataModel dataSelecionada = new DataModel();
@@ -86,15 +86,22 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                         dataSelecionada.setHoraData(horaSelecionadaComeco);
 
 
-                    reservaModel.setDataReservada(dataSelecionada);
+                        reservaModel.setDataReservada(dataSelecionada);
 
-                Log.i("TESTE RESERVA LIST ", reservaModel.toString());
-                listaReservas.add(reservaModel);
-                listIds.add(id);
+                        Log.i("TESTE RESERVA LIST ", reservaModel.toString());
+                        listaReservas.add(reservaModel);
+                        listIds.add(id);
 
                     }
+
+
                 }
+
+
+
             }
+
+
             cursor.close();
             db.close();
 
