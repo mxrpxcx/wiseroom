@@ -129,6 +129,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
         long id = wise.inserirData(db, cv);
 
+        Log.i("id id id data ", String.valueOf(id));
+
 
         ContentValues cvReserva = new ContentValues();
         cvReserva.put(wise.COLUNA_ID_COLABORADOR_RESERVA, colaboradorLogado.getId());

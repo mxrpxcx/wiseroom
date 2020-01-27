@@ -14,6 +14,7 @@ import com.alura.wiseroom.R;
 import com.alura.wiseroom.adapter.ReservaAdapter;
 import com.alura.wiseroom.database.WiseRoomDB;
 import com.alura.wiseroom.model.ColaboradorModel;
+import com.alura.wiseroom.model.DataModel;
 import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
 
@@ -28,6 +29,8 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     boolean flagEditAlarm = false;
     SalaModel salaSelecioanda;
     ColaboradorModel colaboradorLogado;
+    DataModel dataSelecionada;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +63,37 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                 int id = cursor.getInt(0);
 
                 ReservaModel reservaModel = new ReservaModel();
+                reservaModel.setId(String.valueOf(id));
                 reservaModel.setColaboradorReserva(colaboradorLogado);
                 reservaModel.setSalaReserva(salaSelecioanda);
-                reservaModel.setDataReservada(null);
+
+                Log.i("TESTE ID RESERVA RESERVCADA", String.valueOf(reservaModel.getId()));
+
+                cursor = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_DATA + " WHERE " +
+                        WiseRoomDB.COLUNA_ID_DATA + "=?", new String[]{reservaModel.getId()});
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+
+                        cursor.moveToFirst();
+
+                        String dataSelecionadaData = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_DATA_MARCADA));
+                        String horaSelecionadaComeco = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
+                       // String horaSelecionadaFim = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
+                        String descricaoReuniao = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME_DATA));
+
+                        DataModel dataSelecionada = new DataModel();
+                        dataSelecionada.setNomeData(descricaoReuniao);
+                        dataSelecionada.setDataData(dataSelecionadaData);
+                        dataSelecionada.setHoraData(horaSelecionadaComeco);
+
+
+                    reservaModel.setDataReservada(dataSelecionada);
 
                 Log.i("TESTE RESERVA LIST ", reservaModel.toString());
                 listaReservas.add(reservaModel);
                 listIds.add(id);
+                    }
+                }
             }
             cursor.close();
             db.close();
