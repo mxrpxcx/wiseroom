@@ -28,7 +28,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.adapter.DataAdapter;
 import com.alura.wiseroom.database.WiseRoomDB;
+import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.DataModel;
+import com.alura.wiseroom.model.SalaModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,8 +48,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     AlarmManager alarmManager;
     boolean flagDeleteAlarm = false;
     boolean flagEditAlarm = false;
-    String idSala;
-    String idColaborador;
+    SalaModel salaSelecioanda;
+    ColaboradorModel colaboradorLogado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +59,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         init();
         setListeners();
         fetchDatabaseToArrayList();
-        Log.i("Teste agendar col  ", idColaborador);
-        Log.i("Teste agendar sala  ", idSala);
+        Log.i("Reservas ID COL", colaboradorLogado.toString());
+        Log.i("Reservas ID SAL", salaSelecioanda.toString());
     }
 
     private void init() {
@@ -122,22 +124,22 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         cv.put(wise.COLUNA_NOME_DATA, etNome);
         cv.put(wise.COLUNA_DATA_MARCADA, etData);
         cv.put(wise.COLUNA_HORARIO_MARCADO, etHora);
-        cv.put(wise.COLUNA_ID_SALA_MARCADA, idSala);
+        cv.put(wise.COLUNA_ID_SALA_MARCADA, salaSelecioanda.getId());
 
 
 
         long id = wise.inserirData(db, cv);
 
 
-        String selecao = WiseRoomDB.COLUNA_ID_DATA +" = '"+idSala+"'";
+        String selecao = WiseRoomDB.COLUNA_ID_DATA +" = '"+salaSelecioanda.getId()+"'";
         Cursor cursor = wise.selecionarData(db, selecao);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 int idReserva = cursor.getInt(0);
 
                 ContentValues cvReserva = new ContentValues();
-                cvReserva.put(wise.COLUNA_ID_COLABORADOR_RESERVA, idColaborador);
-                cvReserva.put(wise.COLUNA_ID_SALA_RESERVADA, idSala);
+                cvReserva.put(wise.COLUNA_ID_COLABORADOR_RESERVA, colaboradorLogado.getId());
+                cvReserva.put(wise.COLUNA_ID_SALA_RESERVADA, salaSelecioanda.getId());
                 cvReserva.put(wise.COLUNA_ID_DATA_RESERVADA, idReserva);
                 long id2 = wise.inserirReserva(db, cvReserva);
 
@@ -178,7 +180,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         i.putExtra(wise.COLUNA_NOME_DATA, nome);
         i.putExtra(wise.COLUNA_DATA_MARCADA, data);
         i.putExtra(wise.COLUNA_HORARIO_MARCADO, hora);
-        i.putExtra(wise.COLUNA_ID_SALA_MARCADA, idSala);
+        i.putExtra(wise.COLUNA_ID_SALA_MARCADA, salaSelecioanda.getId());
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int) id, i, 0);
 
@@ -224,7 +226,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         WiseRoomDB wise = new WiseRoomDB(this);
         SQLiteDatabase db = wise.getReadableDatabase();
 
-        String selecao = WiseRoomDB.COLUNA_ID_SALA_MARCADA +" = '"+idSala+"'";
+        String selecao = WiseRoomDB.COLUNA_ID_SALA_MARCADA +" = '"+salaSelecioanda.getId()+"'";
         Cursor cursor = wise.selecionarData(db, selecao );
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -237,7 +239,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 dataModel.setNomeData(nome);
                 dataModel.setDataData(data);
                 dataModel.setHoraData(hora);
-                dataModel.setIdSalaxData(idSala);
+                dataModel.setIdSalaxData(salaSelecioanda.getId());
 
                 listaDatas.add(dataModel);
                 listaIds.add(id);
@@ -361,17 +363,17 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     private void recebeDados() {
         Intent intentMain = getIntent();
 
-        if(intentMain.hasExtra("idColaborador")){
+        if(intentMain.hasExtra("colaboradorLogado")){
 
-            String idRecebidoColaborador = intentMain.getStringExtra("idColaborador");
-            idColaborador = idRecebidoColaborador;
+            ColaboradorModel col = (ColaboradorModel) intentMain.getSerializableExtra("colaboradorLogado");
+            colaboradorLogado = col;
 
         }
 
-        if(intentMain.hasExtra("idSala")){
+        if(intentMain.hasExtra("salaSelecionada")){
 
-            String idRecebidoSala = intentMain.getStringExtra("idSala");
-            idSala = idRecebidoSala;
+            SalaModel sal = (SalaModel) intentMain.getSerializableExtra("salaSelecionada");
+            salaSelecioanda = sal;
 
         }
     }
