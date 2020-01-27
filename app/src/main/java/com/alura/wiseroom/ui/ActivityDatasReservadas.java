@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.adapter.ReservaAdapter;
 import com.alura.wiseroom.database.WiseRoomDB;
+import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.ReservaModel;
+import com.alura.wiseroom.model.SalaModel;
 
 import java.util.ArrayList;
 
@@ -24,16 +26,16 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     ArrayList<ReservaModel> listaReservas = new ArrayList<>();
     ArrayList<Integer> listIds = new ArrayList<>();
     boolean flagEditAlarm = false;
-    String idSala;
-    String idColaborador;
+    SalaModel salaSelecioanda;
+    ColaboradorModel colaboradorLogado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datas_reservadas);
         recebeDados();
-        Log.i("Reservas ID COL", idColaborador);
-        Log.i("Reservas ID SAL", idSala);
+        Log.i("Reservas ID COL", colaboradorLogado.toString());
+        Log.i("Reservas ID SAL", salaSelecioanda.toString());
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         init();
         fetchDatabaseToArrayList();
@@ -51,16 +53,16 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         SQLiteDatabase db = wise.getReadableDatabase();
 
 
-        String selecao = WiseRoomDB.COLUNA_ID_SALA_RESERVADA +" = '"+idSala+"'";
+        String selecao = WiseRoomDB.COLUNA_ID_SALA_RESERVADA +" = '"+salaSelecioanda.getId()+"'";
         Cursor cursor = wise.selecionarReserva(db, selecao);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(0);
 
                 ReservaModel reservaModel = new ReservaModel();
-             //   reservaModel.setIdReservaxColaborador(idColaborador);
-            //    reservaModel.setIdReservaxSala(idSala);
-              //  reservaModel.setIdReservaxData("");
+                reservaModel.setColaboradorReserva(colaboradorLogado);
+                reservaModel.setSalaReserva(salaSelecioanda);
+                reservaModel.setDataReservada(null);
 
                 Log.i("TESTE RESERVA LIST ", reservaModel.toString());
                 listaReservas.add(reservaModel);
@@ -78,17 +80,17 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     private void recebeDados() {
         Intent intentMain = getIntent();
 
-        if(intentMain.hasExtra("idColaborador")){
+        if(intentMain.hasExtra("colaboradorLogado")){
 
-            String idRecebidoColaborador = intentMain.getStringExtra("idColaborador");
-            idColaborador = idRecebidoColaborador;
+            ColaboradorModel col = (ColaboradorModel) intentMain.getSerializableExtra("colaboradorLogado");
+            colaboradorLogado = col;
 
         }
 
-        if(intentMain.hasExtra("idSala")){
+        if(intentMain.hasExtra("salaSelecionada")){
 
-            String idRecebidoSala = intentMain.getStringExtra("idSala");
-            idSala = idRecebidoSala;
+            SalaModel sal = (SalaModel) intentMain.getSerializableExtra("salaSelecionada");
+            salaSelecioanda = sal;
 
         }
     }
