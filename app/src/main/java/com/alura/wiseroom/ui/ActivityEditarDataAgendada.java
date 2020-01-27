@@ -114,7 +114,7 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
         cv.put(wise.COLUNA_NOME_DATA, etNome);
         cv.put(wise.COLUNA_DATA_MARCADA, etData);
         cv.put(wise.COLUNA_HORARIO_MARCADO, etHora);
-        
+
         String whereClause = wise.COLUNA_ID_DATA +" = '"+id+"'";
         int l = WiseRoomDB.atualizarData(db, whereClause,cv);
         if (l>0) {

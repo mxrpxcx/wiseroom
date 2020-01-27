@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ContentValues cv1 = new ContentValues();
+        cv1.put(WiseRoomDB.COLUNA_ID_COLABORADOR, "1");
         cv1.put(WiseRoomDB.COLUNA_NOME_COLABORADOR, "b");
         cv1.put(WiseRoomDB.COLUNA_EMAIL_COLABORADOR, "b@b.com");
         cv1.put(WiseRoomDB.COLUNA_SENHA, "b");
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
         ContentValues cv3 = new ContentValues();
         cv3.put(WiseRoomDB.COLUNA_ID_SALA_MARCADA, "0");
-        cv3.put(WiseRoomDB.COLUNA_DATA_MARCADA, "0");
+        cv3.put(WiseRoomDB.COLUNA_ID_DATA_RESERVADA, "0");
         cv3.put(WiseRoomDB.COLUNA_ID_COLABORADOR_RESERVA, 1);
         db.insert(WiseRoomDB.TABELA_NOME_RESERVA, null, cv3);
 
@@ -124,11 +125,13 @@ public class MainActivity extends AppCompatActivity {
                 cursor.moveToFirst();
 
                 String intentId = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_ID_COLABORADOR));
+                String intentNome = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME_COLABORADOR));
                 String intentEmail = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_EMAIL_COLABORADOR));
                 String intentSenha = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_SENHA));
 
                 ColaboradorModel colaboradorModel = new ColaboradorModel();
                 colaboradorModel.setId(intentId);
+                colaboradorModel.setNome(intentNome);
                 colaboradorModel.setEmail(intentEmail);
                 colaboradorModel.setSenha(intentSenha);
 
