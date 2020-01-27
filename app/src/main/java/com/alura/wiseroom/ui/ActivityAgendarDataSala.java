@@ -136,7 +136,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         cvReserva.put(wise.COLUNA_ID_DATA_RESERVADA, id);
         wise.inserirReserva(db, cvReserva);
 
-        
+
         db.close();
         etSobre.setText("");
         btHora.setText("Selecione a hora");
