@@ -61,6 +61,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         fetchDatabaseToArrayList();
         Log.i("Reservas ID COL", colaboradorLogado.toString());
         Log.i("Reservas ID SAL", salaSelecioanda.toString());
+
     }
 
     private void init() {

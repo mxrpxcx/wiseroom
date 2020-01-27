@@ -70,35 +70,33 @@ public class ActivityDatasReservadas extends AppCompatActivity {
 
 
 
-                cursor = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_DATA + " WHERE " +
+               Cursor cursor2 = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_DATA + " WHERE " +
                         WiseRoomDB.COLUNA_ID_DATA + "=?", new String[]{reservaModel.getId()});
-                if (cursor != null) {
-                    while (cursor.moveToNext()) {
+                if (cursor2 != null) {
+                    while (cursor2.moveToNext()) {
 
-                        String dataSelecionadaData = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_DATA_MARCADA));
-                        String horaSelecionadaComeco = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
+
+
+                        String dataSelecionadaData = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_DATA_MARCADA));
+                        String horaSelecionadaComeco = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
                        //String horaSelecionadaFim = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
-                        String descricaoReuniao = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME_DATA));
+                        String descricaoReuniao = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_NOME_DATA));
 
-                        DataModel dataSelecionada = new DataModel();
+                        dataSelecionada = new DataModel();
                         dataSelecionada.setNomeData(descricaoReuniao);
                         dataSelecionada.setDataData(dataSelecionadaData);
                         dataSelecionada.setHoraData(horaSelecionadaComeco);
 
-
                         reservaModel.setDataReservada(dataSelecionada);
-
-                        Log.i("TESTE RESERVA LIST ", reservaModel.toString());
-                        listaReservas.add(reservaModel);
-                        listIds.add(id);
 
                     }
 
-
                 }
+                
 
-
-
+                Log.i("TESTE RESERVA LIST ", reservaModel.toString());
+                listaReservas.add(reservaModel);
+                listIds.add(id);
             }
 
 
