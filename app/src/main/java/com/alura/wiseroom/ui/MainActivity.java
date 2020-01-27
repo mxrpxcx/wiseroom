@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, ActivityEscolha.class);
 
-                intent.
+                intent.putExtra("colaboradorLogado", colaboradorModel);
 
                 startActivity(intent);
                 db.close();

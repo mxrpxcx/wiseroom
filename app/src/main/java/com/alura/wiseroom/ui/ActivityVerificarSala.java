@@ -2,6 +2,8 @@ package com.alura.wiseroom.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -9,12 +11,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
+import com.alura.wiseroom.database.WiseRoomDB;
+import com.alura.wiseroom.model.ColaboradorModel;
+import com.alura.wiseroom.model.SalaModel;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class ActivityVerificarSala extends AppCompatActivity {
     final Activity activity = this;
-    String idColaborador;
+    ColaboradorModel colaboradorLogado;
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +35,6 @@ public class ActivityVerificarSala extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -37,16 +42,35 @@ public class ActivityVerificarSala extends AppCompatActivity {
 
         if(intentResult != null){
             if (intentResult.getContents() !=  null){
-                // Selecionado
-                Intent intent = new Intent(ActivityVerificarSala.this, ActivityDatasReservadas.class);
-                intent.putExtra("idSala", intentResult.getContents().toString());
-                intent.putExtra("idColaborador", idColaborador);
 
-                Log.i("VerificaSALA ID COLABORADOR ",idColaborador);
-                Log.i("VERIFICA SALA ID SAL ", intentResult.getContents());
-                startActivity(intent);
+                Cursor cursor = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_SALA + " WHERE " +
+                        WiseRoomDB.COLUNA_ID_SALA + "=?", new String[]{intentResult.getContents()});
+                if (cursor != null) {
+                    if (cursor.getCount() > 0) {
+
+                        cursor.moveToFirst();
+
+                        String intentId = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_ID_SALA));
+                        String intentNome = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME_SALA));
+                        int intentCapacidade = cursor.getInt(cursor.getColumnIndex(WiseRoomDB.COLUNA_CAPACIDADE_SALA));
+                        String intentDescricao = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_DESCRICAO_SALA));
+
+                        SalaModel salaSelecionada = new SalaModel();
+                        salaSelecionada.setId(intentId);
+                        salaSelecionada.setNome(intentNome);
+                        salaSelecionada.setCapacidade(intentCapacidade);
+                        salaSelecionada.setDescricaoSala(intentDescricao);
+
+
+                        Intent intent = new Intent(ActivityVerificarSala.this, ActivityDatasReservadas.class);
+                        intent.putExtra("salaSelecionada", salaSelecionada);
+                        intent.putExtra("colaboradorLogado", colaboradorLogado);
+                        startActivity(intent);
+                    }
+                }
 
             }else{
+
                 Intent intent = new Intent(ActivityVerificarSala.this, ActivityEscolha.class);
                 startActivity(intent);
             }
@@ -54,16 +78,15 @@ public class ActivityVerificarSala extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);
         }
 
-
     }
 
     private void recebeDados() {
         Intent intentMain = getIntent();
 
-        if(intentMain.hasExtra("idColaborador")){
+        if(intentMain.hasExtra("colaboradorLogado")){
 
-            String idRecebido = intentMain.getStringExtra("idColaborador");
-            idColaborador = idRecebido;
+            ColaboradorModel col = (ColaboradorModel) intentMain.getSerializableExtra("colaboradorLogado");
+            colaboradorLogado = col;
 
         }
     }

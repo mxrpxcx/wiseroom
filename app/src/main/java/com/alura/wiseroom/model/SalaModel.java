@@ -8,7 +8,6 @@ public class SalaModel implements Serializable {
     private int capacidade;
     private double areaDaSala;
     private String descricaoSala;
-    private Long idColaboradorxSala;
 
 
     public SalaModel(String nome, int capacidade, String descricaoSala) {
@@ -19,14 +18,6 @@ public class SalaModel implements Serializable {
     }
 
     public SalaModel() {
-    }
-
-    public Long getIdColaboradorxSala() {
-        return idColaboradorxSala;
-    }
-
-    public void setIdColaboradorxSala(Long idColaboradorxSala) {
-        this.idColaboradorxSala = idColaboradorxSala;
     }
 
     public String getId() {

@@ -10,12 +10,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
+import com.alura.wiseroom.model.ColaboradorModel;
 
 public class ActivityEscolha extends AppCompatActivity {
     private Button btDisponibilidadeSala;
     private Button btReservarSala;
     private String dominioAtual;
-    private String idColaborador;
+    private ColaboradorModel colaboradorLogado;
 
 
 
@@ -27,7 +28,7 @@ public class ActivityEscolha extends AppCompatActivity {
         ab.hide();
         criarBotaoPlusAcoes();
         recebeDados();
-        Log.i("TESTE ESCOLHA COL ",idColaborador);
+        Log.i("TESTE ESCOLHA COL ", colaboradorLogado.toString());
 
 
     }
@@ -42,7 +43,7 @@ public class ActivityEscolha extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityEscolha.this, ActivityReservarSala.class);
-                intent.putExtra("idColaborador", idColaborador);
+                intent.putExtra("colaboradorLogado", colaboradorLogado);
                 startActivity(intent);
                 finish();
             }
@@ -52,7 +53,7 @@ public class ActivityEscolha extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityEscolha.this, ActivityVerificarSala.class);
-                intent.putExtra("idColaborador", idColaborador);
+                intent.putExtra("colaboradorLogado", colaboradorLogado);
                 startActivity(intent);
                 finish();
             }
@@ -69,10 +70,10 @@ public class ActivityEscolha extends AppCompatActivity {
                 int indexPonto = emailColaborador.indexOf(".");
                 dominioAtual = emailColaborador.substring(indexArroba + 1, indexPonto);
             }
-            if(intentMain.hasExtra("idColaborador")){
+            if(intentMain.hasExtra("colaboradorLogado")){
 
-                String idRecebido = intentMain.getStringExtra("idColaborador");
-                idColaborador = idRecebido;
+                ColaboradorModel col = (ColaboradorModel) intentMain.getSerializableExtra("colaboradorLogado");
+                colaboradorLogado = col;
 
             }
     }
