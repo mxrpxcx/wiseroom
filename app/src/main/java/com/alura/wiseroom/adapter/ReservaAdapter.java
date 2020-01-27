@@ -44,8 +44,8 @@ public class ReservaAdapter extends ArrayAdapter {
 
         ReservaModel reservaModel = listaReservas.get(position);
         nomeColaborador.setText(reservaModel.getColaboradorReserva().getNome());
-//        horaReservada.setText(reservaModel.getDataReservada().getHoraData());
- //       dataReservada.setText(reservaModel.getDataReservada().getDataData());
+       // horaReservada.setText(reservaModel.getDataReservada().getHoraData());
+       // dataReservada.setText(reservaModel.getDataReservada().getDataData());
         return view;
     }
 }
