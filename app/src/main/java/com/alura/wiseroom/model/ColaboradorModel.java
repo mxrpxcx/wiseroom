@@ -1,6 +1,8 @@
 package com.alura.wiseroom.model;
 
-public class ColaboradorModel {
+import java.io.Serializable;
+
+public class ColaboradorModel implements Serializable {
    private String id;
    private String nome;
    private int idOrganizacao;

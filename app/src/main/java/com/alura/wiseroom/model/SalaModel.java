@@ -1,6 +1,8 @@
 package com.alura.wiseroom.model;
 
-public class SalaModel {
+import java.io.Serializable;
+
+public class SalaModel implements Serializable {
     private String id;
     private String nome;
     private int capacidade;

@@ -1,6 +1,8 @@
 package com.alura.wiseroom.model;
 
-public class DataModel {
+import java.io.Serializable;
+
+public class DataModel implements Serializable {
     private String nomeData,
             dataData,
             horaData;
