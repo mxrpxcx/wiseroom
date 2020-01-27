@@ -127,28 +127,16 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         cv.put(wise.COLUNA_ID_SALA_MARCADA, salaSelecioanda.getId());
 
 
-
         long id = wise.inserirData(db, cv);
 
 
-        String selecao = WiseRoomDB.COLUNA_ID_DATA +" = '"+salaSelecioanda.getId()+"'";
-        Cursor cursor = wise.selecionarData(db, selecao);
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                int idReserva = cursor.getInt(0);
+        ContentValues cvReserva = new ContentValues();
+        cvReserva.put(wise.COLUNA_ID_COLABORADOR_RESERVA, colaboradorLogado.getId());
+        cvReserva.put(wise.COLUNA_ID_SALA_RESERVADA, salaSelecioanda.getId());
+        cvReserva.put(wise.COLUNA_ID_DATA_RESERVADA, id);
+        wise.inserirReserva(db, cvReserva);
 
-                ContentValues cvReserva = new ContentValues();
-                cvReserva.put(wise.COLUNA_ID_COLABORADOR_RESERVA, colaboradorLogado.getId());
-                cvReserva.put(wise.COLUNA_ID_SALA_RESERVADA, salaSelecioanda.getId());
-                cvReserva.put(wise.COLUNA_ID_DATA_RESERVADA, idReserva);
-                long id2 = wise.inserirReserva(db, cvReserva);
-
-                cursor.close();
-                db.close();
-
-            }
-        }
-
+        
         db.close();
         etSobre.setText("");
         btHora.setText("Selecione a hora");
