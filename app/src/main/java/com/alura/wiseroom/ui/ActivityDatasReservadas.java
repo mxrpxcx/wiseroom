@@ -56,7 +56,8 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         SQLiteDatabase db = wise.getReadableDatabase();
 
 
-        String selecao = WiseRoomDB.COLUNA_ID_SALA_RESERVADA +" = '"+salaSelecioanda.getId()+"'";
+        String selecao = WiseRoomDB.COLUNA_ID_SALA_RESERVADA +" = '"+salaSelecioanda.getId()+"' " +
+                "AND "+ WiseRoomDB.COLUNA_ID_COLABORADOR_RESERVA +" = '"+colaboradorLogado.getId()+"' ";
         Cursor cursor = wise.selecionarReserva(db, selecao);
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -92,7 +93,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                     }
 
                 }
-                
+
 
                 Log.i("TESTE RESERVA LIST ", reservaModel.toString());
                 listaReservas.add(reservaModel);
