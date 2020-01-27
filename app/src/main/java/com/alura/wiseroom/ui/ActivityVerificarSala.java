@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -21,6 +22,9 @@ public class ActivityVerificarSala extends AppCompatActivity {
     final Activity activity = this;
     ColaboradorModel colaboradorLogado;
     SQLiteDatabase db;
+    Cursor cursor;
+    SQLiteOpenHelper dbHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,8 @@ public class ActivityVerificarSala extends AppCompatActivity {
         intentIntegrator.setPrompt("Escolha a sala");
         intentIntegrator.setCameraId(0);
         intentIntegrator.initiateScan();
+        dbHelper = new WiseRoomDB(this);
+        db = dbHelper.getWritableDatabase();
         recebeDados();
 
     }
@@ -42,9 +48,10 @@ public class ActivityVerificarSala extends AppCompatActivity {
 
         if(intentResult != null){
             if (intentResult.getContents() !=  null){
+                String args[] = {intentResult.getContents()};
 
-                Cursor cursor = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_SALA + " WHERE " +
-                        WiseRoomDB.COLUNA_ID_SALA + "=?", new String[]{intentResult.getContents()});
+                cursor = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_SALA + " WHERE " +
+                        WiseRoomDB.COLUNA_ID_SALA + "=?", args);
                 if (cursor != null) {
                     if (cursor.getCount() > 0) {
 
