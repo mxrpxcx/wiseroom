@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".help"></activity>
-        <activity android:name=".ui.ListaSalasParaReserva" />
         <activity android:name=".ui.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +26,6 @@
         <activity android:name=".ui.ActivityEditarDataAgendada" />
         <activity android:name=".ui.ActivityCadastroColaborador" />
         <activity android:name=".ui.ActivityReservarSala" />
-        <activity android:name=".ui.ActivityListarSalaReservada" />
         <activity android:name=".ui.ActivityEscolha" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>

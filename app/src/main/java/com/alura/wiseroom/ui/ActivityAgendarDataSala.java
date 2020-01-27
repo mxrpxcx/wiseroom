@@ -35,7 +35,6 @@ import java.util.Calendar;
 
 public class ActivityAgendarDataSala extends AppCompatActivity {
 
-
     Button btData, btHora;
     EditText etSobre;
     ImageButton btAdiciona;
