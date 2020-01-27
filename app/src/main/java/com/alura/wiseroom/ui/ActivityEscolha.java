@@ -28,7 +28,7 @@ public class ActivityEscolha extends AppCompatActivity {
         ab.hide();
         criarBotaoPlusAcoes();
         recebeDados();
-        Log.i("TESTE ESCOLHA COL ", colaboradorLogado.toString());
+        Log.i("TESTE ESCOLHA COL ", colaboradorLogado.getNome());
     }
 
     private void criarBotaoPlusAcoes() {
