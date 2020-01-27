@@ -59,4 +59,15 @@ public class SalaModel implements Serializable {
     public void setDescricaoSala(String descricaoSala) {
         this.descricaoSala = descricaoSala;
     }
+
+    @Override
+    public String toString() {
+        return "SalaModel{" +
+                "id='" + id + '\'' +
+                ", nome='" + nome + '\'' +
+                ", capacidade=" + capacidade +
+                ", areaDaSala=" + areaDaSala +
+                ", descricaoSala='" + descricaoSala + '\'' +
+                '}';
+    }
 }

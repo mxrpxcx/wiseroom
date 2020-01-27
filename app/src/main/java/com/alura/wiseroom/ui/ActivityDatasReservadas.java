@@ -62,19 +62,18 @@ public class ActivityDatasReservadas extends AppCompatActivity {
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(0);
 
+
                 ReservaModel reservaModel = new ReservaModel();
                 reservaModel.setId(String.valueOf(id));
                 reservaModel.setColaboradorReserva(colaboradorLogado);
                 reservaModel.setSalaReserva(salaSelecioanda);
 
-                Log.i("TESTE ID RESERVA RESERVCADA", String.valueOf(reservaModel.getId()));
+
 
                 cursor = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_DATA + " WHERE " +
                         WiseRoomDB.COLUNA_ID_DATA + "=?", new String[]{reservaModel.getId()});
                 if (cursor != null) {
-                    if (cursor.getCount() > 0) {
-
-                        cursor.moveToFirst();
+                    while (cursor.moveToNext()) {
 
                         String dataSelecionadaData = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_DATA_MARCADA));
                         String horaSelecionadaComeco = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
@@ -92,6 +91,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                 Log.i("TESTE RESERVA LIST ", reservaModel.toString());
                 listaReservas.add(reservaModel);
                 listIds.add(id);
+
                     }
                 }
             }

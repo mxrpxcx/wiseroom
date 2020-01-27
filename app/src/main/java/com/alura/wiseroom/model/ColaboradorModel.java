@@ -67,4 +67,16 @@ public class ColaboradorModel implements Serializable {
    public void setAdministrador(boolean administrador) {
       this.administrador = administrador;
    }
+
+   @Override
+   public String toString() {
+      return "ColaboradorModel{" +
+              "id='" + id + '\'' +
+              ", nome='" + nome + '\'' +
+              ", idOrganizacao=" + idOrganizacao +
+              ", email='" + email + '\'' +
+              ", administrador=" + administrador +
+              ", senha='" + senha + '\'' +
+              '}';
+   }
 }

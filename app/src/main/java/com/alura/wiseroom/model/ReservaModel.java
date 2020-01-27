@@ -39,4 +39,14 @@ public class ReservaModel implements Serializable {
     public void setDataReservada(DataModel dataReservada) {
         this.dataReservada = dataReservada;
     }
+
+    @Override
+    public String toString() {
+        return "ReservaModel{" +
+                "id='" + id + '\'' +
+                ", salaReserva=" + salaReserva +
+                ", colaboradorReserva=" + colaboradorReserva +
+                ", dataReservada=" + dataReservada +
+                '}';
+    }
 }

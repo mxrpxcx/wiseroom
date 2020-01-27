@@ -50,4 +50,14 @@ public class EmpresaModel implements Serializable {
     public void setDominioOrganizacao(String dominioOrganizacao) {
         this.dominioOrganizacao = dominioOrganizacao;
     }
+
+    @Override
+    public String toString() {
+        return "EmpresaModel{" +
+                "id='" + id + '\'' +
+                ", nome='" + nome + '\'' +
+                ", idOrganizacao='" + idOrganizacao + '\'' +
+                ", dominioOrganizacao='" + dominioOrganizacao + '\'' +
+                '}';
+    }
 }
