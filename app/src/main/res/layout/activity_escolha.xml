@@ -32,7 +32,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/colorPrimary"
-        android:drawableLeft="@drawable/icon_ver_pelo_qr"
+        android:drawableLeft="@drawable/icon_adicionar_pelo_qr"
         android:text="Reservar sala"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
