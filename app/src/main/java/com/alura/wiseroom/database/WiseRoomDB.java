@@ -11,7 +11,7 @@ import com.alura.wiseroom.model.SalaModel;
 public class WiseRoomDB extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "dbWiseroom";
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 14;
 
     // Colaborador
     public static final String TABELA_NOME_COLABORADOR =  "tbColaborador";
@@ -34,6 +34,7 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     public static final String COLUNA_DATA_MARCADA = "dataMarcada";
     public static final String COLUNA_HORARIO_MARCADO = "horarioMarcado";
     public static final String COLUNA_ID_SALA_MARCADA = "idSalaxData";
+    public static final String COLUNA_ID_COLABORADOR_QUE_MARCOU = "idColaboradorxData";
 
     // Tabela reserva
     public static final String TABELA_NOME_RESERVA = "tbReserva";
@@ -63,6 +64,11 @@ public class WiseRoomDB extends SQLiteOpenHelper {
                     COLUNA_DATA_MARCADA + " TEXT, " +
                     COLUNA_HORARIO_MARCADO + " TEXT, " +
                     COLUNA_ID_SALA_MARCADA + " INTEGER," +
+                    COLUNA_ID_COLABORADOR_QUE_MARCOU + " INTEGER, " +
+
+                    "FOREIGN KEY "+ "("+COLUNA_ID_COLABORADOR_QUE_MARCOU+")"+ "REFERENCES "+ TABELA_NOME_COLABORADOR+"("+
+                    COLUNA_ID_COLABORADOR+"), " +
+
                     "FOREIGN KEY "+ "("+COLUNA_ID_SALA_MARCADA+")"+ "REFERENCES "+ TABELA_NOME_SALA+"("+
                     COLUNA_ID_SALA+")"+")";
 
@@ -106,26 +112,6 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     }
 
 
-    public SalaModel selecionarSala(long id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABELA_NOME_SALA,
-                new String[]{COLUNA_NOME_SALA, COLUNA_CAPACIDADE_SALA, COLUNA_DESCRICAO_SALA},
-                COLUNA_ID_SALA + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
-
-        while (cursor.moveToNext()) {
-            cursor.moveToFirst();
-
-            SalaModel SalaModel = new SalaModel(
-                    cursor.getString(cursor.getColumnIndex(COLUNA_NOME_SALA)),
-                    cursor.getInt(cursor.getColumnIndex(COLUNA_CAPACIDADE_SALA)),
-                    cursor.getString(cursor.getColumnIndex(COLUNA_DESCRICAO_SALA)
-            ));
-            cursor.close();
-            return SalaModel;
-        }
-        return null;
-    }
 
 
     public static long inserirData (SQLiteDatabase db, ContentValues cv) {
@@ -153,24 +139,4 @@ public class WiseRoomDB extends SQLiteOpenHelper {
         return db.update(TABELA_NOME_DATA,cv,whereClause,null);
     }
 
-   /* public List<SalaModel> getTodasSalas(int codigoSala) {
-        List<SalaModel> listaSalas = new ArrayList<>();
-
-        String selectQuery = "SELECT  * FROM " + TABELA_NOME_SALA + " WHERE "+ COLUNA_ID_SALA +" = "+ codigoSala;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                SalaModel sala = new SalaModel();
-                sala.setId(cursor.getInt(cursor.getColumnIndex(COLUNA_ID_SALA)));
-                sala.setDescricaoSala(cursor.getString(cursor.getColumnIndex(COLUNA_DESCRICAO_SALA)));
-                listaSalas.add(sala);
-            } while (cursor.moveToNext());
-        }
-
-        db.close();
-        return listaSalas;
-    } */
 }

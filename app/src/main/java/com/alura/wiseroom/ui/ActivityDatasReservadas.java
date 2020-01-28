@@ -56,8 +56,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         SQLiteDatabase db = wise.getReadableDatabase();
 
 
-        String selecao = WiseRoomDB.COLUNA_ID_SALA_RESERVADA +" = '"+salaSelecioanda.getId()+"' " +
-                "AND "+ WiseRoomDB.COLUNA_ID_COLABORADOR_RESERVA +" = '"+colaboradorLogado.getId()+"' ";
+        String selecao = WiseRoomDB.COLUNA_ID_SALA_RESERVADA +" = '"+salaSelecioanda.getId()+"'";
         Cursor cursor = wise.selecionarReserva(db, selecao);
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -66,7 +65,6 @@ public class ActivityDatasReservadas extends AppCompatActivity {
 
                 ReservaModel reservaModel = new ReservaModel();
                 reservaModel.setId(String.valueOf(id));
-                reservaModel.setColaboradorReserva(colaboradorLogado);
                 reservaModel.setSalaReserva(salaSelecioanda);
 
 
@@ -82,6 +80,8 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                         String horaSelecionadaComeco = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
                        //String horaSelecionadaFim = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
                         String descricaoReuniao = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_NOME_DATA));
+                        String idColaboradorQueMarcou = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_ID_COLABORADOR_QUE_MARCOU));
+
 
                         dataSelecionada = new DataModel();
                         dataSelecionada.setNomeData(descricaoReuniao);
@@ -89,6 +89,18 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                         dataSelecionada.setHoraData(horaSelecionadaComeco);
 
                         reservaModel.setDataReservada(dataSelecionada);
+
+
+                        Cursor cursor3 = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_COLABORADOR + " WHERE " +
+                                WiseRoomDB.COLUNA_ID_COLABORADOR + "=?", new String[]{idColaboradorQueMarcou});
+                        if (cursor3 != null) {
+                            while (cursor3.moveToNext()) {
+                                String colaboradorNome = cursor3.getString(cursor3.getColumnIndex(WiseRoomDB.COLUNA_NOME_COLABORADOR));
+                                ColaboradorModel colaboradorModel = new ColaboradorModel();
+                                colaboradorModel.setNome(colaboradorNome);
+                                reservaModel.setColaboradorReserva(colaboradorModel);
+                            }
+                        }
 
                     }
 
@@ -99,7 +111,6 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                 listaReservas.add(reservaModel);
                 listIds.add(id);
             }
-
 
             cursor.close();
             db.close();

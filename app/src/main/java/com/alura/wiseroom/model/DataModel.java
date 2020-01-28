@@ -7,7 +7,17 @@ public class DataModel implements Serializable {
             dataData,
             horaData;
 
+    ColaboradorModel colaboradorModel;
+
     private String idSalaxData;
+
+    public ColaboradorModel getColaboradorModel() {
+        return colaboradorModel;
+    }
+
+    public void setColaboradorModel(ColaboradorModel colaboradorModel) {
+        this.colaboradorModel = colaboradorModel;
+    }
 
     public String getNomeData() {
         return nomeData;

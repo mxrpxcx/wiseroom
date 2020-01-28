@@ -126,6 +126,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         cv.put(wise.COLUNA_DATA_MARCADA, etData);
         cv.put(wise.COLUNA_HORARIO_MARCADO, etHora);
         cv.put(wise.COLUNA_ID_SALA_MARCADA, salaSelecioanda.getId());
+        cv.put(wise.COLUNA_ID_COLABORADOR_QUE_MARCOU, colaboradorLogado.getId());
 
 
         long id = wise.inserirData(db, cv);
@@ -217,7 +218,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         WiseRoomDB wise = new WiseRoomDB(this);
         SQLiteDatabase db = wise.getReadableDatabase();
 
-        String selecao = WiseRoomDB.COLUNA_ID_SALA_MARCADA +" = '"+salaSelecioanda.getId()+"'";
+        String selecao = WiseRoomDB.COLUNA_ID_SALA_MARCADA +" = '"+salaSelecioanda.getId()+"' " +
+                "AND "+ WiseRoomDB.COLUNA_ID_COLABORADOR_QUE_MARCOU +" = '"+colaboradorLogado.getId()+"' ";
         Cursor cursor = wise.selecionarData(db, selecao );
         if (cursor != null) {
             while (cursor.moveToNext()) {
