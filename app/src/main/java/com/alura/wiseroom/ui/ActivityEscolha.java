@@ -32,8 +32,8 @@ public class ActivityEscolha extends AppCompatActivity {
     }
 
     private void criarBotaoPlusAcoes() {
-        btDisponibilidadeSala = findViewById(R.id.btVerifica);
-        btReservarSala = findViewById(R.id.btReserva);
+        btDisponibilidadeSala = findViewById(R.id.btVerificaQR);
+        btReservarSala = findViewById(R.id.btReservaQR);
 
 
 
