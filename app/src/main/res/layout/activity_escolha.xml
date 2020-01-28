@@ -8,37 +8,42 @@
     tools:context=".ui.ActivityEscolha">
 
     <Button
-        android:id="@+id/btVerifica"
+        android:id="@+id/btVerificaQR"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Quero verificar a disponibilidade de uma sala"
+        android:drawableLeft="@drawable/icon_ver_pelo_qr"
+        android:text="Ver reservas"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/btReserva"
+        app:layout_constraintBottom_toTopOf="@+id/btReservaQR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btReserva"
+        android:id="@+id/btReservaQR"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Quero reservar uma sala"
+        android:drawableLeft="@drawable/icon_ver_pelo_qr"
+        android:text="Reservar sala"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btVerifica" />
+        app:layout_constraintTop_toBottomOf="@+id/btVerificaQR" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

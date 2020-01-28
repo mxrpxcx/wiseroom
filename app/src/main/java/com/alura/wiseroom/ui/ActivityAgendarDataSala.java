@@ -317,7 +317,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 int id = listaIds.get(position);
                 String whereCluase = WiseRoomDB.COLUNA_ID_DATA +" = '"+id+"'";
                 String whereCluaseReserva = WiseRoomDB.COLUNA_ID_DATA_RESERVADA +" = '"+id+"'";
-                
+
                 int flag = wise.deletarData(db, whereCluase);
                 int flag2 = wise.deletarReserva(db, whereCluaseReserva);
                 if (flag > 0 && flag2 > 0) {
