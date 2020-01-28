@@ -40,24 +40,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ActionBar ab = getSupportActionBar();
         ab.hide();
-        btLogin = findViewById(R.id.btLogin);
-        btCadastro = findViewById(R.id.btCadastro);
-        btTutorial = findViewById(R.id.btAjuda);
-        setListenersDoBotao();
-        tvEmail = (EditText) findViewById(R.id.editEmail);
-        tvSenha = (EditText) findViewById(R.id.editSenha);
-        tvEmail.setText("b@b.com");
-        tvSenha.setText("b");
+
+        setarValores();
+
         dbHelper = new WiseRoomDB(this);
         db = dbHelper.getWritableDatabase();
-        final ColaboradorModel colaborador = new ColaboradorModel();
-        btLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                logaColaborador(colaborador);
 
-            }
-        });
+        final ColaboradorModel colaborador = new ColaboradorModel();
+        setListenersDoBotao();
+        setListenerColaborador(colaborador);
         criaValores();
     }
 
@@ -110,6 +101,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void setListenerColaborador(final ColaboradorModel colaborador) {
+        btLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logaColaborador(colaborador);
+
+            }
+        });
+    }
+
     private void setListenersDoBotao() {
         btCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +127,17 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+    }
+
+    private void setarValores() {
+        btLogin = findViewById(R.id.btLogin);
+        btCadastro = findViewById(R.id.btCadastro);
+        btTutorial = findViewById(R.id.btAjuda);
+        tvEmail = (EditText) findViewById(R.id.editEmail);
+        tvSenha = (EditText) findViewById(R.id.editSenha);
+        tvEmail.setText("b@b.com");
+        tvSenha.setText("b");
     }
 
     private void criaValores(){
