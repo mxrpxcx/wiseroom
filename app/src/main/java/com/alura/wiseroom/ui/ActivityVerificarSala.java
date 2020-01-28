@@ -38,7 +38,6 @@ public class ActivityVerificarSala extends AppCompatActivity {
         dbHelper = new WiseRoomDB(this);
         db = dbHelper.getWritableDatabase();
         recebeDados();
-
     }
 
     @Override

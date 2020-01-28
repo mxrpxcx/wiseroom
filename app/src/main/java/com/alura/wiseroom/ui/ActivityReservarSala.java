@@ -24,8 +24,7 @@ public class ActivityReservarSala extends AppCompatActivity {
     SQLiteDatabase db;
     Cursor cursor;
     SQLiteOpenHelper dbHelper;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,22 +42,20 @@ public class ActivityReservarSala extends AppCompatActivity {
         Log.i("Teste id col", colaboradorLogado.toString());
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
 
-        if(intentResult != null){
-            if (intentResult.getContents() !=  null){
+        if(intentResult != null) {
+            if (intentResult.getContents() != null) {
 
-
-                Log.i("teste qr ",  intentResult.getContents());
+                Log.i("teste qr ", intentResult.getContents());
 
                 cursor = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_SALA + " WHERE " +
                         WiseRoomDB.COLUNA_ID_SALA + "=?", new String[]{intentResult.getContents()});
                 if (cursor != null) {
-                   while(cursor.moveToNext()) {
+                    while (cursor.moveToNext()) {
 
                         String intentId = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_ID_SALA));
                         String intentNome = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME_SALA));
@@ -71,17 +68,13 @@ public class ActivityReservarSala extends AppCompatActivity {
                         salaSelecionada.setCapacidade(intentCapacidade);
                         salaSelecionada.setDescricaoSala(intentDescricao);
 
-
                         Intent intent = new Intent(ActivityReservarSala.this, ActivityAgendarDataSala.class);
                         intent.putExtra("salaSelecionada", salaSelecionada);
                         intent.putExtra("colaboradorLogado", colaboradorLogado);
                         startActivity(intent);
                     }
                 }
-
-            }
-
-            else{
+            }else{
 
                 Log.i("TESTE REDIRECIONAMENTO  ", "REDIRECIOAAWFOAWFO");
                 Intent intent = new Intent(ActivityReservarSala.this, ActivityEscolha.class);
@@ -92,18 +85,14 @@ public class ActivityReservarSala extends AppCompatActivity {
 
             super.onActivityResult(requestCode, resultCode, data);
         }
-
     }
 
     private void recebeDados() {
         Intent intentMain = getIntent();
 
         if(intentMain.hasExtra("colaboradorLogado")){
-
             ColaboradorModel col = (ColaboradorModel) intentMain.getSerializableExtra("colaboradorLogado");
             colaboradorLogado = col;
-
         }
     }
-
 }

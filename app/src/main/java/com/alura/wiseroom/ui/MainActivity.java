@@ -40,12 +40,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ActionBar ab = getSupportActionBar();
         ab.hide();
-
         setarValores();
-
         dbHelper = new WiseRoomDB(this);
         db = dbHelper.getWritableDatabase();
-
         final ColaboradorModel colaborador = new ColaboradorModel();
         setListenersDoBotao();
         setListenerColaborador(colaborador);
@@ -59,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         cursor = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_COLABORADOR + " WHERE " +
                         WiseRoomDB.COLUNA_EMAIL_COLABORADOR + "=? AND " +
                         WiseRoomDB.COLUNA_SENHA + "=?",
-                new String[]{colaborador.getEmail(), colaborador.getSenha()});
+                        new String[]{colaborador.getEmail(), colaborador.getSenha()});
         if (cursor != null) {
             if (cursor.getCount() > 0) {
 
@@ -117,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ActivityCadastroColaborador.class));
             }
-
         });
 
         btTutorial.setOnClickListener(new View.OnClickListener() {
@@ -125,9 +121,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, help.class));
             }
-
         });
-
     }
 
     private void setarValores() {
@@ -164,5 +158,4 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("Teste Sala  ", "sala adicionada? "+cv2.toString());
     }
-
 }
