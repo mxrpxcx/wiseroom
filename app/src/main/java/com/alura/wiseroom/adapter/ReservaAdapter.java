@@ -48,4 +48,6 @@ public class ReservaAdapter extends ArrayAdapter {
         dataReservada.setText(reservaModel.getDataReservada().getDataData());
         return view;
     }
+
+
 }

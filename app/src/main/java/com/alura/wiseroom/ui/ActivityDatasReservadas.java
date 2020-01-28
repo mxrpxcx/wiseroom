@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,8 +44,19 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         init();
         fetchDatabaseToArrayList();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                mostraDescricaoReserva(position);
+            }
+        });
+
     }
 
+    private void mostraDescricaoReserva(int posicao){
+
+    }
 
     private void init () {
         listView = (ListView) findViewById(R.id.listViewY);
@@ -138,6 +151,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
 
         }
     }
+
 
     @Override
     protected void onStart() {

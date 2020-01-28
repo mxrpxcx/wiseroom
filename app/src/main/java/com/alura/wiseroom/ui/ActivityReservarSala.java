@@ -58,9 +58,7 @@ public class ActivityReservarSala extends AppCompatActivity {
                 cursor = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_SALA + " WHERE " +
                         WiseRoomDB.COLUNA_ID_SALA + "=?", new String[]{intentResult.getContents()});
                 if (cursor != null) {
-                    if (cursor.getCount() > 0) {
-
-                        cursor.moveToFirst();
+                   while(cursor.moveToNext()) {
 
                         String intentId = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_ID_SALA));
                         String intentNome = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME_SALA));
@@ -85,10 +83,13 @@ public class ActivityReservarSala extends AppCompatActivity {
 
             else{
 
+                Log.i("TESTE REDIRECIONAMENTO  ", "REDIRECIOAAWFOAWFO");
                 Intent intent = new Intent(ActivityReservarSala.this, ActivityEscolha.class);
                 startActivity(intent);
             }
         }else{
+            Log.i("TESTE REDIRECIONAMENTO MAIS DEBAIXO ", "REDIRECIOAAWFOAWFO");
+
             super.onActivityResult(requestCode, resultCode, data);
         }
 
