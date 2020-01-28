@@ -43,36 +43,14 @@ public class MainActivity extends AppCompatActivity {
         btLogin = findViewById(R.id.btLogin);
         btCadastro = findViewById(R.id.btCadastro);
         btTutorial = findViewById(R.id.btAjuda);
-
-        btCadastro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ActivityCadastroColaborador.class));
-            }
-
-        });
-
-        btTutorial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, help.class));
-            }
-
-        });
-
-
-
+        setListenersDoBotao();
         tvEmail = (EditText) findViewById(R.id.editEmail);
         tvSenha = (EditText) findViewById(R.id.editSenha);
-
         tvEmail.setText("b@b.com");
         tvSenha.setText("b");
-
         dbHelper = new WiseRoomDB(this);
         db = dbHelper.getWritableDatabase();
         final ColaboradorModel colaborador = new ColaboradorModel();
-
-
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,34 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         criaValores();
-    }
-
-
-    private void criaValores(){
-        ContentValues cv1 = new ContentValues();
-        cv1.put(WiseRoomDB.COLUNA_ID_COLABORADOR, "1");
-        cv1.put(WiseRoomDB.COLUNA_NOME_COLABORADOR, "b");
-        cv1.put(WiseRoomDB.COLUNA_EMAIL_COLABORADOR, "b@b.com");
-        cv1.put(WiseRoomDB.COLUNA_SENHA, "b");
-        db.insert(WiseRoomDB.TABELA_NOME_COLABORADOR, null, cv1);
-
-        ContentValues cv2 = new ContentValues();
-        cv2.put(WiseRoomDB.COLUNA_ID_SALA, "15");
-        cv2.put(WiseRoomDB.COLUNA_NOME_SALA, "Sala conselho jedi");
-        cv2.put(WiseRoomDB.COLUNA_CAPACIDADE_SALA, 50);
-        cv2.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala bonita");
-        db.insert(WiseRoomDB.TABELA_NOME_SALA, null, cv2);
-
-        ContentValues cv3 = new ContentValues();
-        cv3.put(WiseRoomDB.COLUNA_ID_SALA, "14");
-        cv3.put(WiseRoomDB.COLUNA_NOME_SALA, "Sala grande");
-        cv3.put(WiseRoomDB.COLUNA_CAPACIDADE_SALA, 500);
-        cv3.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala grande");
-        db.insert(WiseRoomDB.TABELA_NOME_SALA, null, cv3);
-
-        Log.i("Teste Sala  ", "sala adicionada? "+cv2.toString());
     }
 
     private void logaColaborador(ColaboradorModel colaborador) {
@@ -158,4 +109,48 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void setListenersDoBotao() {
+        btCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ActivityCadastroColaborador.class));
+            }
+
+        });
+
+        btTutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, help.class));
+            }
+
+        });
+    }
+
+    private void criaValores(){
+        ContentValues cv1 = new ContentValues();
+        cv1.put(WiseRoomDB.COLUNA_ID_COLABORADOR, "1");
+        cv1.put(WiseRoomDB.COLUNA_NOME_COLABORADOR, "b");
+        cv1.put(WiseRoomDB.COLUNA_EMAIL_COLABORADOR, "b@b.com");
+        cv1.put(WiseRoomDB.COLUNA_SENHA, "b");
+        db.insert(WiseRoomDB.TABELA_NOME_COLABORADOR, null, cv1);
+
+        ContentValues cv2 = new ContentValues();
+        cv2.put(WiseRoomDB.COLUNA_ID_SALA, "15");
+        cv2.put(WiseRoomDB.COLUNA_NOME_SALA, "Sala conselho jedi");
+        cv2.put(WiseRoomDB.COLUNA_CAPACIDADE_SALA, 50);
+        cv2.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala bonita");
+        db.insert(WiseRoomDB.TABELA_NOME_SALA, null, cv2);
+
+        ContentValues cv3 = new ContentValues();
+        cv3.put(WiseRoomDB.COLUNA_ID_SALA, "14");
+        cv3.put(WiseRoomDB.COLUNA_NOME_SALA, "Sala grande");
+        cv3.put(WiseRoomDB.COLUNA_CAPACIDADE_SALA, 500);
+        cv3.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala grande");
+        db.insert(WiseRoomDB.TABELA_NOME_SALA, null, cv3);
+
+        Log.i("Teste Sala  ", "sala adicionada? "+cv2.toString());
+    }
+
 }
