@@ -3,9 +3,10 @@ package com.alura.wiseroom.model;
 import java.io.Serializable;
 
 public class ColaboradorModel implements Serializable {
+
    private String id;
    private String nome;
-   private int idOrganizacao;
+   private String idOrganizacao;
    private String email;
    private boolean administrador;
    private String senha;
@@ -44,11 +45,11 @@ public class ColaboradorModel implements Serializable {
       this.nome = nome;
    }
 
-   public int getIdOrganizacao() {
+   public String getIdOrganizacao() {
       return idOrganizacao;
    }
 
-   public void setIdOrganizacao(int idOrganizacao) {
+   public void setIdOrganizacao(String idOrganizacao) {
       this.idOrganizacao = idOrganizacao;
    }
 

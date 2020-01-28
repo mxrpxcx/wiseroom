@@ -10,12 +10,6 @@ public class SalaModel implements Serializable {
     private String descricaoSala;
 
 
-    public SalaModel(String nome, int capacidade, String descricaoSala) {
-        this.id = id;
-        this.nome = nome;
-        this.capacidade = capacidade;
-        this.descricaoSala = descricaoSala;
-    }
 
     public SalaModel() {
     }

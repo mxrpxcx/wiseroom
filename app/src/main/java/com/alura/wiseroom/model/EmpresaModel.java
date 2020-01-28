@@ -5,14 +5,12 @@ import java.io.Serializable;
 public class EmpresaModel implements Serializable {
     private String id;
     private String nome;
-    private String idOrganizacao;
     private String dominioOrganizacao;
 
 
     public EmpresaModel(String id, String nome, String idOrganizacao, String dominioOrganizacao) {
         this.id = id;
         this.nome = nome;
-        this.idOrganizacao = idOrganizacao;
         this.dominioOrganizacao = dominioOrganizacao;
     }
 
@@ -35,13 +33,6 @@ public class EmpresaModel implements Serializable {
         this.nome = nome;
     }
 
-    public String getIdOrganizacao() {
-        return idOrganizacao;
-    }
-
-    public void setIdOrganizacao(String idOrganizacao) {
-        this.idOrganizacao = idOrganizacao;
-    }
 
     public String getDominioOrganizacao() {
         return dominioOrganizacao;
@@ -56,7 +47,6 @@ public class EmpresaModel implements Serializable {
         return "EmpresaModel{" +
                 "id='" + id + '\'' +
                 ", nome='" + nome + '\'' +
-                ", idOrganizacao='" + idOrganizacao + '\'' +
                 ", dominioOrganizacao='" + dominioOrganizacao + '\'' +
                 '}';
     }
