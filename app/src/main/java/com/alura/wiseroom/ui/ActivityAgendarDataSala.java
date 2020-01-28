@@ -316,9 +316,11 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 SQLiteDatabase db = wise.getWritableDatabase();
                 int id = listaIds.get(position);
                 String whereCluase = WiseRoomDB.COLUNA_ID_DATA +" = '"+id+"'";
-
+                String whereCluaseReserva = WiseRoomDB.COLUNA_ID_DATA_RESERVADA +" = '"+id+"'";
+                
                 int flag = wise.deletarData(db, whereCluase);
-                if (flag > 0) {
+                int flag2 = wise.deletarReserva(db, whereCluaseReserva);
+                if (flag > 0 && flag2 > 0) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Reserva cancelada", Toast.LENGTH_SHORT).show();
                     listaDatas.clear();
                     listaIds.clear();

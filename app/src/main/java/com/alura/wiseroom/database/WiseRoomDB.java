@@ -134,6 +134,10 @@ public class WiseRoomDB extends SQLiteOpenHelper {
         return db.delete(TABELA_NOME_DATA, whereClause, null);
     }
 
+    public static int deletarReserva (SQLiteDatabase db,String whereClause) {
+        return db.delete(TABELA_NOME_RESERVA, whereClause, null);
+    }
+
     public static int atualizarData (SQLiteDatabase db,String whereClause,ContentValues cv) {
 
         return db.update(TABELA_NOME_DATA,cv,whereClause,null);
