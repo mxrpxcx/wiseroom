@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        criaValores();
     }
 
 
@@ -93,14 +94,14 @@ public class MainActivity extends AppCompatActivity {
         db.insert(WiseRoomDB.TABELA_NOME_COLABORADOR, null, cv1);
 
         ContentValues cv2 = new ContentValues();
-        cv2.put(WiseRoomDB.COLUNA_ID_SALA, "conselhojedi");
+        cv2.put(WiseRoomDB.COLUNA_ID_SALA, "15");
         cv2.put(WiseRoomDB.COLUNA_NOME_SALA, "Sala conselho jedi");
         cv2.put(WiseRoomDB.COLUNA_CAPACIDADE_SALA, 50);
         cv2.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala bonita");
         db.insert(WiseRoomDB.TABELA_NOME_SALA, null, cv2);
 
         ContentValues cv3 = new ContentValues();
-        cv3.put(WiseRoomDB.COLUNA_ID_SALA, "salagrande");
+        cv3.put(WiseRoomDB.COLUNA_ID_SALA, "14");
         cv3.put(WiseRoomDB.COLUNA_NOME_SALA, "Sala grande");
         cv3.put(WiseRoomDB.COLUNA_CAPACIDADE_SALA, 500);
         cv3.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala grande");
