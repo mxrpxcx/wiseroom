@@ -81,7 +81,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+
+    private void criaValores(){
         ContentValues cv1 = new ContentValues();
         cv1.put(WiseRoomDB.COLUNA_ID_COLABORADOR, "1");
         cv1.put(WiseRoomDB.COLUNA_NOME_COLABORADOR, "b");
@@ -90,18 +93,21 @@ public class MainActivity extends AppCompatActivity {
         db.insert(WiseRoomDB.TABELA_NOME_COLABORADOR, null, cv1);
 
         ContentValues cv2 = new ContentValues();
-        cv2.put(WiseRoomDB.COLUNA_ID_SALA, 0);
-        cv2.put(WiseRoomDB.COLUNA_NOME_SALA, "sala 0");
+        cv2.put(WiseRoomDB.COLUNA_ID_SALA, "conselhojedi");
+        cv2.put(WiseRoomDB.COLUNA_NOME_SALA, "Sala conselho jedi");
         cv2.put(WiseRoomDB.COLUNA_CAPACIDADE_SALA, 50);
-        cv2.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala");
+        cv2.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala bonita");
         db.insert(WiseRoomDB.TABELA_NOME_SALA, null, cv2);
 
+        ContentValues cv3 = new ContentValues();
+        cv3.put(WiseRoomDB.COLUNA_ID_SALA, "salagrande");
+        cv3.put(WiseRoomDB.COLUNA_NOME_SALA, "Sala grande");
+        cv3.put(WiseRoomDB.COLUNA_CAPACIDADE_SALA, 500);
+        cv3.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala grande");
+        db.insert(WiseRoomDB.TABELA_NOME_SALA, null, cv3);
 
         Log.i("Teste Sala  ", "sala adicionada? "+cv2.toString());
     }
-
-
-
 
     private void logaColaborador(ColaboradorModel colaborador) {
         colaborador.setEmail(tvEmail.getText().toString());
