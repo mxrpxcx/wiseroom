@@ -1,0 +1,28 @@
+{
+  "colaborador": [
+    {
+      "id": "1",
+      "nome": "b",
+      "idOrganizacao": "0",
+      "email": "b@b.com",
+      "administrador": false,
+      "senha": "b"
+    },
+    {
+      "id": "2",
+      "nome": "x",
+      "idOrganizacao": "0",
+      "email": "x@x.com",
+      "administrador": false,
+      "senha": "x"
+    },
+    {
+      "id": "3",
+      "nome": "z",
+      "idOrganizacao": "0",
+      "email": "z@z.com",
+      "administrador": false,
+      "senha": "z"
+    }
+  ]
+}

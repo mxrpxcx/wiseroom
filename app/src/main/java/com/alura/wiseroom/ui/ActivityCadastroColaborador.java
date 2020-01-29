@@ -49,6 +49,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
         db.delete(WiseRoomDB.TABELA_NOME_COLABORADOR,null,null);
         receberColaboradoresServer();
+        enviarColaboradoresServer();
 
         final EditText txtNome = (EditText) findViewById(R.id.editNomeCadastro);
         final EditText txtEmail = (EditText) findViewById(R.id.editEmailCadastro);
@@ -93,7 +94,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
     }
 
     public void receberColaboradoresServer(){
-        String url = "https://api.myjson.com/bins/zsyie";
+        String url = "http://localhost:3000/colaborador";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -142,7 +143,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
     }
 
     public void enviarColaboradoresServer(){
-        String url = "https://api.myjson.com/bins/zsyie";
+        String url = "http://localhost:3000/colaborador";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
@@ -168,12 +169,12 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", "1");
-                params.put("nome", "b");
+                params.put("id", "5");
+                params.put("nome", "bz");
                 params.put("idOrganizacao", "0");
-                params.put("email", "b@b.com");
+                params.put("email", "bz@b.com");
                 params.put("administrador", "false");
-                params.put("senha", "b");
+                params.put("senha", "bz");
                 return params;
             }
         };
