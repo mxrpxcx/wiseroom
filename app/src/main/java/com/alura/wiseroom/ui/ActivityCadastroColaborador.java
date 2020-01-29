@@ -22,17 +22,20 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ActivityCadastroColaborador extends AppCompatActivity {
     SQLiteOpenHelper openHelper;
     SQLiteDatabase db;
     RequestQueue mQueue;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +94,6 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
     public void receberColaboradoresServer(){
         String url = "https://api.myjson.com/bins/zsyie";
-
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -137,6 +139,45 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
             }
         });
         mQueue.add(request);
+    }
+
+    public void enviarColaboradoresServer(){
+        String url = "https://api.myjson.com/bins/zsyie";
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", "bugou");
+                    }
+                }
+        )
+
+        {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", "1");
+                params.put("nome", "b");
+                params.put("idOrganizacao", "0");
+                params.put("email", "b@b.com");
+                params.put("administrador", "false");
+                params.put("senha", "b");
+                return params;
+            }
+        };
+        mQueue.add(postRequest);
     }
 
 }
