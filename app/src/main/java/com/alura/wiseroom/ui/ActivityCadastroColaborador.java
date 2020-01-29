@@ -42,9 +42,10 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.hide();
         openHelper = new WiseRoomDB(this);
+        db = openHelper.getWritableDatabase();
 
+        db.delete(WiseRoomDB.TABELA_NOME_COLABORADOR,null,null);
         receberColaboradoresServer();
-
 
         final EditText txtNome = (EditText) findViewById(R.id.editNomeCadastro);
         final EditText txtEmail = (EditText) findViewById(R.id.editEmailCadastro);
@@ -54,7 +55,6 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db = openHelper.getWritableDatabase();
 
                 String nome = txtNome.getText().toString();
                 String email = txtEmail.getText().toString();
@@ -101,7 +101,6 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
                             for (int i = 0; i < jsonArray.length(); i++) {
 
-                                db = openHelper.getWritableDatabase();
                                 JSONObject colaboradorJson = jsonArray.getJSONObject(i);
 
 
