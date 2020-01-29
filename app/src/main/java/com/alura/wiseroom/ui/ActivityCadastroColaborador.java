@@ -186,5 +186,4 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         };
         mQueue.add(postRequest);
     }
-
 }

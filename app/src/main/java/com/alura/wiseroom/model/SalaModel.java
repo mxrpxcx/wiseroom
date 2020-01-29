@@ -9,8 +9,6 @@ public class SalaModel implements Serializable {
     private double areaDaSala;
     private String descricaoSala;
 
-
-
     public SalaModel() {
     }
 

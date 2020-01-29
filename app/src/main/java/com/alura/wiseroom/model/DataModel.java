@@ -3,7 +3,9 @@ package com.alura.wiseroom.model;
 import java.io.Serializable;
 
 public class DataModel implements Serializable {
-    private String nomeData,
+    private String
+            id,
+            nomeData,
             dataData,
             horaData;
 
@@ -17,6 +19,14 @@ public class DataModel implements Serializable {
 
     public void setColaboradorModel(ColaboradorModel colaboradorModel) {
         this.colaboradorModel = colaboradorModel;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNomeData() {

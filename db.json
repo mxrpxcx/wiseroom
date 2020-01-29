@@ -7,74 +7,45 @@
       "email": "b@b.com",
       "administrador": false,
       "senha": "b"
-    },
+    }
+  ],
+  
+    "data": [
     {
-      "senha": "l",
-      "nome": "l",
-      "email": "l@l.com",
-      "id": "KbdGY_X"
-    },
+      "id": "1",
+      "nome": "b",
+      "data": "18/10/2000",
+      "hora": "17:40"
+    }
+  ],
+  
+   "empresa": [
     {
-      "senha": "",
-      "nome": "",
-      "email": "",
-      "id": "uGCqGd9"
-    },
+      "id": "1",
+      "nome": "b",
+      "dominio": "b"
+    }
+  ],
+  
+    "reserva": [
     {
-      "senha": "",
-      "nome": "",
-      "email": "",
-      "id": "gpeILxA"
-    },
+      "id": "1",
+      "idData": "b",
+      "idColaborador": "b",
+	  "idSala": "b"
+	  
+    }
+  ],
+  
+   "sala": [
     {
-      "senha": "",
-      "nome": "",
-      "email": "",
-      "id": "3DPtO1q"
-    },
-    {
-      "senha": "",
-      "nome": "",
-      "email": "",
-      "id": "0009WnX"
-    },
-    {
-      "senha": "",
-      "nome": "",
-      "email": "",
-      "id": "Z9BqPGU"
-    },
-    {
-      "senha": "",
-      "administrador": "",
-      "idOrganizacao": "",
-      "nome": "",
-      "email": "",
-      "id": "PsPC4jQ"
-    },
-    {
-      "senha": "j",
-      "administrador": "jj",
-      "idOrganizacao": "jj",
-      "nome": "eo",
-      "email": "jj",
-      "id": "axr0bHK"
-    },
-    {
-      "senha": "",
-      "administrador": "false",
-      "idOrganizacao": "null",
-      "nome": "",
-      "email": "",
-      "id": "hilr2yL"
-    },
-    {
-      "senha": "",
-      "administrador": "false",
-      "idOrganizacao": "null",
-      "nome": "",
-      "email": "",
-      "id": "EP2zeAE"
+      "id": "1",
+      "nome": "b",
+      "capacidade": "b",
+	  "area": "b",
+	  "descricao": "b"
     }
   ]
+ 
+  
 }
