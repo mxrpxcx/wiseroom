@@ -63,6 +63,13 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                 String email = txtEmail.getText().toString();
                 String senha = txtSenha.getText().toString();
 
+                ColaboradorModel colaboradorEnviar = new ColaboradorModel();
+
+                colaboradorEnviar.setNome(nome);
+                colaboradorEnviar.setEmail(email);
+                colaboradorEnviar.setSenha(senha);
+
+                enviarColaboradoresServer(colaboradorEnviar);
                 inserirColaborador(nome, email, senha);
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityCadastroColaborador.this);
@@ -141,7 +148,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         mQueue.add(request);
     }
 
-    public void enviarColaboradoresServer(){
+    public void enviarColaboradoresServer(final ColaboradorModel colaboradorModel){
         String url = "http://172.30.248.130:3000/colaborador";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -168,12 +175,9 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", "5");
-                params.put("nome", "bz");
-                params.put("idOrganizacao", "0");
-                params.put("email", "bz@b.com");
-                params.put("administrador", "false");
-                params.put("senha", "bz");
+                params.put("nome", colaboradorModel.getNome());
+                params.put("email", colaboradorModel.getEmail());
+                params.put("senha", colaboradorModel.getSenha());
                 return params;
             }
         };
