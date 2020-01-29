@@ -49,7 +49,6 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
         db.delete(WiseRoomDB.TABELA_NOME_COLABORADOR,null,null);
         receberColaboradoresServer();
-        enviarColaboradoresServer();
 
         final EditText txtNome = (EditText) findViewById(R.id.editNomeCadastro);
         final EditText txtEmail = (EditText) findViewById(R.id.editEmailCadastro);
@@ -94,7 +93,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
     }
 
     public void receberColaboradoresServer(){
-        String url = "http://172.30.250.96:3000/colaborador";
+        String url = "http://172.30.248.130:3000/colaborador";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -143,7 +142,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
     }
 
     public void enviarColaboradoresServer(){
-        String url = "http://172.30.250.96:3000/colaborador";
+        String url = "http://172.30.248.130:3000/colaborador";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
