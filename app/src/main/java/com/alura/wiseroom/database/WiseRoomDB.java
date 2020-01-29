@@ -11,7 +11,7 @@ import com.alura.wiseroom.model.SalaModel;
 public class WiseRoomDB extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "dbWiseroom";
-    private static final int DATABASE_VERSION = 18;
+    private static final int DATABASE_VERSION = 20;
 
     // Colaborador
     public static final String TABELA_NOME_COLABORADOR =  "tbColaborador";
@@ -116,6 +116,10 @@ public class WiseRoomDB extends SQLiteOpenHelper {
 
     public static long inserirData (SQLiteDatabase db, ContentValues cv) {
         return db.insert(TABELA_NOME_DATA, null, cv);
+    }
+
+    public static long inserirColaborador (SQLiteDatabase db, ContentValues cv) {
+        return db.insert(TABELA_NOME_COLABORADOR, null, cv);
     }
 
     public static long inserirReserva (SQLiteDatabase db, ContentValues cv) {

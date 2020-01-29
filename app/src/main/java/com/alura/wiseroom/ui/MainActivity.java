@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.hide();
         setarValores();
+
+
         dbHelper = new WiseRoomDB(this);
         db = dbHelper.getWritableDatabase();
         final ColaboradorModel colaborador = new ColaboradorModel();
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private void logaColaborador(ColaboradorModel colaborador) {
         colaborador.setEmail(tvEmail.getText().toString());
         colaborador.setSenha(tvSenha.getText().toString());
+
 
         cursor = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_COLABORADOR + " WHERE " +
                         WiseRoomDB.COLUNA_EMAIL_COLABORADOR + "=? AND " +
@@ -135,12 +138,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void criaValores(){
-        ContentValues cv1 = new ContentValues();
-        cv1.put(WiseRoomDB.COLUNA_ID_COLABORADOR, "1");
-        cv1.put(WiseRoomDB.COLUNA_NOME_COLABORADOR, "b");
-        cv1.put(WiseRoomDB.COLUNA_EMAIL_COLABORADOR, "b@b.com");
-        cv1.put(WiseRoomDB.COLUNA_SENHA, "b");
-        db.insert(WiseRoomDB.TABELA_NOME_COLABORADOR, null, cv1);
 
         ContentValues cv2 = new ContentValues();
         cv2.put(WiseRoomDB.COLUNA_ID_SALA, "15");

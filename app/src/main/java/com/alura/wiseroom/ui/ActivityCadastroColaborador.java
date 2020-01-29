@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,20 +16,35 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.database.WiseRoomDB;
+import com.alura.wiseroom.model.ColaboradorModel;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ActivityCadastroColaborador extends AppCompatActivity {
     SQLiteOpenHelper openHelper;
     SQLiteDatabase db;
+    RequestQueue mQueue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_colaborador);
-
+        mQueue = Volley.newRequestQueue(this);
         ActionBar ab = getSupportActionBar();
         ab.hide();
-
         openHelper = new WiseRoomDB(this);
+
+        receberColaboradoresServer();
+
 
         final EditText txtNome = (EditText) findViewById(R.id.editNomeCadastro);
         final EditText txtEmail = (EditText) findViewById(R.id.editEmailCadastro);
@@ -60,7 +76,6 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
-
             }
         });
 
@@ -71,6 +86,58 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         values.put(WiseRoomDB.COLUNA_NOME_COLABORADOR, nome);
         values.put(WiseRoomDB.COLUNA_EMAIL_COLABORADOR, email);
         values.put(WiseRoomDB.COLUNA_SENHA, senha);
-        long id = db.insert(WiseRoomDB.TABELA_NOME_COLABORADOR, null, values);
+        db.insert(WiseRoomDB.TABELA_NOME_COLABORADOR, null, values);
     }
+
+    public void receberColaboradoresServer(){
+        String url = "https://api.myjson.com/bins/zsyie";
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject resposta) {
+                        try {
+                            JSONArray jsonArray = resposta.getJSONArray("colaborador");
+
+                            for (int i = 0; i < jsonArray.length(); i++) {
+
+                                db = openHelper.getWritableDatabase();
+                                JSONObject colaboradorJson = jsonArray.getJSONObject(i);
+
+
+                                ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
+
+                                colaboradorRecebidoJson.setId(colaboradorJson.getString("id"));
+                                colaboradorRecebidoJson.setNome(colaboradorJson.getString("nome"));
+                                colaboradorRecebidoJson.setIdOrganizacao(colaboradorJson.getString("idOrganizacao"));
+                                colaboradorRecebidoJson.setEmail(colaboradorJson.getString("email"));
+                                colaboradorRecebidoJson.setAdministrador(colaboradorJson.getBoolean("administrador"));
+                                colaboradorRecebidoJson.setSenha(colaboradorJson.getString("senha"));
+
+                                Log.i("TESTE RODANDO ?? ", "model objeto "+colaboradorRecebidoJson.toString());
+
+                                ContentValues cv = new ContentValues();
+                                cv.put(WiseRoomDB.COLUNA_ID_COLABORADOR, colaboradorRecebidoJson.getId());
+                                cv.put(WiseRoomDB.COLUNA_NOME_COLABORADOR, colaboradorRecebidoJson.getNome());
+                                cv.put(WiseRoomDB.COLUNA_EMAIL_COLABORADOR, colaboradorRecebidoJson.getEmail());
+                                cv.put(WiseRoomDB.COLUNA_SENHA, colaboradorRecebidoJson.getSenha());
+
+                                Log.i("TESTE RODANDO ?? ", "cv values "+cv.toString());
+
+
+                                db.insert(WiseRoomDB.TABELA_NOME_COLABORADOR, null, cv);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request);
+    }
+
 }
