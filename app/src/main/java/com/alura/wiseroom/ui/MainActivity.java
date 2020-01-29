@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     Cursor cursor;
     private Button btTutorial;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.hide();
         setarValores();
-
 
         dbHelper = new WiseRoomDB(this);
         db = dbHelper.getWritableDatabase();
