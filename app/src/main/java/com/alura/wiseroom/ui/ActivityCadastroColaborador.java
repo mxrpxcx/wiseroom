@@ -69,6 +69,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                 colaboradorEnviar.setEmail(email);
                 colaboradorEnviar.setSenha(senha);
 
+
                 enviarColaboradoresServer(colaboradorEnviar);
                 inserirColaborador(nome, email, senha);
 
@@ -177,6 +178,8 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("nome", colaboradorModel.getNome());
                 params.put("email", colaboradorModel.getEmail());
+                params.put("idOrganizacao", colaboradorModel.getIdOrganizacao());
+                params.put("administrador", String.valueOf(colaboradorModel.isAdministrador()));
                 params.put("senha", colaboradorModel.getSenha());
                 return params;
             }

@@ -6,9 +6,9 @@ public class ColaboradorModel implements Serializable {
 
    private String id;
    private String nome;
-   private String idOrganizacao;
+   private String organizacao="null";
    private String email;
-   private boolean administrador;
+   private boolean administrador=false;
    private String senha;
 
 
@@ -46,11 +46,11 @@ public class ColaboradorModel implements Serializable {
    }
 
    public String getIdOrganizacao() {
-      return idOrganizacao;
+      return organizacao;
    }
 
    public void setIdOrganizacao(String idOrganizacao) {
-      this.idOrganizacao = idOrganizacao;
+      this.organizacao = idOrganizacao;
    }
 
    public String getEmail() {
@@ -74,7 +74,7 @@ public class ColaboradorModel implements Serializable {
       return "ColaboradorModel{" +
               "id='" + id + '\'' +
               ", nome='" + nome + '\'' +
-              ", idOrganizacao=" + idOrganizacao +
+              ", idOrganizacao=" + organizacao +
               ", email='" + email + '\'' +
               ", administrador=" + administrador +
               ", senha='" + senha + '\'' +
