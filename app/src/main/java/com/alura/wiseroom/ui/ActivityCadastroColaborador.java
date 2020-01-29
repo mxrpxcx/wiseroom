@@ -94,7 +94,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
     }
 
     public void receberColaboradoresServer(){
-        String url = "http://localhost:3000/colaborador";
+        String url = "http://172.30.250.96:3000/colaborador";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -143,7 +143,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
     }
 
     public void enviarColaboradoresServer(){
-        String url = "http://localhost:3000/colaborador";
+        String url = "http://172.30.250.96:3000/colaborador";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
