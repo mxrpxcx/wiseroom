@@ -21,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -102,18 +103,15 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
     public void receberColaboradoresServer(){
         String url = "http://172.30.248.130:3000/colaborador";
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject resposta) {
+                    public void onResponse(JSONArray resposta) {
                         try {
-                            JSONArray jsonArray = resposta.getJSONArray("colaborador");
 
-                            for (int i = 0; i < jsonArray.length(); i++) {
+                            for (int i = 0; i < resposta.length(); i++) {
 
-                                JSONObject colaboradorJson = jsonArray.getJSONObject(i);
-
-
+                                JSONObject colaboradorJson = resposta.getJSONObject(i);
                                 ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
 
                                 colaboradorRecebidoJson.setId(colaboradorJson.getString("id"));

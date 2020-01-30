@@ -1,4 +1,4 @@
-/* package com.alura.wiseroom.database;
+ package com.alura.wiseroom.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -118,9 +118,7 @@ public class WiseRoomDB extends SQLiteOpenHelper {
         return db.insert(TABELA_NOME_DATA, null, cv);
     }
 
-    public static long inserirColaborador (SQLiteDatabase db, ContentValues cv) {
-        return db.insert(TABELA_NOME_COLABORADOR, null, cv);
-    }
+
 
     public static long inserirReserva (SQLiteDatabase db, ContentValues cv) {
         return db.insert(TABELA_NOME_RESERVA, null, cv);
@@ -147,4 +145,4 @@ public class WiseRoomDB extends SQLiteOpenHelper {
         return db.update(TABELA_NOME_DATA,cv,whereClause,null);
     }
 
-} */
+}

@@ -1,23 +1,32 @@
 {
   "colaborador": [
-   
+    {
+      "senha": "",
+      "administrador": "false",
+      "idOrganizacao": "null",
+      "nome": "",
+      "email": "",
+      "id": 1
+    },
+    {
+      "senha": "",
+      "administrador": "false",
+      "idOrganizacao": "null",
+      "nome": "",
+      "email": "",
+      "id": 2
+    },
+    {
+      "senha": "",
+      "administrador": "false",
+      "idOrganizacao": "null",
+      "nome": "",
+      "email": "",
+      "id": 3
+    }
   ],
-  
-    "data": [
-   
-  ],
-  
-   "empresa": [
-   
-  ],
-  
-    "reserva": [
- 
-  ],
-  
-   "sala": [
-   
-  ]
- 
- 
+  "data": [],
+  "empresa": [],
+  "reserva": [],
+  "sala": []
 }
