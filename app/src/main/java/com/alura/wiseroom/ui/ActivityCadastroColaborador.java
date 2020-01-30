@@ -64,11 +64,18 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                 String email = txtEmail.getText().toString();
                 String senha = txtSenha.getText().toString();
 
+
                 ColaboradorModel colaboradorEnviar = new ColaboradorModel();
 
                 colaboradorEnviar.setNome(nome);
                 colaboradorEnviar.setEmail(email);
                 colaboradorEnviar.setSenha(senha);
+
+                int indexArroba = colaboradorEnviar.getEmail().indexOf("@");
+                int indexPonto = colaboradorEnviar.getEmail().indexOf(".");
+                String dominioAtual = colaboradorEnviar.getEmail().substring(indexArroba + 1, indexPonto);
+
+                colaboradorEnviar.setIdOrganizacao(dominioAtual);
 
 
                 enviarColaboradoresServer(colaboradorEnviar);

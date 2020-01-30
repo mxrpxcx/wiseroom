@@ -68,6 +68,7 @@ public class ActivityEscolha extends AppCompatActivity {
                 int indexPonto = emailColaborador.indexOf(".");
                 dominioAtual = emailColaborador.substring(indexArroba + 1, indexPonto);
             }
+
             if(intentMain.hasExtra("colaboradorLogado")){
 
                 ColaboradorModel col = (ColaboradorModel) intentMain.getSerializableExtra("colaboradorLogado");
