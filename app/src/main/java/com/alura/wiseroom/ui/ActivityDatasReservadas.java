@@ -80,8 +80,6 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                 reservaModel.setId(String.valueOf(id));
                 reservaModel.setSalaReserva(salaSelecioanda);
 
-
-
                Cursor cursor2 = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_DATA + " WHERE " +
                         WiseRoomDB.COLUNA_ID_DATA + "=?", new String[]{reservaModel.getId()});
                 if (cursor2 != null) {
@@ -91,7 +89,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
 
                         String dataSelecionadaData = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_DATA_MARCADA));
                         String horaSelecionadaComeco = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
-                       //String horaSelecionadaFim = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
+                       //String horaSelecionadaFim = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
                         String descricaoReuniao = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_NOME_DATA));
                         String idColaboradorQueMarcou = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_ID_COLABORADOR_QUE_MARCOU));
 

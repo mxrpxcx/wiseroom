@@ -15,10 +15,7 @@ import com.alura.wiseroom.model.ColaboradorModel;
 public class ActivityEscolha extends AppCompatActivity {
     private Button btDisponibilidadeSala;
     private Button btReservarSala;
-    private String dominioAtual;
     private ColaboradorModel colaboradorLogado;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +32,7 @@ public class ActivityEscolha extends AppCompatActivity {
         btDisponibilidadeSala = findViewById(R.id.btVerificaQR);
         btReservarSala = findViewById(R.id.btReservaQR);
 
-
-
+        
         btReservarSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,12 +58,6 @@ public class ActivityEscolha extends AppCompatActivity {
 
     private void recebeDados() {
             Intent intentMain = getIntent();
-            if(intentMain.hasExtra("emailColaborador")) {
-                String emailColaborador = intentMain.getStringExtra("emailColaborador");
-                int indexArroba = emailColaborador.indexOf("@");
-                int indexPonto = emailColaborador.indexOf(".");
-                dominioAtual = emailColaborador.substring(indexArroba + 1, indexPonto);
-            }
 
             if(intentMain.hasExtra("colaboradorLogado")){
 
