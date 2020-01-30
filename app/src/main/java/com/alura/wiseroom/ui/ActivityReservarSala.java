@@ -89,7 +89,6 @@ public class ActivityReservarSala extends AppCompatActivity {
 
     private void recebeDados() {
         Intent intentMain = getIntent();
-
         if(intentMain.hasExtra("colaboradorLogado")){
             ColaboradorModel col = (ColaboradorModel) intentMain.getSerializableExtra("colaboradorLogado");
             colaboradorLogado = col;

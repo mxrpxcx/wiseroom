@@ -115,7 +115,6 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray resposta) {
                         try {
-
                             for (int i = 0; i < resposta.length(); i++) {
 
                                 JSONObject colaboradorJson = resposta.getJSONObject(i);
