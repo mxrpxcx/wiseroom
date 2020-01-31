@@ -60,5 +60,13 @@
   "data": [],
   "empresa": [],
   "reserva": [],
-  "sala": []
+  "sala": [
+  {
+      "capacidade": 500,
+      "descricao": "sala loka",
+      "nome": "sala loka",
+      "area": 48.5,
+      "id": 14
+    }
+  ]
 }

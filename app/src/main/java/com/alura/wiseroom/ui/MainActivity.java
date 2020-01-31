@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         final ColaboradorModel colaborador = new ColaboradorModel();
         setListenersDoBotao();
         setListenerColaborador(colaborador);
-        criaValores();
     }
 
     private void logaColaborador(ColaboradorModel colaborador) {
@@ -107,24 +106,6 @@ public class MainActivity extends AppCompatActivity {
         tvSenha.setText("b");
     }
 
-    private void criaValores(){
-
-        ContentValues cv2 = new ContentValues();
-        cv2.put(WiseRoomDB.COLUNA_ID_SALA, "15");
-        cv2.put(WiseRoomDB.COLUNA_NOME_SALA, "Sala conselho jedi");
-        cv2.put(WiseRoomDB.COLUNA_CAPACIDADE_SALA, 50);
-        cv2.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala bonita");
-        db.insert(WiseRoomDB.TABELA_NOME_SALA, null, cv2);
-
-        ContentValues cv3 = new ContentValues();
-        cv3.put(WiseRoomDB.COLUNA_ID_SALA, "14");
-        cv3.put(WiseRoomDB.COLUNA_NOME_SALA, "Sala grande");
-        cv3.put(WiseRoomDB.COLUNA_CAPACIDADE_SALA, 500);
-        cv3.put(WiseRoomDB.COLUNA_DESCRICAO_SALA, "sala grande");
-        db.insert(WiseRoomDB.TABELA_NOME_SALA, null, cv3);
-
-        Log.i("Teste Sala  ", "sala adicionada? "+cv2.toString());
-    }
 
     public void verificaRegistro(String email, String senha){
         String url = "http://172.30.248.130:3000/colaborador?email="+email+"&senha="+senha;
