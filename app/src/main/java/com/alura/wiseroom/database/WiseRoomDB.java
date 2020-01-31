@@ -1,4 +1,4 @@
- package com.alura.wiseroom.database;
+/* package com.alura.wiseroom.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -146,3 +146,4 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     }
 
 }
+*/

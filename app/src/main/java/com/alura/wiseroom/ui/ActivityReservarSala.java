@@ -106,6 +106,7 @@ public class ActivityReservarSala extends AppCompatActivity {
                                     Log.i("TESTE RODANDO ?? ", "model objeto " + salaRecebidaJson.toString());
 
                                     Intent intent = new Intent(ActivityReservarSala.this, ActivityAgendarDataSala.class);
+                                    intent.putExtra("colaboradorLogado", colaboradorLogado);
                                     intent.putExtra("salaSelecionada", salaRecebidaJson);
                                     startActivity(intent);
 
