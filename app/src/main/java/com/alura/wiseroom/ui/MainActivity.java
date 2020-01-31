@@ -1,24 +1,16 @@
 package com.alura.wiseroom.ui;
 
-import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
-import com.alura.wiseroom.database.WiseRoomDB;
 import com.alura.wiseroom.help;
 import com.alura.wiseroom.model.ColaboradorModel;
 import com.android.volley.Request;
@@ -38,9 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btCadastro;
     private EditText tvEmail;
     private EditText tvSenha;
-    SQLiteOpenHelper dbHelper;
-    SQLiteDatabase db;
-    Cursor cursor;
     private Button btTutorial;
     RequestQueue mQueue;
 
@@ -55,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
         ab.hide();
         setarValores();
 
-        dbHelper = new WiseRoomDB(this);
-        db = dbHelper.getWritableDatabase();
         final ColaboradorModel colaborador = new ColaboradorModel();
         setListenersDoBotao();
         setListenerColaborador(colaborador);
