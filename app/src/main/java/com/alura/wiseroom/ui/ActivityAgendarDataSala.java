@@ -73,7 +73,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         recebeDados();
     }
 
-
     private void setListeners() {
         btData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,10 +115,9 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         });
     }
 
-    private long inserirBanco() {
+    private void inserirBanco() {
 
-        WiseRoomDB wise = new WiseRoomDB(ActivityAgendarDataSala.this);
-        SQLiteDatabase db = wise.getWritableDatabase();
+
 
         ContentValues cv = new ContentValues();
         cv.put(wise.COLUNA_NOME_DATA, etNome);
@@ -131,8 +129,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
         long id = wise.inserirData(db, cv);
 
-        Log.i("id id id data ", String.valueOf(id));
-
 
         ContentValues cvReserva = new ContentValues();
         cvReserva.put(wise.COLUNA_ID_COLABORADOR_RESERVA, colaboradorLogado.getId());
@@ -142,10 +138,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
 
         db.close();
-        etSobre.setText("");
-        btHora.setText("Selecione a hora");
-        btData.setText("Selecione a data");
-        return id;
     }
 
     private void definirData(long id) {
