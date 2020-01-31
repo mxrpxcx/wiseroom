@@ -48,8 +48,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         openHelper = new WiseRoomDB(this);
         db = openHelper.getWritableDatabase();
 
-        db.delete(WiseRoomDB.TABELA_NOME_COLABORADOR,null,null);
-        receberColaboradoresServer();
+     //   receberColaboradoresServer();
 
         final EditText txtNome = (EditText) findViewById(R.id.editNomeCadastro);
         final EditText txtEmail = (EditText) findViewById(R.id.editEmailCadastro);
@@ -108,7 +107,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         db.insert(WiseRoomDB.TABELA_NOME_COLABORADOR, null, values);
     }
 
-    public void receberColaboradoresServer(){
+  /*  public void receberColaboradoresServer(){
         String url = "http://172.30.248.130:3000/colaborador";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -151,7 +150,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
             }
         });
         mQueue.add(request);
-    }
+    } */
 
     public void enviarColaboradoresServer(final ColaboradorModel colaboradorModel){
         String url = "http://172.30.248.130:3000/colaborador";

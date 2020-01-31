@@ -21,6 +21,16 @@ import com.alura.wiseroom.R;
 import com.alura.wiseroom.database.WiseRoomDB;
 import com.alura.wiseroom.help;
 import com.alura.wiseroom.model.ColaboradorModel;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,12 +42,16 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase db;
     Cursor cursor;
     private Button btTutorial;
+    RequestQueue mQueue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActionBar ab = getSupportActionBar();
+        mQueue = Volley.newRequestQueue(this);
+
         ab.hide();
         setarValores();
 
@@ -52,51 +66,9 @@ public class MainActivity extends AppCompatActivity {
     private void logaColaborador(ColaboradorModel colaborador) {
         colaborador.setEmail(tvEmail.getText().toString());
         colaborador.setSenha(tvSenha.getText().toString());
+       verificaRegistro(colaborador.getEmail(), colaborador.getSenha());
 
 
-        cursor = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_COLABORADOR + " WHERE " +
-                        WiseRoomDB.COLUNA_EMAIL_COLABORADOR + "=? AND " +
-                        WiseRoomDB.COLUNA_SENHA + "=?",
-                        new String[]{colaborador.getEmail(), colaborador.getSenha()});
-        if (cursor != null) {
-            if (cursor.getCount() > 0) {
-
-                cursor.moveToFirst();
-
-                String intentId = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_ID_COLABORADOR));
-                String intentNome = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_NOME_COLABORADOR));
-                String intentEmail = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_EMAIL_COLABORADOR));
-                String intentSenha = cursor.getString(cursor.getColumnIndex(WiseRoomDB.COLUNA_SENHA));
-
-                ColaboradorModel colaboradorModel = new ColaboradorModel();
-                colaboradorModel.setId(intentId);
-                colaboradorModel.setNome(intentNome);
-                colaboradorModel.setEmail(intentEmail);
-                colaboradorModel.setSenha(intentSenha);
-
-                Intent intent = new Intent(MainActivity.this, ActivityEscolha.class);
-
-                intent.putExtra("colaboradorLogado", colaboradorModel);
-
-                startActivity(intent);
-                db.close();
-
-            } else {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Erro de autenticacao");
-                builder.setMessage("O nome de usuário e/ou senha estão incorretos.");
-                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
-            }
-        }
     }
 
     private void setListenerColaborador(final ColaboradorModel colaborador) {
@@ -154,6 +126,45 @@ public class MainActivity extends AppCompatActivity {
         Log.i("Teste Sala  ", "sala adicionada? "+cv2.toString());
     }
 
+    public void verificaRegistro(String email, String senha){
+        String url = "http://172.30.248.130:3000/colaborador?email="+email+"&senha="+senha;
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray resposta) {
+                        if (resposta.length() > 0) {
+                            try {
+                                for (int i = 0; i < resposta.length(); i++) {
 
+                                    JSONObject colaboradorJson = resposta.getJSONObject(i);
+                                    ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
+
+                                    colaboradorRecebidoJson.setId(colaboradorJson.getString("id"));
+                                    colaboradorRecebidoJson.setNome(colaboradorJson.getString("nome"));
+                                    colaboradorRecebidoJson.setIdOrganizacao(colaboradorJson.getString("idOrganizacao"));
+                                    colaboradorRecebidoJson.setEmail(colaboradorJson.getString("email"));
+                                    colaboradorRecebidoJson.setAdministrador(colaboradorJson.getBoolean("administrador"));
+                                    colaboradorRecebidoJson.setSenha(colaboradorJson.getString("senha"));
+
+                                    Log.i("TESTE RODANDO ?? ", "model objeto " + colaboradorRecebidoJson.toString());
+
+                                    Intent intent = new Intent(MainActivity.this, ActivityEscolha.class);
+                                    intent.putExtra("colaboradorLogado", colaboradorRecebidoJson);
+                                    startActivity(intent);
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }}
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request);
+    }
 
 }
