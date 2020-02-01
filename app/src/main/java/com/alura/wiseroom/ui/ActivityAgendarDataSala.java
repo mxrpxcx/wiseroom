@@ -27,7 +27,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.adapter.DataAdapter;
-import com.alura.wiseroom.database.WiseRoomDB;
 import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.DataModel;
 import com.alura.wiseroom.model.SalaModel;
