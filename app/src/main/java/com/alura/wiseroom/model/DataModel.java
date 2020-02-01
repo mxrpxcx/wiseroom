@@ -6,8 +6,9 @@ public class DataModel implements Serializable {
     private String
             id,
             nomeData,
-            dataData,
-            horaData;
+            dataMarcada,
+            horaInicio,
+            horaFim;
 
     ColaboradorModel colaboradorModel;
 
@@ -37,20 +38,28 @@ public class DataModel implements Serializable {
         this.nomeData = nomeData;
     }
 
-    public String getDataData() {
-        return dataData;
+    public String getDataMarcada() {
+        return dataMarcada;
     }
 
-    public void setDataData(String dataData) {
-        this.dataData = dataData;
+    public void setDataMarcada(String dataMarcada) {
+        this.dataMarcada = dataMarcada;
     }
 
-    public String getHoraData() {
-        return horaData;
+    public String getHoraInicio() {
+        return horaInicio;
     }
 
-    public void setHoraData(String horaData) {
-        this.horaData = horaData;
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public String getHoraFim() {
+        return horaFim;
+    }
+
+    public void setHoraFim(String horaFim) {
+        this.horaFim = horaFim;
     }
 
     public String getIdSalaxData() {
@@ -61,13 +70,5 @@ public class DataModel implements Serializable {
         this.idSalaxData = idSalaxData;
     }
 
-    @Override
-    public String toString() {
-        return "DataModel{" +
-                "nomeData='" + nomeData + '\'' +
-                ", dataData='" + dataData + '\'' +
-                ", horaData='" + horaData + '\'' +
-                ", idSalaxData=" + idSalaxData +
-                '}';
-    }
+
 }
