@@ -1,4 +1,6 @@
-/* package com.alura.wiseroom.database;
+/*
+
+package com.alura.wiseroom.database;
 
 import android.content.ContentValues;
 import android.content.Context;

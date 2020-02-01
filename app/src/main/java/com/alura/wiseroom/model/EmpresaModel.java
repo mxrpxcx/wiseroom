@@ -3,9 +3,9 @@ package com.alura.wiseroom.model;
 import java.io.Serializable;
 
 public class EmpresaModel implements Serializable {
-    private String id;
-    private String nome;
-    private String dominioOrganizacao;
+    protected String id;
+    protected String nome;
+    protected String dominioOrganizacao;
 
 
     public EmpresaModel(String id, String nome, String idOrganizacao, String dominioOrganizacao) {
