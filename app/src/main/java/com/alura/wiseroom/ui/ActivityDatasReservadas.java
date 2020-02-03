@@ -16,7 +16,6 @@ import com.alura.wiseroom.R;
 import com.alura.wiseroom.adapter.ReservaAdapter;
 import com.alura.wiseroom.database.WiseRoomDB;
 import com.alura.wiseroom.model.ColaboradorModel;
-import com.alura.wiseroom.model.DataModel;
 import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
 

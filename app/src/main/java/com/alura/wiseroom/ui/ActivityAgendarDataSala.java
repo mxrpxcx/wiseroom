@@ -28,9 +28,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
-import com.alura.wiseroom.adapter.DataAdapter;
 import com.alura.wiseroom.model.ColaboradorModel;
-import com.alura.wiseroom.model.DataModel;
+import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -378,8 +377,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         }
     }
 
-    public void verificaRegistro(String email, String senha){
-        String url = "http://172.30.248.130:3000/reserva?id="+email+"&senha="+senha;
+    public void verificaRegistro(String idSala){
+        String url = "http://172.30.248.130:3000/reserva?id="+idSala;
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -388,8 +387,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                             try {
                                 for (int i = 0; i < resposta.length(); i++) {
 
-                                    JSONObject colaboradorJson = resposta.getJSONObject(i);
-                                    ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
+                                    JSONObject reservaJson = resposta.getJSONObject(i);
+                                    ReservaModel reservaRecebidaJson = new ReservaModel();
 
                                     colaboradorRecebidoJson.setId(colaboradorJson.getString("id"));
                                     colaboradorRecebidoJson.setNome(colaboradorJson.getString("nome"));
@@ -398,11 +397,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                                     colaboradorRecebidoJson.setAdministrador(colaboradorJson.getBoolean("administrador"));
                                     colaboradorRecebidoJson.setSenha(colaboradorJson.getString("senha"));
 
-                                    Log.i("TESTE RODANDO ?? ", "model objeto " + colaboradorRecebidoJson.toString());
-
-                                    Intent intent = new Intent(MainActivity.this, ActivityEscolha.class);
-                                    intent.putExtra("colaboradorLogado", colaboradorRecebidoJson);
-                                    startActivity(intent);
 
                                 }
                             } catch (JSONException e) {
