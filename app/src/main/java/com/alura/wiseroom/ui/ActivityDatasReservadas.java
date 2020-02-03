@@ -155,8 +155,6 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         super.onStart();
         if(flagEditAlarm==true) {
             fetchDatabaseToArrayList();
-            long id = ActivityEditarDataAgendada.idUpdate;
-
             flagEditAlarm=false;
         }
     }
