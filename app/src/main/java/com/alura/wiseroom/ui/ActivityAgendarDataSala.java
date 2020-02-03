@@ -28,6 +28,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
+import com.alura.wiseroom.adapter.ReservaAdapter;
 import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
@@ -52,9 +53,9 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     ImageButton btAdiciona;
     ListView listView;
     String etHora, etData, etNome;
-    DataAdapter dataAdapter;
-    ArrayList<DataModel> listaDatas = new ArrayList<>();
-    ArrayList<Integer> listaIds = new ArrayList<>();
+    ReservaAdapter reservaAdapter;
+    ArrayList<ReservaModel> listaReservas = new ArrayList<>();
+    ArrayList<String> listaIds = new ArrayList<>();
     AlarmManager alarmManager;
     boolean flagDeleteAlarm = false;
     boolean flagEditAlarm = false;
@@ -112,7 +113,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 } else if (txtHora.equals("Selecione a hora")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário", Toast.LENGTH_SHORT).show();
                 } else {
-                    long id = inserirBanco();
+                    String id = inserirBanco();
                     definirData(id);
                     fetchDatabaseToArrayList();
                 }
@@ -152,7 +153,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         db.close();
     }
 
-    private void definirData(long id) {
+    private void definirData(String id) {
         WiseRoomDB wise = new WiseRoomDB(this);
         SQLiteDatabase db = wise.getReadableDatabase();
         String selection = WiseRoomDB.COLUNA_ID_DATA + " = '" + id + "'";
@@ -178,7 +179,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         i.putExtra(wise.COLUNA_HORARIO_MARCADO, hora);
         i.putExtra(wise.COLUNA_ID_SALA_MARCADA, salaSelecioanda.getId());
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int) id, i, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, Integer.parseInt(id), i, 0);
 
         if (flagDeleteAlarm) {
             alarmManager.cancel(pendingIntent);
@@ -217,38 +218,11 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
 
     private void fetchDatabaseToArrayList() {
-        listaDatas.clear();
+        listaReservas.clear();
         listaIds.clear();
-        WiseRoomDB wise = new WiseRoomDB(this);
-        SQLiteDatabase db = wise.getReadableDatabase();
-
-        String selecao = WiseRoomDB.COLUNA_ID_SALA_MARCADA +" = '"+salaSelecioanda.getId()+"' " +
-                "AND "+ WiseRoomDB.COLUNA_ID_COLABORADOR_QUE_MARCOU +" = '"+colaboradorLogado.getId()+"' ";
-        Cursor cursor = wise.selecionarData(db, selecao );
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                int id = cursor.getInt(0);
-                String nome = cursor.getString(1);
-                String data = cursor.getString(2);
-                String hora = cursor.getString(3);
-
-                DataModel dataModel = new DataModel();
-                dataModel.setNomeData(nome);
-                dataModel.setDataMarcada(data);
-                dataModel.setHoraInicio(hora);
-                dataModel.setIdSalaxData(salaSelecioanda.getId());
-
-                listaDatas.add(dataModel);
-                listaIds.add(id);
-
-            }
-            cursor.close();
-            db.close();
-
-            dataAdapter = new DataAdapter(ActivityAgendarDataSala.this, R.layout.item_lista_data, listaDatas);
-            listView.setAdapter(dataAdapter);
-        }
-
+        verificaReserva(salaSelecioanda.getId(), colaboradorLogado.getId());
+        reservaAdapter = new ReservaAdapter(ActivityAgendarDataSala.this, R.layout.item_lista_data, listaReservas);
+        listView.setAdapter(reservaAdapter);
     }
 
 
@@ -283,7 +257,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-    private void showListDialog(final int pos) {
+    private void showListDialog(final String pos) {
 
         String[] arr = {"Deletar","Editar"};
 
@@ -296,7 +270,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                     confirmaApagar(pos);
                 }
                 else {
-                    int id = listaIds.get(pos);
+                    String id = listaIds.get(Integer.parseInt(pos));
                     Intent i = new Intent(ActivityAgendarDataSala.this, ActivityEditarDataAgendada.class);
                     i.putExtra("ID", id);
                     flagEditAlarm=true;
@@ -309,33 +283,16 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
     }
 
-    public void confirmaApagar(final int position) {
+    public void confirmaApagar(final String position) {
         AlertDialog.Builder builder= new AlertDialog.Builder(ActivityAgendarDataSala.this);
         builder.setTitle("Confirmação");
         builder.setMessage("Deseja cancelar?");
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                WiseRoomDB wise = new WiseRoomDB(ActivityAgendarDataSala.this);
-                SQLiteDatabase db = wise.getWritableDatabase();
-                int id = listaIds.get(position);
-                String whereCluase = WiseRoomDB.COLUNA_ID_DATA +" = '"+id+"'";
-                String whereCluaseReserva = WiseRoomDB.COLUNA_ID_DATA_RESERVADA +" = '"+id+"'";
+                String id = listaIds.get(Integer.parseInt(position));
+                deletarReserva(id);
 
-                int flag = wise.deletarData(db, whereCluase);
-                int flag2 = wise.deletarReserva(db, whereCluaseReserva);
-                if (flag > 0 && flag2 > 0) {
-                    Toast.makeText(ActivityAgendarDataSala.this, "Reserva cancelada", Toast.LENGTH_SHORT).show();
-                    listaDatas.clear();
-                    listaIds.clear();
-                    fetchDatabaseToArrayList();
-                    dataAdapter.notifyDataSetChanged();
-                    flagDeleteAlarm = true;
-                    definirData(id);
-                }
-                else {
-                    Toast.makeText(ActivityAgendarDataSala.this, "Erro ao cancelar", Toast.LENGTH_SHORT).show();
-                }
             }
         });
         builder.setNeutralButton("Não", new DialogInterface.OnClickListener() {
@@ -344,7 +301,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 dialog.cancel();
             }
         });
-        AlertDialog deleteDialog=builder.create();
+        AlertDialog deleteDialog = builder.create();
         deleteDialog.show();
     }
 
@@ -353,7 +310,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         super.onStart();
         if(flagEditAlarm==true) {
             fetchDatabaseToArrayList();
-            long id = ActivityEditarDataAgendada.idUpdate;
+            String id = ActivityEditarDataAgendada.idUpdate;
             definirData(id);
             flagEditAlarm=false;
         }
@@ -377,8 +334,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         }
     }
 
-    public void verificaRegistro(String idSala){
-        String url = "http://172.30.248.130:3000/reserva?id="+idSala;
+    public void verificaReserva(String idSala, String idColaborador){
+        String url = "http://172.30.248.130:3000/reserva?idSala="+idSala+"&idColaborador="+idColaborador;
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -399,11 +356,36 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                                     reservaRecebidaJson.getSalaReserva().setId((reservaJson.getString("idSala")));
 
 
+                                    listaReservas.add(reservaRecebidaJson);
+                                    listaIds.add(reservaRecebidaJson.getId());
+
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }}
 
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request);
+    }
+
+    public void deletarReserva(final String idReserva){
+        String url = "http://172.30.248.130:3000/reserva?id="+idReserva;
+        final JsonArrayRequest request = new JsonArrayRequest(Request.Method.DELETE, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray resposta) {
+                        listaReservas.clear();
+                        listaIds.clear();
+                        fetchDatabaseToArrayList();
+                        reservaAdapter.notifyDataSetChanged();
+                        flagDeleteAlarm = true;
+                        definirData(idReserva);
                     }
                 }, new Response.ErrorListener() {
             @Override

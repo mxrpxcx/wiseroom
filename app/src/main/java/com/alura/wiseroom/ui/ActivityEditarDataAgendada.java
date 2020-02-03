@@ -29,7 +29,7 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
             etData,
             etNome;
 
-    static long idUpdate;
+    static String idUpdate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
