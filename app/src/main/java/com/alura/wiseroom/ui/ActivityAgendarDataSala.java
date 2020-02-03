@@ -128,7 +128,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário de término", Toast.LENGTH_SHORT).show();
                 }else {
                     inserirBanco();
-                    definirData(id);
                     fetchDatabaseToArrayList();
                 }
             }
@@ -265,7 +264,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         if(flagEditAlarm==true) {
             fetchDatabaseToArrayList();
             String id = ActivityEditarDataAgendada.idUpdate;
-            definirData(id);
             flagEditAlarm=false;
         }
     }
@@ -339,7 +337,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                         fetchDatabaseToArrayList();
                         reservaAdapter.notifyDataSetChanged();
                         flagDeleteAlarm = true;
-                        definirData(idReserva);
                     }
                 }, new Response.ErrorListener() {
             @Override
