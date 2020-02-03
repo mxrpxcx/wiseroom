@@ -51,11 +51,11 @@ import java.util.Map;
 
 public class ActivityAgendarDataSala extends AppCompatActivity {
 
-    Button btData, btHora;
+    Button btData, btHoraInicio, btHoraFim;
     EditText etSobre;
     ImageButton btAdiciona;
     ListView listView;
-    String etHora, etData, etNome;
+    String etHoraInicio, etHoraFim, etData, etNome;
     ReservaAdapter reservaAdapter;
     ArrayList<ReservaModel> listaReservas = new ArrayList<>();
     ArrayList<String> listaIds = new ArrayList<>();
@@ -85,7 +85,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         btAdiciona = (ImageButton) findViewById(R.id.btAdiciona);
         etSobre = (EditText) findViewById(R.id.etSobre);
         btData = (Button) findViewById(R.id.btData);
-        btHora = (Button) findViewById(R.id.btHoraInicio);
+        btHoraInicio = (Button) findViewById(R.id.btHoraInicio);
+        btHoraFim = (Button) findViewById(R.id.btHoraFim);
         recebeDados();
     }
 
@@ -96,7 +97,13 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 mostraCalendario();
             }
         });
-        btHora.setOnClickListener(new View.OnClickListener() {
+        btHoraInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostraRelogio();
+            }
+        });
+        btHoraFim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mostraRelogio();
@@ -107,15 +114,19 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 etNome = etSobre.getText().toString();
-                String txtHora = btHora.getText().toString();
+                String txtHoraInicio = btHoraInicio.getText().toString();
+                String txtHoraFim = btHoraFim.getText().toString();
                 String txtData = btData.getText().toString();
+
                 if (etNome.equals("")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione uma descricao", Toast.LENGTH_SHORT).show();
                 } else if (txtData.equals("Selecione a data")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione uma data", Toast.LENGTH_SHORT).show();
-                } else if (txtHora.equals("Selecione a hora")) {
-                    Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (txtHoraInicio.equals("Selecione a hora de inicio")) {
+                    Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário de inicio", Toast.LENGTH_SHORT).show();
+                } else if (txtHoraFim.equals("Selecione a hora de fim")) {
+                    Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário de término", Toast.LENGTH_SHORT).show();
+                }else {
                     String id = inserirBanco();
                     definirData(id);
                     fetchDatabaseToArrayList();
