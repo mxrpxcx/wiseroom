@@ -6,7 +6,6 @@ public class ReservaModel implements Serializable {
     private String id;
     private SalaModel salaReserva;
     private ColaboradorModel colaboradorReserva;
-    private DataModel dataReservada;
 
     private String
     descricaoData,
@@ -38,15 +37,6 @@ public class ReservaModel implements Serializable {
     public void setColaboradorReserva(ColaboradorModel colaboradorReserva) {
         this.colaboradorReserva = colaboradorReserva;
     }
-
-    public DataModel getDataReservada() {
-        return dataReservada;
-    }
-
-    public void setDataReservada(DataModel dataReservada) {
-        this.dataReservada = dataReservada;
-    }
-
 
     public String getDataMarcada() {
         return dataMarcada;
@@ -86,7 +76,6 @@ public class ReservaModel implements Serializable {
                 "id='" + id + '\'' +
                 ", salaReserva=" + salaReserva +
                 ", colaboradorReserva=" + colaboradorReserva +
-                ", dataReservada=" + dataReservada +
                 '}';
     }
 }
