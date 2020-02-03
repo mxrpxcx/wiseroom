@@ -143,8 +143,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         reservaModel.setDataMarcada(etData);
         reservaModel.setHoraInicio(etHoraInicio);
         reservaModel.setHoraFim(etHoraFim);
-        reservaModel.getSalaReserva().setId(salaSelecioanda.getId());
-        reservaModel.getColaboradorReserva().setId(colaboradorLogado.getId());
+//        reservaModel.getSalaReserva().setId(salaSelecioanda.getId());
+//        reservaModel.getColaboradorReserva().setId(colaboradorLogado.getId());
 
         enviarReservasServer(reservaModel);
     }
@@ -220,7 +220,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 }
                 else {
                     String id = listaIds.get(Integer.parseInt(pos));
-                    Intent i = new Intent(ActivityAgendarDataSala.this, ActivityEditarDataAgendada.class);
+                    Intent i = new Intent(ActivityAgendarDataSala.this, null);
                     i.putExtra("ID", id);
                     flagEditAlarm=true;
                     startActivity(i);
@@ -259,7 +259,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         super.onStart();
         if(flagEditAlarm==true) {
             fetchDatabaseToArrayList();
-            String id = ActivityEditarDataAgendada.idUpdate;
             flagEditAlarm=false;
         }
     }
@@ -300,8 +299,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                                     reservaRecebidaJson.setDataMarcada(reservaJson.getString("dataReservada"));
                                     reservaRecebidaJson.setHoraInicio(reservaJson.getString("horaInicio"));
                                     reservaRecebidaJson.setHoraFim(reservaJson.getString("horaFim"));
-                                    reservaRecebidaJson.getColaboradorReserva().setId((reservaJson.getString("idColaborador")));
-                                    reservaRecebidaJson.getSalaReserva().setId((reservaJson.getString("idSala")));
+//                                    reservaRecebidaJson.getColaboradorReserva().setId((reservaJson.getString("idColaborador")));
+                              //      reservaRecebidaJson.getSalaReserva().setId((reservaJson.getString("idSala")));
 
 
                                     listaReservas.add(reservaRecebidaJson);
@@ -375,8 +374,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 params.put("dataReservada", reservaModel.getDataMarcada());
                 params.put("horaInicio",reservaModel.getHoraInicio());
                 params.put("horaFim", reservaModel.getHoraFim());
-                params.put("idSala", reservaModel.getSalaReserva().getId());
-                params.put("idColaborador",reservaModel.getColaboradorReserva().getId());
+//                params.put("idSala", reservaModel.getSalaReserva().getId());
+     //          params.put("idColaborador",reservaModel.getColaboradorReserva().getId());
                 return params;
             }
         };

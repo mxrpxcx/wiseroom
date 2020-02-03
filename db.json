@@ -57,23 +57,26 @@
       "id": 7
     }
   ],
-  
+  "data": [],
   "empresa": [],
-  
   "reserva": [
-   {
-      "id": 500,
-      "descricao": "reservada aaaaaaaaaaa",
-	  "dataReservada": "17/08/2020",
-      "horaInicio": "09:00",
-      "horaFim": "10:50",
-	  "idSala": 1,
-      "idColaborador": 1
+    {
+      "horaFim": "6:50",
+      "dataReservada": "29-2-2020",
+      "horaInicio": "6:50",
+      "descricao": "djdslalalsksk",
+      "id": 1
+    },
+    {
+      "horaFim": "6:50",
+      "dataReservada": "29-2-2020",
+      "horaInicio": "6:50",
+      "descricao": "djdslalalsksk",
+      "id": 2
     }
   ],
-  
   "sala": [
-  {
+    {
       "capacidade": 500,
       "descricao": "sala loka",
       "nome": "sala loka",

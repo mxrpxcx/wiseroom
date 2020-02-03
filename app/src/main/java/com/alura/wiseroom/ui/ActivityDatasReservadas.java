@@ -1,4 +1,4 @@
-package com.alura.wiseroom.ui;
+/* package com.alura.wiseroom.ui;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -159,3 +159,5 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         }
     }
 }
+
+*/
