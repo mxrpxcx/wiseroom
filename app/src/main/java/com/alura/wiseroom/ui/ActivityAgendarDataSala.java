@@ -32,6 +32,16 @@ import com.alura.wiseroom.adapter.DataAdapter;
 import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.DataModel;
 import com.alura.wiseroom.model.SalaModel;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,12 +61,14 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     boolean flagEditAlarm = false;
     SalaModel salaSelecioanda;
     ColaboradorModel colaboradorLogado;
+    RequestQueue mQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agendar_data_sala);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        mQueue = Volley.newRequestQueue(this);
         init();
         setListeners();
         fetchDatabaseToArrayList();
@@ -223,8 +235,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
                 DataModel dataModel = new DataModel();
                 dataModel.setNomeData(nome);
-                dataModel.setDataData(data);
-                dataModel.setHoraData(hora);
+                dataModel.setDataMarcada(data);
+                dataModel.setHoraInicio(hora);
                 dataModel.setIdSalaxData(salaSelecioanda.getId());
 
                 listaDatas.add(dataModel);
@@ -365,6 +377,48 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
         }
     }
+
+    public void verificaRegistro(String email, String senha){
+        String url = "http://172.30.248.130:3000/reserva?id="+email+"&senha="+senha;
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray resposta) {
+                        if (resposta.length() > 0) {
+                            try {
+                                for (int i = 0; i < resposta.length(); i++) {
+
+                                    JSONObject colaboradorJson = resposta.getJSONObject(i);
+                                    ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
+
+                                    colaboradorRecebidoJson.setId(colaboradorJson.getString("id"));
+                                    colaboradorRecebidoJson.setNome(colaboradorJson.getString("nome"));
+                                    colaboradorRecebidoJson.setIdOrganizacao(colaboradorJson.getString("idOrganizacao"));
+                                    colaboradorRecebidoJson.setEmail(colaboradorJson.getString("email"));
+                                    colaboradorRecebidoJson.setAdministrador(colaboradorJson.getBoolean("administrador"));
+                                    colaboradorRecebidoJson.setSenha(colaboradorJson.getString("senha"));
+
+                                    Log.i("TESTE RODANDO ?? ", "model objeto " + colaboradorRecebidoJson.toString());
+
+                                    Intent intent = new Intent(MainActivity.this, ActivityEscolha.class);
+                                    intent.putExtra("colaboradorLogado", colaboradorRecebidoJson);
+                                    startActivity(intent);
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }}
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request);
+    }
+
 }
 
 

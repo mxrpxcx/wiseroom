@@ -3,33 +3,21 @@ USE WiseRoomDb;
 
 CREATE TABLE tbColaborador(
 
-id int, 
-nome varchar(50), 
-idOrganizacao int, 
+idColaborador int(8), 
+nome varchar(100), 
+idOrganizacao int(8), 
 email varchar(100), 
 administrador boolean,
-senha varchar(100),
+senha varchar(128),
 CONSTRAINT pkTbColaborador PRIMARY KEY (id)
-
-);
-
-CREATE TABLE tbData(
-
-id int,
-nomeData varchar(50), 
-dataData varchar(50), 
-horaData varchar(50),
-
-CONSTRAINT pkTbColaborador PRIMARY KEY (id)
-
 
 );
 
 CREATE TABLE tbSala(
 
-id int, 
-nome varchar(50), 
-capacidade int, 
+idSala int(8), 
+nome varchar(100), 
+capacidade int(4), 
 areaDaSala float, 
 descricaoSala varchar(500),
 
@@ -39,17 +27,21 @@ CONSTRAINT pkTbSala PRIMARY KEY (id)
 
 CREATE TABLE tbReserva(
 
-idReserva int, 
-idDataReservada int,
-idColaboradorReserva int, 
-idSalaReserva int,
+idReserva int(8), 
+descricaoReserva varchar(500), 
+dataData varchar(12), 
+horaInicio varchar(6),
+horaFim varchar(6),
+idColaboradorReserva int(8), 
+idSalaReserva int(8),
 
 CONSTRAINT pkTbReserva PRIMARY KEY (idReserva),
-CONSTRAINT fkTbReservaX FOREIGN KEY (idDataReservada) REFERENCES tbData(id) ON DELETE CASCADE ON UPDATE CASCADE,
 CONSTRAINT fkTbReservaY FOREIGN KEY (idColaboradorReserva) REFERENCES tbColaborador(id) ON DELETE CASCADE ON UPDATE CASCADE,
 CONSTRAINT fkTbReservaZ FOREIGN KEY (idSalaReserva) REFERENCES tbSala(id) ON DELETE CASCADE ON UPDATE CASCADE
-
 );
+
+
+
 
 
 
