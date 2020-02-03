@@ -37,6 +37,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -45,6 +46,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ActivityAgendarDataSala extends AppCompatActivity {
 
@@ -107,7 +110,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 String txtHora = btHora.getText().toString();
                 String txtData = btData.getText().toString();
                 if (etNome.equals("")) {
-                    Toast.makeText(ActivityAgendarDataSala.this, "Adicione um nome", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityAgendarDataSala.this, "Adicione uma descricao", Toast.LENGTH_SHORT).show();
                 } else if (txtData.equals("Selecione a data")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione uma data", Toast.LENGTH_SHORT).show();
                 } else if (txtHora.equals("Selecione a hora")) {
@@ -394,6 +397,46 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             }
         });
         mQueue.add(request);
+    }
+
+    public void enviarReservasServer(final ReservaModel reservaModel){
+        String url = "http://172.30.248.130:3000/reserva";
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", "bugou");
+                    }
+                }
+        )
+
+        {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", reservaModel.getId());
+                params.put("descricao",reservaModel.getDescricaoData());
+                params.put("dataReservada", reservaModel.getDataMarcada());
+                params.put("horaInicio",reservaModel.getHoraInicio());
+                params.put("horaFim", reservaModel.getHoraFim());
+                params.put("idSala", reservaModel.getSalaReserva().getId());
+                params.put("idColaborador",reservaModel.getColaboradorReserva().getId());
+                return params;
+            }
+        };
+        mQueue.add(postRequest);
     }
 
 }
