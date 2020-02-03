@@ -100,13 +100,13 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         btHoraInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostraRelogio();
+                mostraRelogioInicio();
             }
         });
         btHoraFim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostraRelogio();
+                mostraRelogioFim();
             }
         });
 
@@ -127,7 +127,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 } else if (txtHoraFim.equals("Selecione a hora de fim")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário de término", Toast.LENGTH_SHORT).show();
                 }else {
-                    String id = inserirBanco();
+                    inserirBanco();
                     definirData(id);
                     fetchDatabaseToArrayList();
                 }
@@ -137,98 +137,24 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                showListDialog(position);
+                showListDialog(String.valueOf(position));
             }
         });
     }
 
     private void inserirBanco() {
+        ReservaModel reservaModel = new ReservaModel();
+        reservaModel.setDescricaoData(etNome);
+        reservaModel.setDataMarcada(etData);
+        reservaModel.setHoraInicio(etHoraInicio);
+        reservaModel.setHoraFim(etHoraFim);
+        reservaModel.getSalaReserva().setId(salaSelecioanda.getId());
+        reservaModel.getColaboradorReserva().setId(colaboradorLogado.getId());
 
-
-
-        ContentValues cv = new ContentValues();
-        cv.put(wise.COLUNA_NOME_DATA, etNome);
-        cv.put(wise.COLUNA_DATA_MARCADA, etData);
-        cv.put(wise.COLUNA_HORARIO_MARCADO, etHora);
-        cv.put(wise.COLUNA_ID_SALA_MARCADA, salaSelecioanda.getId());
-        cv.put(wise.COLUNA_ID_COLABORADOR_QUE_MARCOU, colaboradorLogado.getId());
-
-
-        long id = wise.inserirData(db, cv);
-
-
-        ContentValues cvReserva = new ContentValues();
-        cvReserva.put(wise.COLUNA_ID_COLABORADOR_RESERVA, colaboradorLogado.getId());
-        cvReserva.put(wise.COLUNA_ID_SALA_RESERVADA, salaSelecioanda.getId());
-        cvReserva.put(wise.COLUNA_ID_DATA_RESERVADA, id);
-        wise.inserirReserva(db, cvReserva);
-
-
-        db.close();
+        enviarReservasServer(reservaModel);
     }
 
-    private void definirData(String id) {
-        WiseRoomDB wise = new WiseRoomDB(this);
-        SQLiteDatabase db = wise.getReadableDatabase();
-        String selection = WiseRoomDB.COLUNA_ID_DATA + " = '" + id + "'";
-        Cursor cursor = wise.selecionarData(db, selection);
-        String etData[] = new String[3];
-        String etHora[] = new String[2];
-        String data = null, hora = null, nome = null;
 
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                data = cursor.getString(2);
-                hora = cursor.getString(3);
-                nome = cursor.getString(1);
-            }
-        }
-
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        Intent i = new Intent();
-        i.putExtra(wise.COLUNA_ID_DATA, id);
-        i.putExtra(wise.COLUNA_NOME_DATA, nome);
-        i.putExtra(wise.COLUNA_DATA_MARCADA, data);
-        i.putExtra(wise.COLUNA_HORARIO_MARCADO, hora);
-        i.putExtra(wise.COLUNA_ID_SALA_MARCADA, salaSelecioanda.getId());
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, Integer.parseInt(id), i, 0);
-
-        if (flagDeleteAlarm) {
-            alarmManager.cancel(pendingIntent);
-            flagDeleteAlarm = false;
-        }
-
-       else {
-            int k=0;
-            for(String s: data.split("-")) {
-                etData[k++]=s;
-            }
-            k=0;
-
-            for(String s: hora.split(":")) {
-                etHora[k++]=s;
-            }
-
-        Calendar calendario = Calendar.getInstance();
-        calendario.set(Integer.parseInt(etData[2]), Integer.parseInt(etData[1]) - 1,
-                Integer.parseInt(etData[0]),
-                Integer.parseInt(etHora[0]),
-                Integer.parseInt(etHora[1]));
-        long mili = calendario.getTimeInMillis();
-        calendario.setTimeInMillis(mili);
-        Calendar calendarCurrent = Calendar.getInstance();
-        long miliCurrent = calendarCurrent.getTimeInMillis();
-        calendarCurrent.setTimeInMillis(miliCurrent);
-        long diff = mili - miliCurrent;
-        long currentTime = System.currentTimeMillis();
-        alarmManager.set(AlarmManager.RTC_WAKEUP, currentTime + diff, pendingIntent);
-
-        Toast.makeText(this, "Reservado", Toast.LENGTH_SHORT).show();
-    }
-
-}
 
 
     private void fetchDatabaseToArrayList() {
@@ -257,15 +183,29 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void mostraRelogio() {
+    private void mostraRelogioInicio() {
         Calendar calendario = Calendar.getInstance();
         int hora = calendario.get(Calendar.HOUR);
         int minuto = calendario.get(Calendar.MINUTE);
         TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityAgendarDataSala.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hora, int minuto) {
-                btHora.setText(""+hora+":"+minuto);
-                etHora=""+hora+":"+minuto;
+                btHoraInicio.setText(""+hora+":"+minuto);
+                etHoraInicio =""+hora+":"+minuto;
+            }
+        },hora,minuto,true);
+        timePickerDialog.show();
+    }
+
+    private void mostraRelogioFim() {
+        Calendar calendario = Calendar.getInstance();
+        int hora = calendario.get(Calendar.HOUR);
+        int minuto = calendario.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityAgendarDataSala.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hora, int minuto) {
+                btHoraFim.setText(""+hora+":"+minuto);
+                etHoraFim = ""+hora+":"+minuto;
             }
         },hora,minuto,true);
         timePickerDialog.show();
@@ -437,7 +377,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("id", reservaModel.getId());
+
                 params.put("descricao",reservaModel.getDescricaoData());
                 params.put("dataReservada", reservaModel.getDataMarcada());
                 params.put("horaInicio",reservaModel.getHoraInicio());
