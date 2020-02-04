@@ -52,8 +52,6 @@ public class ActivityEscolha extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 
     private void recebeDados() {
