@@ -42,9 +42,8 @@ public class ReservaAdapter extends ArrayAdapter {
         View view = inflater.inflate(layoutRes,null);
 
         ReservaModel reservaModel = listaReservas.get(position);
-        Log.i("TESTE NOME RESERVA COL ", reservaModel.getColaboradorReserva().getNome());
 
-        ((TextView) view.findViewById(R.id.tvNomeColaborador)).setText(reservaModel.getColaboradorReserva().getNome());
+      //  ((TextView) view.findViewById(R.id.tvNomeColaborador)).setText(reservaModel.getColaboradorReserva().getNome());
         ((TextView) view.findViewById(R.id.tvHoraReservadaInicio)).setText(reservaModel.getHoraInicio());
         ((TextView) view.findViewById(R.id.tvHoraReservadaFim)).setText(reservaModel.getHoraFim());
         ((TextView) view.findViewById(R.id.tvDataReservada)).setText(reservaModel.getDataMarcada());

@@ -40,6 +40,8 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     SalaModel salaSelecioanda;
     ColaboradorModel colaboradorLogado;
     RequestQueue mQueue;
+    ColaboradorModel colaboradorDaSala;
+
 
 
     @Override
@@ -126,9 +128,9 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                                     reservaRecebidaJson.setDataMarcada(reservaJson.getString("dataReservada"));
                                     reservaRecebidaJson.setHoraInicio(reservaJson.getString("horaInicio"));
                                     reservaRecebidaJson.setHoraFim(reservaJson.getString("horaFim"));
-                                    reservaRecebidaJson.setColaboradorReserva(colaboradorLogado);
+                                    recebeColaborador(reservaJson.getString("idColaborador"));
+                                    reservaRecebidaJson.setColaboradorReserva(colaboradorDaSala);
                                     reservaRecebidaJson.setSalaReserva(salaSelecioanda);
-
 
 
                                     listaReservas.add(reservaRecebidaJson);
@@ -148,6 +150,44 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         });
         mQueue.add(request);
     }
-    
+
+    public void recebeColaborador(String id){
+        String url = "http://172.30.248.130:3000/colaborador?id="+id;
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray resposta) {
+                        if (resposta.length() > 0) {
+                            try {
+                                for (int i = 0; i < resposta.length(); i++) {
+
+                                    JSONObject colaboradorJson = resposta.getJSONObject(i);
+                                    ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
+
+                                    colaboradorRecebidoJson.setId(colaboradorJson.getString("id"));
+                                    colaboradorRecebidoJson.setNome(colaboradorJson.getString("nome"));
+                                    colaboradorRecebidoJson.setIdOrganizacao(colaboradorJson.getString("idOrganizacao"));
+                                    colaboradorRecebidoJson.setEmail(colaboradorJson.getString("email"));
+                                    colaboradorRecebidoJson.setAdministrador(colaboradorJson.getBoolean("administrador"));
+                                    colaboradorRecebidoJson.setSenha(colaboradorJson.getString("senha"));
+
+                                    colaboradorDaSala = colaboradorRecebidoJson;
+                                    Log.i("TESTE COL SALA", colaboradorDaSala.toString());
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }}
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request);
+    }
+
 }
 
