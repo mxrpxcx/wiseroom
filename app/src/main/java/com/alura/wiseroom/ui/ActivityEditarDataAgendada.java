@@ -80,10 +80,16 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
                 mostraCalendario();
             }
         });
-        btHora.setOnClickListener(new View.OnClickListener() {
+        btHoraInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostraRelogio();
+                mostraRelogioInicio();
+            }
+        });
+        btHoraFim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostraRelogioFim();
             }
         });
         btAdiciona.setOnClickListener(new View.OnClickListener() {
@@ -148,15 +154,29 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    private void mostraRelogio() {
+    private void mostraRelogioInicio() {
         Calendar calendario = Calendar.getInstance();
         int hora = calendario.get(Calendar.HOUR);
         int minuto = calendario.get(Calendar.MINUTE);
         TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityEditarDataAgendada.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hora, int minuto) {
-                btHora.setText(""+hora+":"+minuto);
-                etHora=""+hora+":"+minuto;
+                btHoraInicio.setText(""+hora+":"+minuto);
+                etHoraInicio=""+hora+":"+minuto;
+            }
+        },hora,minuto,true);
+        timePickerDialog.show();
+    }
+
+    private void mostraRelogioFim() {
+        Calendar calendario = Calendar.getInstance();
+        int hora = calendario.get(Calendar.HOUR);
+        int minuto = calendario.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityEditarDataAgendada.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hora, int minuto) {
+                btHoraFim.setText(""+hora+":"+minuto);
+                etHoraFim=""+hora+":"+minuto;
             }
         },hora,minuto,true);
         timePickerDialog.show();
