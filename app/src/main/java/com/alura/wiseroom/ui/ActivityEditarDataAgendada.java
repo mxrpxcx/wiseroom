@@ -22,10 +22,11 @@ import com.alura.wiseroom.R;
 import java.util.Calendar;
 
 public class ActivityEditarDataAgendada extends AppCompatActivity {
-    Button btData, btHora;
+    Button btData, btHoraInicio, btHoraFim;
     EditText etSobre;
     ImageButton btAdiciona;
-    String etHora,
+    String etHoraInicio,
+            etHoraFim,
             etData,
             etNome;
 
@@ -57,7 +58,8 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
         }
         etSobre.setText(etNome);
         btData.setText(etData);
-        btHora.setText(etHora);
+        btHoraInicio.setText(etHoraInicio);
+        btHoraFim.setText(etHoraFim);
         setListeners(id);
     }
 
@@ -66,7 +68,8 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
         btAdiciona = (ImageButton) findViewById(R.id.btAdicionaU);
         etSobre = (EditText) findViewById(R.id.etNomeU);
         btData = (Button) findViewById(R.id.btDataU);
-        btHora = (Button) findViewById(R.id.btHoraInicioU);
+        btHoraInicio = (Button) findViewById(R.id.btHoraInicioU);
+        btHoraFim = (Button) findViewById(R.id.btHoraFimU);
     }
 
 
