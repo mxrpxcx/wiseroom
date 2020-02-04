@@ -321,8 +321,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     }
 
     public void deletarReserva(final String idReserva){
-        String url = "http://172.30.248.130:3000/reserva?id_ne="+idReserva;
-        final JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+        String url = "http://172.30.248.130:3000/reserva?id="+idReserva;
+        final JsonArrayRequest request = new JsonArrayRequest(Request.Method.DELETE, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray resposta) {
