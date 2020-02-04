@@ -28,6 +28,7 @@ import com.alura.wiseroom.adapter.ReservaAdapter;
 import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -321,23 +322,26 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     }
 
     public void deletarReserva(final String idReserva){
-        String url = "http://172.30.248.130:3000/reserva?id="+idReserva;
-        final JsonArrayRequest request = new JsonArrayRequest(Request.Method.DELETE, url, null,
-                new Response.Listener<JSONArray>() {
+        final String _id = idReserva;
+        StringRequest request = new StringRequest(Request.Method.POST, ".../delete.php",
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONArray resposta) {
-                        listaReservas.clear();
-                        listaIds.clear();
-                        fetchDatabaseToArrayList();
-                        reservaAdapter.notifyDataSetChanged();
-                        flagDeleteAlarm = true;
+                    public void onResponse(String response) {
+
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
             }
-        });
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> p = new HashMap<>();
+                p.put("id", String.valueOf(_id));
+                return p;
+            }
+        };
         mQueue.add(request);
     }
 
