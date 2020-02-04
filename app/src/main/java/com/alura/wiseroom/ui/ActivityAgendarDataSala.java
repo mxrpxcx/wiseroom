@@ -143,8 +143,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         reservaModel.setDataMarcada(etData);
         reservaModel.setHoraInicio(etHoraInicio);
         reservaModel.setHoraFim(etHoraFim);
-//        reservaModel.getSalaReserva().setId(salaSelecioanda.getId());
-//        reservaModel.getColaboradorReserva().setId(colaboradorLogado.getId());
+        reservaModel.setSalaReserva(salaSelecioanda);
+        reservaModel.setColaboradorReserva(colaboradorLogado);
 
         enviarReservasServer(reservaModel);
     }
@@ -373,8 +373,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 params.put("dataReservada", reservaModel.getDataMarcada());
                 params.put("horaInicio",reservaModel.getHoraInicio());
                 params.put("horaFim", reservaModel.getHoraFim());
-                params.put("idSala", salaSelecioanda.getId());
-                params.put("idColaborador", colaboradorLogado.getId());
+                params.put("idSala", reservaModel.getSalaReserva().getId());
+                params.put("idColaborador", reservaModel.getColaboradorReserva().getId());
                 return params;
             }
         };
