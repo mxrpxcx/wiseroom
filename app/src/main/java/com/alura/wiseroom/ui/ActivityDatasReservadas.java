@@ -17,6 +17,16 @@ import com.alura.wiseroom.adapter.ReservaAdapter;
 import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -25,17 +35,18 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     ListView listView;
     ReservaAdapter reservaAdapter;
     ArrayList<ReservaModel> listaReservas = new ArrayList<>();
-    ArrayList<Integer> listIds = new ArrayList<>();
+    ArrayList<String> listIds = new ArrayList<>();
     boolean flagEditAlarm = false;
     SalaModel salaSelecioanda;
     ColaboradorModel colaboradorLogado;
-
+    RequestQueue mQueue;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datas_reservadas);
+        mQueue = Volley.newRequestQueue(this);
         recebeDados();
         Log.i("Reservas ID COL", colaboradorLogado.toString());
         Log.i("Reservas ID SAL", salaSelecioanda.toString());
@@ -63,70 +74,9 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     private void fetchDatabaseToArrayList() {
         listaReservas.clear();
         listIds.clear();
-        WiseRoomDB wise = new WiseRoomDB(this);
-        SQLiteDatabase db = wise.getReadableDatabase();
-
-
-        String selecao = WiseRoomDB.COLUNA_ID_SALA_RESERVADA +" = '"+salaSelecioanda.getId()+"'";
-        Cursor cursor = wise.selecionarReserva(db, selecao);
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                int id = cursor.getInt(0);
-
-
-                ReservaModel reservaModel = new ReservaModel();
-                reservaModel.setId(String.valueOf(id));
-                reservaModel.setSalaReserva(salaSelecioanda);
-
-               Cursor cursor2 = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_DATA + " WHERE " +
-                        WiseRoomDB.COLUNA_ID_DATA + "=?", new String[]{reservaModel.getId()});
-                if (cursor2 != null) {
-                    while (cursor2.moveToNext()) {
-
-
-
-                        String dataSelecionadaData = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_DATA_MARCADA));
-                        String horaSelecionadaComeco = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
-                       //String horaSelecionadaFim = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_HORARIO_MARCADO));
-                        String descricaoReuniao = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_NOME_DATA));
-                        String idColaboradorQueMarcou = cursor2.getString(cursor2.getColumnIndex(WiseRoomDB.COLUNA_ID_COLABORADOR_QUE_MARCOU));
-
-
-                        dataSelecionada = new DataModel();
-                        dataSelecionada.setNomeData(descricaoReuniao);
-                        dataSelecionada.setDataData(dataSelecionadaData);
-                        dataSelecionada.setHoraData(horaSelecionadaComeco);
-
-                        reservaModel.setDataReservada(dataSelecionada);
-
-
-                        Cursor cursor3 = db.rawQuery("SELECT * FROM " + WiseRoomDB.TABELA_NOME_COLABORADOR + " WHERE " +
-                                WiseRoomDB.COLUNA_ID_COLABORADOR + "=?", new String[]{idColaboradorQueMarcou});
-                        if (cursor3 != null) {
-                            while (cursor3.moveToNext()) {
-                                String colaboradorNome = cursor3.getString(cursor3.getColumnIndex(WiseRoomDB.COLUNA_NOME_COLABORADOR));
-                                ColaboradorModel colaboradorModel = new ColaboradorModel();
-                                colaboradorModel.setNome(colaboradorNome);
-                                reservaModel.setColaboradorReserva(colaboradorModel);
-                            }
-                        }
-
-                    }
-
-                }
-
-
-                Log.i("TESTE RESERVA LIST ", reservaModel.toString());
-                listaReservas.add(reservaModel);
-                listIds.add(id);
-            }
-
-            cursor.close();
-            db.close();
-
-            reservaAdapter = new ReservaAdapter(ActivityDatasReservadas.this, R.layout.item_lista_reserva, listaReservas);
-            listView.setAdapter(reservaAdapter);
-        }
+        verificaReserva(salaSelecioanda.getId());
+        reservaAdapter = new ReservaAdapter(ActivityDatasReservadas.this, R.layout.item_lista_reserva, listaReservas);
+        listView.setAdapter(reservaAdapter);
 
     }
 
@@ -157,5 +107,47 @@ public class ActivityDatasReservadas extends AppCompatActivity {
             flagEditAlarm=false;
         }
     }
+
+    public void verificaReserva(String idSala){
+        String url = "http://172.30.248.130:3000/reserva?idSala="+idSala;
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray resposta) {
+                        if (resposta.length() > 0) {
+                            try {
+                                for (int i = 0; i < resposta.length(); i++) {
+
+                                    JSONObject reservaJson = resposta.getJSONObject(i);
+                                    ReservaModel reservaRecebidaJson = new ReservaModel();
+
+                                    reservaRecebidaJson.setId(reservaJson.getString("id"));
+                                    reservaRecebidaJson.setDescricaoData(reservaJson.getString("descricao"));
+                                    reservaRecebidaJson.setDataMarcada(reservaJson.getString("dataReservada"));
+                                    reservaRecebidaJson.setHoraInicio(reservaJson.getString("horaInicio"));
+                                    reservaRecebidaJson.setHoraFim(reservaJson.getString("horaFim"));
+                                    reservaRecebidaJson.setColaboradorReserva(colaboradorLogado);
+                                    reservaRecebidaJson.setSalaReserva(salaSelecioanda);
+
+
+
+                                    listaReservas.add(reservaRecebidaJson);
+                                    listIds.add(reservaRecebidaJson.getId());
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }}
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request);
+    }
+    
 }
 

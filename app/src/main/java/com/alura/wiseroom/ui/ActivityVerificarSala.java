@@ -101,7 +101,7 @@ public class ActivityVerificarSala extends AppCompatActivity {
 
                                     Log.i("TESTE RODANDO ?? ", "model objeto " + salaRecebidaJson.toString());
 
-                                    Intent intent = new Intent(ActivityVerificarSala.this, null);
+                                    Intent intent = new Intent(ActivityVerificarSala.this, ActivityDatasReservadas.class);
                                     intent.putExtra("colaboradorLogado", colaboradorLogado);
                                     intent.putExtra("salaSelecionada", salaRecebidaJson);
                                     startActivity(intent);

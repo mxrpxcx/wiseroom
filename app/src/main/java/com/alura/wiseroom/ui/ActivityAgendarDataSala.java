@@ -188,7 +188,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 btHoraInicio.setText(""+hora+":"+minuto);
                 etHoraInicio =""+hora+":"+minuto;
             }
-        },hora,minuto,false);
+        },hora,minuto,true);
         timePickerDialog.show();
     }
 
@@ -202,7 +202,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 btHoraFim.setText(""+hora+":"+minuto);
                 etHoraFim = ""+hora+":"+minuto;
             }
-        },hora,minuto,false);
+        },hora,minuto,true);
         timePickerDialog.show();
     }
 
