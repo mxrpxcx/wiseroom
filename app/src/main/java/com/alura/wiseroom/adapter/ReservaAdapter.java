@@ -1,6 +1,7 @@
 package com.alura.wiseroom.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.annotation.Nullable;
 
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.model.ReservaModel;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -38,14 +41,14 @@ public class ReservaAdapter extends ArrayAdapter {
 
         View view = inflater.inflate(layoutRes,null);
 
-          TextView dataReservada = (TextView) view.findViewById(R.id.tvDataReservada);
-          TextView horaReservada = (TextView) view.findViewById(R.id.tvHoraReservada);
-          TextView nomeColaborador = (TextView) view.findViewById(R.id.tvNomeColaborador);
-
         ReservaModel reservaModel = listaReservas.get(position);
-//        nomeColaborador.setText(reservaModel.getColaboradorReserva().getNome());
-//        horaReservada.setText(reservaModel.getId());
-      //  dataReservada.setText(reservaModel.getDataMarcada());
+        Log.i("TESTE NOME RESERVA COL ", reservaModel.getColaboradorReserva().getNome());
+
+        ((TextView) view.findViewById(R.id.tvNomeColaborador)).setText(reservaModel.getColaboradorReserva().getNome());
+        ((TextView) view.findViewById(R.id.tvHoraReservadaInicio)).setText(reservaModel.getHoraInicio());
+        ((TextView) view.findViewById(R.id.tvHoraReservadaFim)).setText(reservaModel.getHoraFim());
+        ((TextView) view.findViewById(R.id.tvDataReservada)).setText(reservaModel.getDataMarcada());
+
         return view;
     }
 

@@ -156,7 +156,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         listaReservas.clear();
         listaIds.clear();
         verificaReserva(salaSelecioanda.getId(), colaboradorLogado.getId());
-        reservaAdapter = new ReservaAdapter(ActivityAgendarDataSala.this, R.layout.item_lista_data, listaReservas);
+        reservaAdapter = new ReservaAdapter(ActivityAgendarDataSala.this, R.layout.item_lista_reserva, listaReservas);
         listView.setAdapter(reservaAdapter);
     }
 
@@ -188,7 +188,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 btHoraInicio.setText(""+hora+":"+minuto);
                 etHoraInicio =""+hora+":"+minuto;
             }
-        },hora,minuto,true);
+        },hora,minuto,false);
         timePickerDialog.show();
     }
 
@@ -202,14 +202,13 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 btHoraFim.setText(""+hora+":"+minuto);
                 etHoraFim = ""+hora+":"+minuto;
             }
-        },hora,minuto,true);
+        },hora,minuto,false);
         timePickerDialog.show();
     }
 
     private void showListDialog(final String pos) {
 
         String[] arr = {"Deletar","Editar"};
-
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityAgendarDataSala.this);
         builder.setTitle("Opções");
         builder.setItems(arr, new DialogInterface.OnClickListener() {
@@ -229,7 +228,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 
     public void confirmaApagar(final String position) {
@@ -299,8 +297,9 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                                     reservaRecebidaJson.setDataMarcada(reservaJson.getString("dataReservada"));
                                     reservaRecebidaJson.setHoraInicio(reservaJson.getString("horaInicio"));
                                     reservaRecebidaJson.setHoraFim(reservaJson.getString("horaFim"));
-//                                    reservaRecebidaJson.getColaboradorReserva().setId((reservaJson.getString("idColaborador")));
-                              //      reservaRecebidaJson.getSalaReserva().setId((reservaJson.getString("idSala")));
+                                    reservaRecebidaJson.setColaboradorReserva(colaboradorLogado);
+                                    reservaRecebidaJson.setSalaReserva(salaSelecioanda);
+
 
 
                                     listaReservas.add(reservaRecebidaJson);
@@ -350,7 +349,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 {
                     @Override
                     public void onResponse(String response) {
-                        // response
+
                         Log.d("Response", response);
                     }
                 },
@@ -358,7 +357,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // error
+
                         Log.d("Error.Response", "bugou");
                     }
                 }
@@ -374,14 +373,11 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 params.put("dataReservada", reservaModel.getDataMarcada());
                 params.put("horaInicio",reservaModel.getHoraInicio());
                 params.put("horaFim", reservaModel.getHoraFim());
-//                params.put("idSala", reservaModel.getSalaReserva().getId());
-     //          params.put("idColaborador",reservaModel.getColaboradorReserva().getId());
+                params.put("idSala", salaSelecioanda.getId());
+                params.put("idColaborador", colaboradorLogado.getId());
                 return params;
             }
         };
         mQueue.add(postRequest);
     }
-
 }
-
-

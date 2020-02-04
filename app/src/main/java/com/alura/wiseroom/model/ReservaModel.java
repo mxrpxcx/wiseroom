@@ -14,6 +14,8 @@ public class ReservaModel implements Serializable {
     horaFim;
 
 
+
+
     public String getId() {
         return id;
     }
