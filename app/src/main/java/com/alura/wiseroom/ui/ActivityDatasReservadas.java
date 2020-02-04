@@ -36,11 +36,11 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     ReservaAdapter reservaAdapter;
     ArrayList<ReservaModel> listaReservas = new ArrayList<>();
     ArrayList<String> listIds = new ArrayList<>();
+    ArrayList<ColaboradorModel> listaColaboradores = new ArrayList<>();
     boolean flagEditAlarm = false;
     SalaModel salaSelecioanda;
     ColaboradorModel colaboradorLogado;
     RequestQueue mQueue;
-    ColaboradorModel colaboradorDaSala;
 
 
 
@@ -50,6 +50,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         setContentView(R.layout.activity_datas_reservadas);
         mQueue = Volley.newRequestQueue(this);
         recebeDados();
+        recebeColaborador();
         Log.i("Reservas ID COL", colaboradorLogado.toString());
         Log.i("Reservas ID SAL", salaSelecioanda.toString());
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -128,10 +129,10 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                                     reservaRecebidaJson.setDataMarcada(reservaJson.getString("dataReservada"));
                                     reservaRecebidaJson.setHoraInicio(reservaJson.getString("horaInicio"));
                                     reservaRecebidaJson.setHoraFim(reservaJson.getString("horaFim"));
-                                    recebeColaborador(reservaJson.getString("idColaborador"));
-                                    reservaRecebidaJson.setColaboradorReserva(colaboradorDaSala);
+                                    reservaRecebidaJson.setColaboradorReserva(listaColaboradores.get(Integer.parseInt(reservaJson.getString("idColaborador"))-1));
                                     reservaRecebidaJson.setSalaReserva(salaSelecioanda);
 
+                                    Log.i("TESTE COL SALA", reservaRecebidaJson.getColaboradorReserva().toString());
 
                                     listaReservas.add(reservaRecebidaJson);
                                     listIds.add(reservaRecebidaJson.getId());
@@ -151,8 +152,8 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         mQueue.add(request);
     }
 
-    public void recebeColaborador(String id){
-        String url = "http://172.30.248.130:3000/colaborador?id="+id;
+    public void recebeColaborador(){
+        String url = "http://172.30.248.130:3000/colaborador";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -169,10 +170,9 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                                     colaboradorRecebidoJson.setIdOrganizacao(colaboradorJson.getString("idOrganizacao"));
                                     colaboradorRecebidoJson.setEmail(colaboradorJson.getString("email"));
                                     colaboradorRecebidoJson.setAdministrador(colaboradorJson.getBoolean("administrador"));
-                                    colaboradorRecebidoJson.setSenha(colaboradorJson.getString("senha"));
 
-                                    colaboradorDaSala = colaboradorRecebidoJson;
-                                    Log.i("TESTE COL SALA", colaboradorDaSala.toString());
+
+                                    listaColaboradores.add(colaboradorRecebidoJson);
 
                                 }
                             } catch (JSONException e) {
