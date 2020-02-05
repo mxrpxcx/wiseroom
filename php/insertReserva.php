@@ -10,7 +10,7 @@ $s4 = $_POST['horaFim'];
 $s5 = $_POST['idColaboradorReserva'];
 $s6 = $_POST['idSalaReserva'];
 
-$db->addColaborador($s1, $s2, $s3, $s4, $s5, $s6);
+$db->addReserva($s1, $s2, $s3, $s4, $s5, $s6);
 }
 ?>
 
