@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                                     JSONObject colaboradorJson = resposta.getJSONObject(i);
                                     ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
 
-                                    colaboradorRecebidoJson.setId(colaboradorJson.getString("id"));
+                                    colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getString("idColaborador"));
                                     colaboradorRecebidoJson.setNome(colaboradorJson.getString("nome"));
                                     colaboradorRecebidoJson.setIdOrganizacao(colaboradorJson.getString("idOrganizacao"));
                                     colaboradorRecebidoJson.setEmail(colaboradorJson.getString("email"));

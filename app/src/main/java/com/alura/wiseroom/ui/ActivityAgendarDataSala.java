@@ -156,7 +156,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     private void fetchDatabaseToArrayList() {
         listaReservas.clear();
         listaIds.clear();
-        verificaReserva(salaSelecioanda.getId(), colaboradorLogado.getId());
+        verificaReserva(salaSelecioanda.getIdSala(), colaboradorLogado.getIdColaborador());
         reservaAdapter = new ReservaAdapter(ActivityAgendarDataSala.this, R.layout.item_lista_reserva, listaReservas);
         listView.setAdapter(reservaAdapter);
     }
@@ -293,7 +293,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                                     JSONObject reservaJson = resposta.getJSONObject(i);
                                     ReservaModel reservaRecebidaJson = new ReservaModel();
 
-                                    reservaRecebidaJson.setId(reservaJson.getString("id"));
+                                    reservaRecebidaJson.setIdReserva(reservaJson.getString("idReserva"));
                                     reservaRecebidaJson.setDescricaoData(reservaJson.getString("descricao"));
                                     reservaRecebidaJson.setDataMarcada(reservaJson.getString("dataReservada"));
                                     reservaRecebidaJson.setHoraInicio(reservaJson.getString("horaInicio"));
@@ -304,7 +304,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
 
                                     listaReservas.add(reservaRecebidaJson);
-                                    listaIds.add(reservaRecebidaJson.getId());
+                                    listaIds.add(reservaRecebidaJson.getIdReserva());
 
                                 }
                             } catch (JSONException e) {
@@ -377,8 +377,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 params.put("dataReservada", reservaModel.getDataMarcada());
                 params.put("horaInicio",reservaModel.getHoraInicio());
                 params.put("horaFim", reservaModel.getHoraFim());
-                params.put("idSala", reservaModel.getSalaReserva().getId());
-                params.put("idColaborador", reservaModel.getColaboradorReserva().getId());
+                params.put("idSala", reservaModel.getSalaReserva().getIdSala());
+                params.put("idColaborador", reservaModel.getColaboradorReserva().getIdColaborador());
                 return params;
             }
         };

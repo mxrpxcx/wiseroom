@@ -77,7 +77,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     private void fetchDatabaseToArrayList() {
         listaReservas.clear();
         listIds.clear();
-        verificaReserva(salaSelecioanda.getId());
+        verificaReserva(salaSelecioanda.getIdSala());
         reservaAdapter = new ReservaAdapter(ActivityDatasReservadas.this, R.layout.item_lista_reserva, listaReservas);
         listView.setAdapter(reservaAdapter);
 
@@ -124,7 +124,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                                     JSONObject reservaJson = resposta.getJSONObject(i);
                                     ReservaModel reservaRecebidaJson = new ReservaModel();
 
-                                    reservaRecebidaJson.setId(reservaJson.getString("id"));
+                                    reservaRecebidaJson.setIdReserva(reservaJson.getString("idReserva"));
                                     reservaRecebidaJson.setDescricaoData(reservaJson.getString("descricao"));
                                     reservaRecebidaJson.setDataMarcada(reservaJson.getString("dataReservada"));
                                     reservaRecebidaJson.setHoraInicio(reservaJson.getString("horaInicio"));
@@ -135,7 +135,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                                     Log.i("TESTE COL SALA", reservaRecebidaJson.getColaboradorReserva().toString());
 
                                     listaReservas.add(reservaRecebidaJson);
-                                    listIds.add(reservaRecebidaJson.getId());
+                                    listIds.add(reservaRecebidaJson.getIdReserva());
 
                                 }
                             } catch (JSONException e) {
@@ -165,7 +165,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                                     JSONObject colaboradorJson = resposta.getJSONObject(i);
                                     ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
 
-                                    colaboradorRecebidoJson.setId(colaboradorJson.getString("id"));
+                                    colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getString("idColaborador"));
                                     colaboradorRecebidoJson.setNome(colaboradorJson.getString("nome"));
                                     colaboradorRecebidoJson.setIdOrganizacao(colaboradorJson.getString("idOrganizacao"));
                                     colaboradorRecebidoJson.setEmail(colaboradorJson.getString("email"));

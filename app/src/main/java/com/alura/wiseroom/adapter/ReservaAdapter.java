@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 public class ReservaAdapter extends ArrayAdapter {
 
-    private Context context;
     private int layoutRes;
     private ArrayList<ReservaModel> listaReservas;
 
@@ -29,7 +28,6 @@ public class ReservaAdapter extends ArrayAdapter {
 
     public ReservaAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<ReservaModel> listaReservas) {
         super(context, resource,listaReservas);
-        this.context = context;
         layoutRes = resource;
         this.listaReservas = listaReservas;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
