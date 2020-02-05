@@ -12,8 +12,6 @@ import com.alura.wiseroom.R;
 import gr.net.maroulis.library.EasySplashScreen;
 
 public class SplashScreen extends AppCompatActivity {
-    private SQLiteDatabase db;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
