@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
-import com.alura.wiseroom.model.ReservaModel;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,8 +39,7 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
             etHoraFim,
             etData,
             etNome;
-
-    static String idUpdate;
+    
     RequestQueue mQueue;
 
 
