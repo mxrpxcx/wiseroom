@@ -163,7 +163,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                                     JSONObject colaboradorJson = resposta.getJSONObject(i);
                                     ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
 
-                                    colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getString("idColaborador"));
+                                    colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getString("id"));
                                     colaboradorRecebidoJson.setNome(colaboradorJson.getString("nome"));
                                     colaboradorRecebidoJson.setIdOrganizacao(colaboradorJson.getString("idOrganizacao"));
                                     colaboradorRecebidoJson.setEmail(colaboradorJson.getString("email"));
