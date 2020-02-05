@@ -38,24 +38,25 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
         int id = i.getIntExtra("idReserva",0);
 
 
-        Cursor cursor = wise.selecionarData(db, null);
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                int idData = cursor.getInt(0);
-                if (idData == id) {
-                    etNome = cursor.getString(1);
-                    etData = cursor.getString(2);
-                    etHora = cursor.getString(3);
-                    break;
-                }
-            }
-            cursor.close();
-            db.close();
-        }
+    //    Cursor cursor = wise.selecionarData(db, null);
+    //    if (cursor != null) {
+     //       while (cursor.moveToNext()) {
+      //          int idData = cursor.getInt(0);
+        //        if (idData == id) {
+       //             etNome = cursor.getString(1);
+        //            etData = cursor.getString(2);
+        //            etHoraInicio = cursor.getString(3);
+          //          break;
+        //        }
+       //     }
+        //    cursor.close();
+         //   db.close();
+        //   }
+        
         etSobre.setText(etNome);
         btData.setText(etData);
         btHoraInicio.setText(etHoraInicio);
-        btHoraFim.setText(etHoraFim);
+       btHoraFim.setText(etHoraFim);
         setListeners(id);
     }
 
@@ -92,7 +93,8 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 etNome = etSobre.getText().toString();
-                String textTime = btHora.getText().toString();
+                String txtInicio = btHoraInicio.getText().toString();
+                String txtFim = btHoraFim.getText().toString();
                 String textDate = btData.getText().toString();
                 if(etNome.equals("")) {
                     Toast.makeText(ActivityEditarDataAgendada.this, "Adicionar nome", Toast.LENGTH_SHORT).show();
@@ -100,17 +102,20 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
                 else if(textDate.equals("Selecione a data") || textDate.equals("")) {
                     Toast.makeText(ActivityEditarDataAgendada.this, "Adicionar data", Toast.LENGTH_SHORT).show();
                 }
-                else if(textTime.equals("Selecione a hora") || textTime.equals("")) {
-                    Toast.makeText(ActivityEditarDataAgendada.this, "Adicionar hora", Toast.LENGTH_SHORT).show();
+                else if(txtInicio.equals("Selecione a hora de inicio") || txtInicio.equals("")) {
+                    Toast.makeText(ActivityEditarDataAgendada.this, "Adicionar hora inicio", Toast.LENGTH_SHORT).show();
+                }
+                else if(txtFim.equals("Selecione a hora de fim") || txtFim.equals("")) {
+                    Toast.makeText(ActivityEditarDataAgendada.this, "Adicionar hora fim", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    atualizaBanco(id);
+                //    att id
                 }
             }
         });
     }
 
-    private void atualizaBanco(int id) {
+  /*  private void atualizaBanco(int id) {
 
         WiseRoomDB wise = new WiseRoomDB(ActivityEditarDataAgendada.this);
         SQLiteDatabase db = wise.getWritableDatabase();
@@ -131,7 +136,7 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
             Toast.makeText(ActivityEditarDataAgendada.this, "Tente novamente", Toast.LENGTH_SHORT).show();
         }
         db.close();
-    }
+    } */
 
     private void mostraCalendario() {
         Calendar calendar = Calendar.getInstance();
