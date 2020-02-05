@@ -33,6 +33,16 @@ $link->close();
 }
 }
 
+public function atualizaReserva($s1, $s2, $s3, $s4, $s5)
+{
+$link = mysqli_connect("localhost", "root", "root", "dbWiseroom");
+$query = "UPDATE tbReserva SET descricaoReserva = '$s2', dataData = '$s3', horaInicio = '$s4', horaFim = '$5' WHERE idReserva = '$s1'";
+$result = mysqli_query($link, $query);
+$link->close();
+}
+
+?>
+
 
 
 public function getColaborador()
