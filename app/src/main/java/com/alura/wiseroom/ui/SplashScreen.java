@@ -1,6 +1,5 @@
 package com.alura.wiseroom.ui;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 
@@ -21,7 +20,7 @@ public class SplashScreen extends AppCompatActivity {
 
         View easySplashScreenView = new EasySplashScreen(SplashScreen.this)
                     .withFullScreen()
-                    .withTargetActivity(MainActivity.class)
+                    .withTargetActivity(ActivityLogin.class)
                     .withSplashTimeOut(3000)
                     .withBackgroundResource(R.color.colorPrimaryDark)
                     .withHeaderText("")

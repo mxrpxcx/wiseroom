@@ -62,7 +62,7 @@ public class ActivityReservarSala extends AppCompatActivity {
             }else{
 
                 Log.i("TESTE REDIRECIONAMENTO  ", "REDIRECIOAAWFOAWFO");
-                Intent intent = new Intent(ActivityReservarSala.this, ActivityEscolha.class);
+                Intent intent = new Intent(ActivityReservarSala.this, ActivityPerfil.class);
                 startActivity(intent);
             }
         }else{

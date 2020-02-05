@@ -60,7 +60,7 @@ public class ActivityVerificarSala extends AppCompatActivity {
 
             }else{
 
-                Intent intent = new Intent(ActivityVerificarSala.this, ActivityEscolha.class);
+                Intent intent = new Intent(ActivityVerificarSala.this, ActivityPerfil.class);
                 startActivity(intent);
             }
         }else{

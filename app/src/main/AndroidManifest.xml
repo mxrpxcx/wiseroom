@@ -28,8 +28,8 @@
         <activity android:name=".ui.ActivityEditarDataAgendada" />
         <activity android:name=".ui.ActivityCadastroColaborador" />
         <activity android:name=".ui.ActivityReservarSala" />
-        <activity android:name=".ui.ActivityEscolha" />
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.ActivityPerfil" />
+        <activity android:name=".ui.ActivityLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

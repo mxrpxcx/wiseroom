@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.model.ColaboradorModel;
 
-public class ActivityEscolha extends AppCompatActivity {
+public class ActivityPerfil extends AppCompatActivity {
     private Button btDisponibilidadeSala;
     private Button btReservarSala;
     private ColaboradorModel colaboradorLogado;
@@ -20,7 +20,7 @@ public class ActivityEscolha extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_escolha);
+        setContentView(R.layout.activity_perfil);
         ActionBar ab = getSupportActionBar();
         ab.hide();
         criarBotaoPlusAcoes();
@@ -36,7 +36,7 @@ public class ActivityEscolha extends AppCompatActivity {
         btReservarSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityEscolha.this, ActivityReservarSala.class);
+                Intent intent = new Intent(ActivityPerfil.this, ActivityReservarSala.class);
                 intent.putExtra("colaboradorLogado", colaboradorLogado);
                 startActivity(intent);
                 finish();
@@ -46,7 +46,7 @@ public class ActivityEscolha extends AppCompatActivity {
         btDisponibilidadeSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityEscolha.this, ActivityVerificarSala.class);
+                Intent intent = new Intent(ActivityPerfil.this, ActivityVerificarSala.class);
                 intent.putExtra("colaboradorLogado", colaboradorLogado);
                 startActivity(intent);
                 finish();

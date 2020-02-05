@@ -25,7 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class MainActivity extends AppCompatActivity {
+public class ActivityLogin extends AppCompatActivity {
     private Button btLogin;
     private Button btCadastro;
     private EditText tvEmail;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         ActionBar ab = getSupportActionBar();
         mQueue = Volley.newRequestQueue(this);
 
@@ -71,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
         btCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ActivityCadastroColaborador.class));
+                startActivity(new Intent(ActivityLogin.this, ActivityCadastroColaborador.class));
             }
         });
 
         btTutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, help.class));
+                startActivity(new Intent(ActivityLogin.this, help.class));
             }
         });
     }
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     Log.i("TESTE RODANDO ?? ", "model objeto " + colaboradorRecebidoJson.toString());
 
-                                    Intent intent = new Intent(MainActivity.this, ActivityEscolha.class);
+                                    Intent intent = new Intent(ActivityLogin.this, ActivityPerfil.class);
                                     intent.putExtra("colaboradorLogado", colaboradorRecebidoJson);
                                     startActivity(intent);
 
