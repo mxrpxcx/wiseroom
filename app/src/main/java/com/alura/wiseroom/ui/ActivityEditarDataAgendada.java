@@ -1,6 +1,4 @@
-/*
-
- package com.alura.wiseroom.ui;
+package com.alura.wiseroom.ui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -37,10 +35,9 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
         setContentView(R.layout.activity_editar_data_agendada);
         init();
         Intent i = getIntent();
-        int id = i.getIntExtra("ID",0);
+        int id = i.getIntExtra("idReserva",0);
 
-        WiseRoomDB wise = new WiseRoomDB(this);
-        SQLiteDatabase db = wise.getReadableDatabase();
+
         Cursor cursor = wise.selecionarData(db, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -182,4 +179,3 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
     }
 
 }
-*/

@@ -221,7 +221,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 else {
                     String id = listaIds.get(Integer.parseInt(pos));
                     Intent i = new Intent(ActivityAgendarDataSala.this, null);
-                    i.putExtra("ID", id);
+                    i.putExtra("idReserva", id);
                     flagEditAlarm=true;
                     startActivity(i);
                 }
