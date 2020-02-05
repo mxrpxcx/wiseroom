@@ -39,7 +39,7 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
             etHoraFim,
             etData,
             etNome;
-    
+
     RequestQueue mQueue;
 
 
@@ -200,7 +200,7 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
 
     private void atualizaReserva(String id) {
 
-        final String _id = id;
+        final String idReserva = id;
         StringRequest request = new StringRequest(Request.Method.POST, ".../atualiza.php",
                 new Response.Listener<String>() {
                     @Override
@@ -216,10 +216,11 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> p = new HashMap<>();
-                p.put("descricaoReserva", String.valueOf(_id));
-                p.put("dataData", String.valueOf(_id));
-                p.put("horaInicio", String.valueOf(_id));
-                p.put("horaFim", String.valueOf(_id));
+                p.put("idReserva", idReserva);
+                p.put("descricaoReserva", etNome);
+                p.put("dataData", btData.toString());
+                p.put("horaInicio", btHoraInicio.toString());
+                p.put("horaFim", btHoraFim.toString());
 
                 return p;
             }
