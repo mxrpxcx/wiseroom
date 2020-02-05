@@ -292,7 +292,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                                     JSONObject reservaJson = resposta.getJSONObject(i);
                                     ReservaModel reservaRecebidaJson = new ReservaModel();
 
-                                    reservaRecebidaJson.setIdReserva(reservaJson.getString("idReserva"));
+                                    reservaRecebidaJson.setIdReserva(reservaJson.getString("id"));
                                     reservaRecebidaJson.setDescricaoData(reservaJson.getString("descricao"));
                                     reservaRecebidaJson.setDataMarcada(reservaJson.getString("dataReservada"));
                                     reservaRecebidaJson.setHoraInicio(reservaJson.getString("horaInicio"));

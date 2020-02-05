@@ -93,7 +93,7 @@ public class ActivityVerificarSala extends AppCompatActivity {
                                     JSONObject salaJson = resposta.getJSONObject(i);
                                     SalaModel salaRecebidaJson = new SalaModel();
 
-                                    salaRecebidaJson.setIdSala(salaJson.getString("idSala"));
+                                    salaRecebidaJson.setIdSala(salaJson.getString("id"));
                                     salaRecebidaJson.setNome(salaJson.getString("nome"));
                                     salaRecebidaJson.setCapacidade(salaJson.getInt("capacidade"));
                                     salaRecebidaJson.setDescricaoSala(salaJson.getString("descricao"));
