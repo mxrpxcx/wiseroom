@@ -62,6 +62,7 @@ public class ActivityPerfil extends AppCompatActivity {
                                           public void onClick(View v) {
                                               Intent intentLogOut = new Intent(ActivityPerfil.this, ActivityLogin.class);
                                               startActivity(intentLogOut);
+                                              finish();
                                           }
                                       }
         );
