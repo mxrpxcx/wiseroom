@@ -1,14 +1,4 @@
 <resources>
     <string name="app_name">WiseRoom</string>
-    <string name="ajuda">Como usar:
-     \n
-     Faça cadastro ou use o user padrão \n email: b@b.com  \n senha: b  \n \n
-        Escolha se quer reservar uma sala ou ver as reservas da sala
-         \n
-         \n
-        Aponte a câmera pro QRCode que vai estar na porta da sala
-         \n \n
-        Escolha a data e horário para reservar, embaixo aparecerá uma lista com as suas reservas para aquela sala
-         \n \n
-    </string>
+
 </resources>
