@@ -68,7 +68,7 @@
         android:paddingBottom="5dp"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorPrimary"
+        android:textColorHint="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@id/editSenha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +109,7 @@
         android:paddingBottom="5dp"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorPrimary"
+        android:textColorHint="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editEmail" />
