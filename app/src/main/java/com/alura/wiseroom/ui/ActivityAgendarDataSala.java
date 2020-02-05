@@ -219,7 +219,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 }
                 else {
                     String id = listaIds.get(Integer.parseInt(pos));
-                    Intent i = new Intent(ActivityAgendarDataSala.this, null);
+                    Intent i = new Intent(ActivityAgendarDataSala.this, ActivityEditarDataAgendada.class);
                     i.putExtra("idReserva", id);
                     flagEditAlarm=true;
                     startActivity(i);
