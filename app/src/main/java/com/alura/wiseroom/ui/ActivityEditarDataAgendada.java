@@ -1,4 +1,6 @@
-/* package com.alura.wiseroom.ui;
+/*
+
+ package com.alura.wiseroom.ui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -144,8 +146,8 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int ano, int mes, int dia) {
                 mes=mes+1;
-                btData.setText(""+dia+"/"+mes+"/"+ano);
-                etData=""+dia+"/"+mes+"/"+ano;
+                btData.setText(""+dia+"-"+mes+"-"+ano);
+                etData=""+dia+"-"+mes+"-"+ano;
             }
         },ano,mes,dia);
         datePickerDialog.show();
