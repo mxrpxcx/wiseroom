@@ -1,22 +1,46 @@
 <?php
 class DB_Functions {
 	
-public function add($s1, $s2)
+
+public function addColaborador($s1, $s2, $s3, $s4, $s5)
 {
-$link = mysqli_connect("localhost", "root", "root", "task_database");
-$query = "INSERT INTO task_table (_task, _cause) VALUES ('$s1', '$s2')";
+$link = mysqli_connect("localhost", "root", "root", "dbWiseroom");
+$query = "INSERT INTO tbColaborador (nome, idOrganizacao, email, administrador, senha) VALUES ('$s1', '$s2', '$s3', '$s4', '$s5')";
 $result = mysqli_query($link, $query);
 $link->close();
 }
 }
 
 
-public function get()
+
+public function addSala($s1, $s2, $s3, $s4)
 {
-$link = mysqli_connect("localhost", "root", "root", "task_database");
-$query = "SELECT * from task_table";
+$link = mysqli_connect("localhost", "root", "root", "dbWiseroom");
+$query = "INSERT INTO tbSala (nome, capacidade, areaDaSala, descricaoSala) VALUES ('$s1', '$s2', '$s3', '$s4')";
+$result = mysqli_query($link, $query);
+$link->close();
+}
+}
+
+
+
+public function addReserva($s1, $s2, $s3, $s4, $s5, $s6)
+{
+$link = mysqli_connect("localhost", "root", "root", "dbWiseroom");
+$query = "INSERT INTO tbReserva (descricaoReserva, dataData, horaInicio, horaFim, idColaboradorReserva, idSalaReserva) VALUES ('$s1', '$s2', '$s3', '$s4', '$s5', '$s6')";
+$result = mysqli_query($link, $query);
+$link->close();
+}
+}
+
+
+public function getColaborador()
+{
+$link = mysqli_connect("localhost", "root", "root", "dbWiseroom");
+$query = "SELECT * from tbColaborador";
 $result = mysqli_query($link, $query);
 $return_array = array();
+
 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 {
 $row_array['id'] = $row['_id'];
@@ -24,14 +48,15 @@ $row_array['task'] = $row['_task'];
 $row_array['cause'] = $row['_cause'];
 array_push($return_array, $row_array);
 }
+
 echo json_encode($return_array);
 $link->close();
 }
 
-public function del($id)
+public function delColaborador($id)
 {
-$link = mysqli_connect("localhost", "root", "root", "task_database");
-$query = "DELETE FROM task_table WHERE _id = '$id'";
+$link = mysqli_connect("localhost", "root", "root", "dbWiseroom");
+$query = "DELETE FROM tbColaborador WHERE _id = '$id'";
 $result = mysqli_query($link, $query);
 $link->close();
 }
