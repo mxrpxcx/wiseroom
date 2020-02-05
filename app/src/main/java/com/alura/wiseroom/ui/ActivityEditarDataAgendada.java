@@ -22,6 +22,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -29,6 +30,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ActivityEditarDataAgendada extends AppCompatActivity {
     Button btData, btHoraInicio, btHoraFim;
@@ -50,7 +53,7 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
         mQueue = Volley.newRequestQueue(this);
         init();
         Intent i = getIntent();
-        int id = i.getIntExtra("idReserva",0);
+        String id = i.getStringExtra("idReserva");
 
 
             String url = "http://172.30.248.130:3000/reserva?id="+id;
@@ -63,16 +66,13 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
                                     for (int i = 0; i < resposta.length(); i++) {
 
                                         JSONObject reservaJson = resposta.getJSONObject(i);
-                                        ReservaModel reservaRecebidaJson = new ReservaModel();
 
-                                        reservaRecebidaJson.setIdReserva(reservaJson.getString("idReserva"));
                                         etSobre.setText(reservaJson.getString("descricao"));
                                         btData.setText(reservaJson.getString("dataReservada"));
                                         btHoraInicio.setText(reservaJson.getString("horaInicio"));
                                         btHoraFim.setText(reservaJson.getString("horaFim"));
 
 
-                                        Log.i("TESTE COL SALA", reservaRecebidaJson.getColaboradorReserva().toString());
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -106,7 +106,7 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
     }
 
 
-    private void setListeners(final int id) {
+    private void setListeners(final String id) {
         btData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,33 +145,39 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
                     Toast.makeText(ActivityEditarDataAgendada.this, "Adicionar hora fim", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                //    att id
+                 atualizaBanco(id);
                 }
             }
         });
     }
 
-    private void atualizaBanco(int id) {
+    private void atualizaBanco(String id) {
 
-        WiseRoomDB wise = new WiseRoomDB(ActivityEditarDataAgendada.this);
-        SQLiteDatabase db = wise.getWritableDatabase();
+        final String _id = id;
+        StringRequest request = new StringRequest(Request.Method.POST, ".../atualiza.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
 
-        ContentValues cv = new ContentValues();
-        cv.put(wise.COLUNA_NOME_DATA, etNome);
-        cv.put(wise.COLUNA_DATA_MARCADA, etData);
-        cv.put(wise.COLUNA_HORARIO_MARCADO, etHora);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> p = new HashMap<>();
+                p.put("descricaoReserva", String.valueOf(_id));
+                p.put("dataData", String.valueOf(_id));
+                p.put("horaInicio", String.valueOf(_id));
+                p.put("horaFim", String.valueOf(_id));
 
-        String whereClause = wise.COLUNA_ID_DATA +" = '"+id+"'";
-        int l = WiseRoomDB.atualizarData(db, whereClause,cv);
-        if (l>0) {
-            Toast.makeText(ActivityEditarDataAgendada.this, "Remarcado", Toast.LENGTH_SHORT).show();
-            idUpdate=id;
-            finish();
-        }
-        else {
-            Toast.makeText(ActivityEditarDataAgendada.this, "Tente novamente", Toast.LENGTH_SHORT).show();
-        }
-        db.close();
+                return p;
+            }
+        };
+        mQueue.add(request);
     }
 
     private void mostraCalendario() {
