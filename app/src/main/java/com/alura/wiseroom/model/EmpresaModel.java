@@ -8,12 +8,6 @@ public class EmpresaModel implements Serializable {
     protected String dominioOrganizacao;
 
 
-    public EmpresaModel(String id, String nome, String idOrganizacao, String dominioOrganizacao) {
-        this.id = id;
-        this.nome = nome;
-        this.dominioOrganizacao = dominioOrganizacao;
-    }
-
     public EmpresaModel() {
     }
 
