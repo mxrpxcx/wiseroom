@@ -80,7 +80,6 @@ public class ActivityLogin extends AppCompatActivity {
     private void setarValores() {
         btLogin = findViewById(R.id.btLogin);
         btCadastro = findViewById(R.id.btCadastro);
-        btTutorial = findViewById(R.id.btAjuda);
         tvEmail = (EditText) findViewById(R.id.editEmail);
         tvSenha = (EditText) findViewById(R.id.editSenha);
         tvEmail.setText("b@b.com");
