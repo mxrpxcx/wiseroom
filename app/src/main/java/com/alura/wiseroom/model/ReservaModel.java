@@ -3,7 +3,7 @@ package com.alura.wiseroom.model;
 import java.io.Serializable;
 
 public class ReservaModel implements Serializable {
-    private String id;
+    private String idReserva;
     private SalaModel salaReserva;
     private ColaboradorModel colaboradorReserva;
 
@@ -14,14 +14,12 @@ public class ReservaModel implements Serializable {
     horaFim;
 
 
-
-
-    public String getId() {
-        return id;
+    public String getIdReserva() {
+        return idReserva;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdReserva(String idReserva) {
+        this.idReserva = idReserva;
     }
 
     public SalaModel getSalaReserva() {
@@ -75,7 +73,6 @@ public class ReservaModel implements Serializable {
     @Override
     public String toString() {
         return "ReservaModel{" +
-                "id='" + id + '\'' +
                 ", salaReserva=" + salaReserva +
                 ", colaboradorReserva=" + colaboradorReserva +
                 '}';

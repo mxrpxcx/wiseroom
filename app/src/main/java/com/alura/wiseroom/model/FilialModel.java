@@ -2,14 +2,14 @@ package com.alura.wiseroom.model;
 
 public class FilialModel extends EmpresaModel {
    private String idMatriz;
-   private String nomeMatriz;
+   private String nomeFilial;
 
-    public String getNomeMatriz() {
-        return nomeMatriz;
+    public String getNomeFilial() {
+        return nomeFilial;
     }
 
-    public void setNomeMatriz(String nomeMatriz) {
-        this.nomeMatriz = nomeMatriz;
+    public void setNomeFilial(String nomeFilial) {
+        this.nomeFilial = nomeFilial;
     }
 
     public String getIdMatriz() {

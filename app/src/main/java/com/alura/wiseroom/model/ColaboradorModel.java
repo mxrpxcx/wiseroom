@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class ColaboradorModel implements Serializable {
 
-   private String id;
+   private String idColaborador;
    private String nome;
    private String organizacao="null";
    private String email;
@@ -21,6 +21,14 @@ public class ColaboradorModel implements Serializable {
    public ColaboradorModel() {
    }
 
+   public String getOrganizacao() {
+      return organizacao;
+   }
+
+   public void setOrganizacao(String organizacao) {
+      this.organizacao = organizacao;
+   }
+
    public String getSenha() {
       return senha;
    }
@@ -29,12 +37,12 @@ public class ColaboradorModel implements Serializable {
       this.senha = senha;
    }
 
-   public String getId() {
-      return id;
+   public String getIdColaborador() {
+      return idColaborador;
    }
 
-   public void setId(String id) {
-      this.id = id;
+   public void setIdColaborador(String idColaborador) {
+      this.idColaborador = idColaborador;
    }
 
    public String getNome() {
@@ -72,7 +80,6 @@ public class ColaboradorModel implements Serializable {
    @Override
    public String toString() {
       return "ColaboradorModel{" +
-              "id='" + id + '\'' +
               ", nome='" + nome + '\'' +
               ", idOrganizacao=" + organizacao +
               ", email='" + email + '\'' +
