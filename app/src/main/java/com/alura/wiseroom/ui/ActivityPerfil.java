@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class ActivityPerfil extends AppCompatActivity {
     private Button btDisponibilidadeSala;
     private Button btReservarSala;
     private ColaboradorModel colaboradorLogado;
+    private TextView textLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,17 @@ public class ActivityPerfil extends AppCompatActivity {
                 finish();
             }
         });
+
+        textLogout = findViewById(R.id.textViewLogOut);
+
+        textLogout.setOnClickListener(new View.OnClickListener(){
+                                          @Override
+                                          public void onClick(View v) {
+                                              Intent intentLogOut = new Intent(ActivityPerfil.this, ActivityLogin.class);
+                                              startActivity(intentLogOut);
+                                          }
+                                      }
+        );
     }
 
     private void recebeDados() {
