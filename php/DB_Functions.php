@@ -11,8 +11,6 @@ $link->close();
 }
 }
 
-
-
 public function addSala($s1, $s2, $s3, $s4)
 {
 $link = mysqli_connect("localhost", "root", "root", "dbWiseroom");
@@ -22,11 +20,15 @@ $link->close();
 }
 }
 
-
-
 public function addReserva($s1, $s2, $s3, $s4, $s5, $s6)
 {
+	
+	
+	
 $link = mysqli_connect("localhost", "root", "root", "dbWiseroom");
+
+# select data count() 
+
 $query = "INSERT INTO tbReserva (descricaoReserva, dataData, horaInicio, horaFim, idColaboradorReserva, idSalaReserva) VALUES ('$s1', '$s2', '$s3', '$s4', '$s5', '$s6')";
 $result = mysqli_query($link, $query);
 $link->close();
