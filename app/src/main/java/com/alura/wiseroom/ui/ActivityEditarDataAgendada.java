@@ -52,7 +52,7 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
         //    cursor.close();
          //   db.close();
         //   }
-        
+
         etSobre.setText(etNome);
         btData.setText(etData);
         btHoraInicio.setText(etHoraInicio);
