@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,10 +27,9 @@ import org.json.JSONObject;
 
 public class ActivityLogin extends AppCompatActivity {
     private Button btLogin;
-    private Button btCadastro;
+    private TextView etCadastro;
     private EditText tvEmail;
     private EditText tvSenha;
-    private Button btTutorial;
     RequestQueue mQueue;
 
 
@@ -67,7 +67,7 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void setListenersDoBotao() {
-        btCadastro.setOnClickListener(new View.OnClickListener() {
+       etCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ActivityLogin.this, ActivityCadastroColaborador.class));
@@ -79,7 +79,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     private void setarValores() {
         btLogin = findViewById(R.id.btLogin);
-        btCadastro = findViewById(R.id.btCadastro);
+        etCadastro = findViewById(R.id.textViewCadastroVddeiro);
         tvEmail = (EditText) findViewById(R.id.editEmail);
         tvSenha = (EditText) findViewById(R.id.editSenha);
         tvEmail.setText("b@b.com");

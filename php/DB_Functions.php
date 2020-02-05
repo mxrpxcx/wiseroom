@@ -41,10 +41,6 @@ $result = mysqli_query($link, $query);
 $link->close();
 }
 
-?>
-
-
-
 public function getColaborador()
 {
 $link = mysqli_connect("localhost", "root", "root", "dbWiseroom");
