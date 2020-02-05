@@ -11,7 +11,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
-import com.alura.wiseroom.help;
 import com.alura.wiseroom.model.ColaboradorModel;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -75,12 +74,7 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
-        btTutorial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ActivityLogin.this, help.class));
-            }
-        });
+
     }
 
     private void setarValores() {

@@ -56,38 +56,7 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
         String id = i.getStringExtra("idReserva");
 
 
-            String url = "http://172.30.248.130:3000/reserva?id="+id;
-            JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                    new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray resposta) {
-                            if (resposta.length() > 0) {
-                                try {
-                                    for (int i = 0; i < resposta.length(); i++) {
-
-                                        JSONObject reservaJson = resposta.getJSONObject(i);
-
-                                        etSobre.setText(reservaJson.getString("descricao"));
-                                        btData.setText(reservaJson.getString("dataReservada"));
-                                        btHoraInicio.setText(reservaJson.getString("horaInicio"));
-                                        btHoraFim.setText(reservaJson.getString("horaFim"));
-
-
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }}
-
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    error.printStackTrace();
-                }
-            });
-            mQueue.add(request);
-
-
+        recebeReserva(id);
 
         etSobre.setText(etNome);
         btData.setText(etData);
@@ -95,6 +64,8 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
         btHoraFim.setText(etHoraFim);
         setListeners(id);
     }
+
+
 
 
     private void init() {
@@ -145,40 +116,12 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
                     Toast.makeText(ActivityEditarDataAgendada.this, "Adicionar hora fim", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                 atualizaBanco(id);
+                 atualizaReserva(id);
                 }
             }
         });
     }
 
-    private void atualizaBanco(String id) {
-
-        final String _id = id;
-        StringRequest request = new StringRequest(Request.Method.POST, ".../atualiza.php",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> p = new HashMap<>();
-                p.put("descricaoReserva", String.valueOf(_id));
-                p.put("dataData", String.valueOf(_id));
-                p.put("horaInicio", String.valueOf(_id));
-                p.put("horaFim", String.valueOf(_id));
-
-                return p;
-            }
-        };
-        mQueue.add(request);
-    }
 
     private void mostraCalendario() {
         Calendar calendar = Calendar.getInstance();
@@ -223,6 +166,68 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
             }
         },hora,minuto,true);
         timePickerDialog.show();
+    }
+
+    private void recebeReserva(String id) {
+        String url = "http://172.30.248.130:3000/reserva?id="+id;
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray resposta) {
+                        if (resposta.length() > 0) {
+                            try {
+                                for (int i = 0; i < resposta.length(); i++) {
+
+                                    JSONObject reservaJson = resposta.getJSONObject(i);
+
+                                    etSobre.setText(reservaJson.getString("descricao"));
+                                    btData.setText(reservaJson.getString("dataReservada"));
+                                    btHoraInicio.setText(reservaJson.getString("horaInicio"));
+                                    btHoraFim.setText(reservaJson.getString("horaFim"));
+
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }}
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue.add(request);
+    }
+
+    private void atualizaReserva(String id) {
+
+        final String _id = id;
+        StringRequest request = new StringRequest(Request.Method.POST, ".../atualiza.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> p = new HashMap<>();
+                p.put("descricaoReserva", String.valueOf(_id));
+                p.put("dataData", String.valueOf(_id));
+                p.put("horaInicio", String.valueOf(_id));
+                p.put("horaFim", String.valueOf(_id));
+
+                return p;
+            }
+        };
+        mQueue.add(request);
     }
 
 }
