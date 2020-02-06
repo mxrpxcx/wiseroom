@@ -337,7 +337,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> p = new HashMap<>();
-                p.put("id", String.valueOf(_id));
+                p.put("id", _id);
                 return p;
             }
         };

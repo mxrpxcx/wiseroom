@@ -24,6 +24,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class ActivityLogin extends AppCompatActivity {
     private Button btLogin;
@@ -87,8 +90,8 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
 
-    public void verificaRegistro(String email, String senha){
-        String url = "http://172.30.248.130:3000/colaborador?email="+email+"&senha="+senha;
+    public void verificaRegistro(final String email, final String senha){
+        String url = "http://172.30.248.130/listaColaborador.php";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -124,7 +127,20 @@ public class ActivityLogin extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
             }
-        });
+        }
+
+
+        ){
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", email);
+                params.put("senha", senha);
+
+                return params;
+            }
+        };
         mQueue.add(request);
     }
 

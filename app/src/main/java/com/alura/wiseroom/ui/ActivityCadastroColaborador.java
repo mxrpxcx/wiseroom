@@ -35,7 +35,6 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.hide();
 
-     //   receberColaboradoresServer();
 
         final EditText txtNome = (EditText) findViewById(R.id.editNomeCadastro);
         final EditText txtEmail = (EditText) findViewById(R.id.editEmailCadastro);
@@ -87,7 +86,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
 
     public void enviarColaboradoresServer(final ColaboradorModel colaboradorModel){
-        String url = "http://172.30.248.130:3000/colaborador";
+        String url = "http://172.30.248.130/insereColaborador.php";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
