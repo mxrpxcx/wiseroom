@@ -12,11 +12,6 @@ public class ColaboradorModel implements Serializable {
    private String senha;
 
 
-   public ColaboradorModel(String nome, String email, String senha) {
-      this.senha = senha;
-      this.nome = nome;
-      this.email = email;
-   }
 
    public ColaboradorModel() {
    }
