@@ -137,7 +137,6 @@ public class ActivityLogin extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("email", email);
                 params.put("senha", senha);
-
                 return params;
             }
         };
