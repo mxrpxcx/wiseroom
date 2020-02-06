@@ -2,13 +2,13 @@ package com.alura.wiseroom.model;
 
 import java.io.Serializable;
 
-public class EmpresaModel implements Serializable {
+public class OrganizacaoModel implements Serializable {
     protected String idEmpresa;
     protected String nome;
     protected String dominioOrganizacao;
 
 
-    public EmpresaModel() {
+    public OrganizacaoModel() {
     }
 
     public String getIdEmpresa() {
@@ -38,7 +38,7 @@ public class EmpresaModel implements Serializable {
 
     @Override
     public String toString() {
-        return "EmpresaModel{" +
+        return "OrganizacaoModel{" +
                 ", nome='" + nome + '\'' +
                 ", dominioOrganizacao='" + dominioOrganizacao + '\'' +
                 '}';
