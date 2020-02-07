@@ -96,11 +96,11 @@ public class ActivityReservarSala extends AppCompatActivity {
                                     JSONObject salaJson = resposta.getJSONObject(i);
                                     SalaModel salaRecebidaJson = new SalaModel();
 
-                                    salaRecebidaJson.setIdSala(salaJson.getString("id"));
-                                    salaRecebidaJson.setNome(salaJson.getString("nome"));
-                                    salaRecebidaJson.setCapacidade(salaJson.getInt("capacidade"));
-                                    salaRecebidaJson.setDescricaoSala(salaJson.getString("descricao"));
-                                    salaRecebidaJson.setAreaDaSala(salaJson.getDouble("area"));
+                                    salaRecebidaJson.setIdSala(salaJson.getString("idSala"));
+                                    salaRecebidaJson.setNomeSala(salaJson.getString("nomeSala"));
+                                    salaRecebidaJson.setCapacidadeSala(salaJson.getInt("capacidadeSala"));
+                                    salaRecebidaJson.setDescricaoSala(salaJson.getString("descricaoSala"));
+                                    salaRecebidaJson.setAreaSala(salaJson.getDouble("areaSala"));
 
                                     Log.i("TESTE RODANDO ?? ", "model objeto " + salaRecebidaJson.toString());
 

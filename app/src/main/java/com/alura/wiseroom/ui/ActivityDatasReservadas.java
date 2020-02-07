@@ -122,11 +122,11 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                                     JSONObject reservaJson = resposta.getJSONObject(i);
                                     ReservaModel reservaRecebidaJson = new ReservaModel();
 
-                                    reservaRecebidaJson.setIdReserva(reservaJson.getString("id"));
-                                    reservaRecebidaJson.setDescricaoData(reservaJson.getString("descricao"));
-                                    reservaRecebidaJson.setDataMarcada(reservaJson.getString("dataReservada"));
-                                    reservaRecebidaJson.setHoraInicio(reservaJson.getString("horaInicio"));
-                                    reservaRecebidaJson.setHoraFim(reservaJson.getString("horaFim"));
+                                    reservaRecebidaJson.setIdReserva(reservaJson.getString("idReserva"));
+                                    reservaRecebidaJson.setDescricaoReserva(reservaJson.getString("descricaoReserva"));
+                                    reservaRecebidaJson.setDataReserva(reservaJson.getString("dataReserva"));
+                                    reservaRecebidaJson.setHoraInicioReserva(reservaJson.getString("horaInicioReserva"));
+                                    reservaRecebidaJson.setHoraFimReserva(reservaJson.getString("horaFimReserva"));
                                     reservaRecebidaJson.setColaboradorReserva(listaColaboradores.get(Integer.parseInt(reservaJson.getString("idColaborador"))-1));
                                     reservaRecebidaJson.setSalaReserva(salaSelecioanda);
 
@@ -163,10 +163,10 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                                     JSONObject colaboradorJson = resposta.getJSONObject(i);
                                     ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
 
-                                    colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getString("id"));
-                                    colaboradorRecebidoJson.setNome(colaboradorJson.getString("nome"));
-                                    colaboradorRecebidoJson.setIdOrganizacao(colaboradorJson.getString("idOrganizacao"));
-                                    colaboradorRecebidoJson.setEmail(colaboradorJson.getString("email"));
+                                    colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getString("idColaborador"));
+                                    colaboradorRecebidoJson.setNomeColaborador(colaboradorJson.getString("nomeColaborador"));
+                                    colaboradorRecebidoJson.setOrganizacaoColaborador(colaboradorJson.getString("organizacaoColaborador"));
+                                    colaboradorRecebidoJson.setEmailColaborador(colaboradorJson.getString("emailColaborador"));
                                     colaboradorRecebidoJson.setAdministrador(colaboradorJson.getBoolean("administrador"));
 
 

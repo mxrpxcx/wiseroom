@@ -52,9 +52,9 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void logaColaborador(ColaboradorModel colaborador) {
-        colaborador.setEmail(tvEmail.getText().toString());
-        colaborador.setSenha(tvSenha.getText().toString());
-        verificaRegistro(colaborador.getEmail(), colaborador.getSenha());
+        colaborador.setEmailColaborador(tvEmail.getText().toString());
+        colaborador.setSenhaColaborador(tvSenha.getText().toString());
+        verificaRegistro(colaborador.getEmailColaborador(), colaborador.getSenhaColaborador());
         finish();
 
     }
@@ -103,12 +103,12 @@ public class ActivityLogin extends AppCompatActivity {
                                     JSONObject colaboradorJson = resposta.getJSONObject(i);
                                     ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
 
-                                    colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getString("id"));
-                                    colaboradorRecebidoJson.setNome(colaboradorJson.getString("nome"));
-                                    colaboradorRecebidoJson.setIdOrganizacao(colaboradorJson.getString("idOrganizacao"));
-                                    colaboradorRecebidoJson.setEmail(colaboradorJson.getString("email"));
+                                    colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getString("idColaborador"));
+                                    colaboradorRecebidoJson.setNomeColaborador(colaboradorJson.getString("nomeColaborador"));
+                                    colaboradorRecebidoJson.setOrganizacaoColaborador(colaboradorJson.getString("organizacaoColaborador"));
+                                    colaboradorRecebidoJson.setEmailColaborador(colaboradorJson.getString("emailColaborador"));
                                     colaboradorRecebidoJson.setAdministrador(colaboradorJson.getBoolean("administrador"));
-                                    colaboradorRecebidoJson.setSenha(colaboradorJson.getString("senha"));
+                                    colaboradorRecebidoJson.setSenhaColaborador(colaboradorJson.getString("senhaColaborador"));
 
                                     Log.i("TESTE RODANDO ?? ", "model objeto " + colaboradorRecebidoJson.toString());
 

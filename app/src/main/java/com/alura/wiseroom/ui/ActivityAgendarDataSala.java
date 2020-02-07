@@ -139,10 +139,10 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
     private void inserirBanco() {
         ReservaModel reservaModel = new ReservaModel();
-        reservaModel.setDescricaoData(etNome);
-        reservaModel.setDataMarcada(etData);
-        reservaModel.setHoraInicio(etHoraInicio);
-        reservaModel.setHoraFim(etHoraFim);
+        reservaModel.setDescricaoReserva(etNome);
+        reservaModel.setDataReserva(etData);
+        reservaModel.setHoraInicioReserva(etHoraInicio);
+        reservaModel.setHoraFimReserva(etHoraFim);
         reservaModel.setSalaReserva(salaSelecioanda);
         reservaModel.setColaboradorReserva(colaboradorLogado);
 
@@ -280,7 +280,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     }
 
     public void verificaReserva(String idSala, String idColaborador){
-        String url = "http://172.30.248.130:3000/reserva?idSala="+idSala+"&idColaborador="+idColaborador;
+        String url = "http://172.30.248.130/listaReservaPorColaboradorSala";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -292,11 +292,11 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                                     JSONObject reservaJson = resposta.getJSONObject(i);
                                     ReservaModel reservaRecebidaJson = new ReservaModel();
 
-                                    reservaRecebidaJson.setIdReserva(reservaJson.getString("id"));
-                                    reservaRecebidaJson.setDescricaoData(reservaJson.getString("descricao"));
-                                    reservaRecebidaJson.setDataMarcada(reservaJson.getString("dataReservada"));
-                                    reservaRecebidaJson.setHoraInicio(reservaJson.getString("horaInicio"));
-                                    reservaRecebidaJson.setHoraFim(reservaJson.getString("horaFim"));
+                                    reservaRecebidaJson.setIdReserva(reservaJson.getString("idReserva"));
+                                    reservaRecebidaJson.setDescricaoReserva(reservaJson.getString("descricaoReserva"));
+                                    reservaRecebidaJson.setDataReserva(reservaJson.getString("dataReserva"));
+                                    reservaRecebidaJson.setHoraInicioReserva(reservaJson.getString("horaInicioReserva"));
+                                    reservaRecebidaJson.setHoraFimReserva(reservaJson.getString("horaFimReserva"));
                                     reservaRecebidaJson.setColaboradorReserva(colaboradorLogado);
                                     reservaRecebidaJson.setSalaReserva(salaSelecioanda);
 
@@ -321,8 +321,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     }
 
     public void deletarReserva(final String idReserva){
-        final String _id = idReserva;
-        StringRequest request = new StringRequest(Request.Method.POST, ".../delete.php",
+
+        StringRequest request = new StringRequest(Request.Method.POST, "172.30.248.130/removeReserva.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -337,7 +337,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> p = new HashMap<>();
-                p.put("id", _id);
+                p.put("idReserva", idReserva);
                 return p;
             }
         };
@@ -345,7 +345,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     }
 
     public void enviarReservasServer(final ReservaModel reservaModel){
-        String url = "http://172.30.248.130:3000/reserva";
+        String url = "http://172.30.248.130/insereReserva";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
@@ -372,10 +372,10 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("descricao",reservaModel.getDescricaoData());
-                params.put("dataReservada", reservaModel.getDataMarcada());
-                params.put("horaInicio",reservaModel.getHoraInicio());
-                params.put("horaFim", reservaModel.getHoraFim());
+                params.put("descricaoReserva",reservaModel.getDescricaoReserva());
+                params.put("dataReserva", reservaModel.getDataReserva());
+                params.put("horaInicioReserva",reservaModel.getHoraInicioReserva());
+                params.put("horaFimReserva", reservaModel.getHoraFimReserva());
                 params.put("idSala", reservaModel.getSalaReserva().getIdSala());
                 params.put("idColaborador", reservaModel.getColaboradorReserva().getIdColaborador());
                 return params;

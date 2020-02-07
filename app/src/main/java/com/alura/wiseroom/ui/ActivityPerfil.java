@@ -27,7 +27,7 @@ public class ActivityPerfil extends AppCompatActivity {
         ab.hide();
         criarBotaoPlusAcoes();
         recebeDados();
-        Log.i("TESTE ESCOLHA COL ", colaboradorLogado.getNome());
+        Log.i("TESTE ESCOLHA COL ", colaboradorLogado.getNomeColaborador());
     }
 
     private void criarBotaoPlusAcoes() {

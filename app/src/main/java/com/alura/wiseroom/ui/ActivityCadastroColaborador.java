@@ -52,15 +52,15 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
                 ColaboradorModel colaboradorEnviar = new ColaboradorModel();
 
-                colaboradorEnviar.setNome(nome);
-                colaboradorEnviar.setEmail(email);
-                colaboradorEnviar.setSenha(senha);
+                colaboradorEnviar.setNomeColaborador(nome);
+                colaboradorEnviar.setEmailColaborador(email);
+                colaboradorEnviar.setSenhaColaborador(senha);
 
-                int indexArroba = colaboradorEnviar.getEmail().indexOf("@");
-                int indexPonto = colaboradorEnviar.getEmail().indexOf(".");
-                String dominioAtual = colaboradorEnviar.getEmail().substring(indexArroba + 1, indexPonto);
+                int indexArroba = colaboradorEnviar.getEmailColaborador().indexOf("@");
+                int indexPonto = colaboradorEnviar.getEmailColaborador().indexOf(".");
+                String dominioAtual = colaboradorEnviar.getEmailColaborador().substring(indexArroba + 1, indexPonto);
 
-                colaboradorEnviar.setIdOrganizacao(dominioAtual);
+                colaboradorEnviar.setOrganizacaoColaborador(dominioAtual);
                 enviarColaboradoresServer(colaboradorEnviar);
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityCadastroColaborador.this);
@@ -112,11 +112,11 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("nome", colaboradorModel.getNome());
-                params.put("email", colaboradorModel.getEmail());
-                params.put("idOrganizacao", colaboradorModel.getIdOrganizacao());
+                params.put("nomeColaborador", colaboradorModel.getNomeColaborador());
+                params.put("emailColaborador", colaboradorModel.getEmailColaborador());
+                params.put("organizacaoColaborador", colaboradorModel.getOrganizacaoColaborador());
                 params.put("administrador", String.valueOf(colaboradorModel.isAdministrador()));
-                params.put("senha", colaboradorModel.getSenha());
+                params.put("senhaColaborador", colaboradorModel.getSenhaColaborador());
                 return params;
             }
         };
