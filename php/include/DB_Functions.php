@@ -2,21 +2,22 @@
 class DB_Functions {
 	
 
-public function addColaborador($s1, $s2, $s3, $s4, $s5)
-{
-	
-$link = mysqli_connect("172.30.248.130:3306", "root", "admin", "dbWiseroom");
-$query = "INSERT INTO tbColaborador (nome, idOrganizacao, email, administrador, senha) VALUES ('$s1', '$s2', '$s3', '$s4', '$s5')";
+public function insereColaborador($s1, $s2, $s3, $s4, $s5){
+
+$link = mysqli_connect("172.30.248.130:3306", "root", "", "dbwiseroom") or die("Not connected.")
+$query = "INSERT INTO tbcolaborador (nomeColaborador, organizacaoColaborador, emailColaborador, administrador, senhaColaborador) VALUES ('"$s1', '$s2', '$s3', '$s4', '$s5')";
 $result = mysqli_query($link, $query);
 $link->close();
+
+
 }
 
 
 
-public function addSala($s1, $s2, $s3, $s4)
+public function insereSala($s1, $s2, $s3, $s4)
 {
 	
-$link = mysqli_connect("172.30.248.130:3306", "root", "", "dbWiseroom");
+$link = mysqli_connect("172.30.248.130", "root", "root", "dbWiseroom");
 $query = "INSERT INTO tbSala (nome, capacidade, areaDaSala, descricaoSala) VALUES ('$s1', '$s2', '$s3', '$s4')";
 $result = mysqli_query($link, $query);
 $link->close();
@@ -24,10 +25,10 @@ $link->close();
 }
 
 
-public function addReserva($s1, $s2, $s3, $s4, $s5, $s6)
+public function insereReserva($s1, $s2, $s3, $s4, $s5, $s6)
 {
 	
-$link = mysqli_connect("172.30.248.130:3306", "root", "", "dbWiseroom");
+$link = mysqli_connect("172.30.248.130", "root", "root", "dbWiseroom");
 $query = "INSERT INTO tbReserva (descricaoReserva, dataData, horaInicio, horaFim, idColaboradorReserva, idSalaReserva) VALUES ('$s1', '$s2', '$s3', '$s4', '$s5', '$s6')";
 $result = mysqli_query($link, $query);
 $link->close();
@@ -37,15 +38,15 @@ $link->close();
 
 public function atualizaReserva($s1, $s2, $s3, $s4, $s5)
 {
-$link = mysqli_connect("172.30.248.130:3306", "root", "", "dbWiseroom");
+$link = mysqli_connect("172.30.248.130", "root", "root", "dbWiseroom");
 $query = "UPDATE tbReserva SET descricaoReserva = '$s2', dataData = '$s3', horaInicio = '$s4', horaFim = '$5' WHERE idReserva = '$s1'";
 $result = mysqli_query($link, $query);
 $link->close();
 }
 
-public function getColaborador()
+public function listaColaborador()
 {
-$link = mysqli_connect("172.30.248.130:3306", "root", "", "dbWiseroom");
+$link = mysqli_connect("172.30.248.130", "root", "root", "dbWiseroom");
 $query = "SELECT * from tbColaborador";
 $result = mysqli_query($link, $query);
 $return_array = array();
@@ -66,9 +67,9 @@ echo json_encode($return_array);
 $link->close();
 }
 
-public function getSala($s1)
+public function listaSala($s1)
 {
-$link = mysqli_connect("172.30.248.130", "root", "", "dbWiseroom");
+$link = mysqli_connect("172.30.248.130", "root", "root", "dbWiseroom");
 $query = "SELECT * from tbSala WHERE idSala = 's$1'";
 $result = mysqli_query($link, $query);
 $return_array = array();
@@ -89,8 +90,8 @@ echo json_encode($return_array);
 $link->close();
 }
 
-public function delColaborador($s1){
-$link = mysqli_connect("172.30.248.130", "root", "", "dbWiseroom");
+public function removeColaborador($s1){
+$link = mysqli_connect("172.30.248.130", "root", "root", "dbWiseroom");
 $query = "DELETE FROM tbColaborador WHERE idColaborador = '$s1'";
 $result = mysqli_query($link, $query);
 $link->close();

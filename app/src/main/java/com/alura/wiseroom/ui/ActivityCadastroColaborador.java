@@ -93,7 +93,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
                         AlertDialog dialog = builder.create();
                         dialog.show();
-                        Log.i("TESTE RESPONSE", response.toString());
+
                     }
                 },
                 new Response.ErrorListener()
