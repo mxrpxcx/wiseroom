@@ -3,8 +3,8 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
-    android:background="@color/colorPrimaryDark">
+    android:background="@drawable/background"
+    android:padding="8dp">
 
     <ListView
         android:id="@+id/listViewY"
