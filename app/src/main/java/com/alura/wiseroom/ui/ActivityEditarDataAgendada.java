@@ -165,8 +165,8 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-    private void recebeReserva(String id) {
-        String url = "http://172.30.248.130:3000/reserva?id="+id;
+    private void recebeReserva(final String idReserva) {
+        String url = "http://172.30.248.130:3000/listaReserva.php";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -194,14 +194,21 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
             }
-        });
+        }) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("idReserva", idReserva);
+                return params;
+            }
+        };
         mQueue.add(request);
     }
 
-    private void atualizaReserva(String id) {
+    private void atualizaReserva(final String idReserva) {
 
-        final String idReserva = id;
-        StringRequest request = new StringRequest(Request.Method.POST, ".../atualiza.php",
+        StringRequest request = new StringRequest(Request.Method.POST, "172.30.248.130/atualizaReserva.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -218,9 +225,9 @@ public class ActivityEditarDataAgendada extends AppCompatActivity {
                 Map<String, String> p = new HashMap<>();
                 p.put("idReserva", idReserva);
                 p.put("descricaoReserva", etNome);
-                p.put("dataData", btData.toString());
-                p.put("horaInicio", btHoraInicio.toString());
-                p.put("horaFim", btHoraFim.toString());
+                p.put("dataReserva", btData.toString());
+                p.put("horaInicioReserva", btHoraInicio.toString());
+                p.put("horaFimReserva", btHoraFim.toString());
 
                 return p;
             }

@@ -110,7 +110,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     }
 
     public void verificaReserva(String idSala){
-        String url = "http://172.30.248.130:3000/reserva?idSala="+idSala;
+        String url = "http://172.30.248.130/listaReservaPorSala.php";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -151,7 +151,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     }
 
     public void recebeColaborador(){
-        String url = "http://172.30.248.130:3000/colaborador";
+        String url = "http://172.30.248.130/listaTudoColaborador.php";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
