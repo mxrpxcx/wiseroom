@@ -49,10 +49,10 @@ public class SalaAdapter extends RecyclerView.Adapter<SalaAdapter.MyViewHolder> 
     public void onBindViewHolder(MyViewHolder holder, int position) {
         SalaModel sala = listaSalas.get(position);
 
-        Log.i("TesteSala", "Sala "+sala.getNome());
+        Log.i("TesteSala", "Sala "+sala.getNomeSala());
 
-        holder.sala.setText(sala.getNome());
-        holder.capacidade.setText(sala.getCapacidade());
+        holder.sala.setText(sala.getNomeSala());
+        holder.capacidade.setText(sala.getCapacidadeSala());
     }
 
     @Override

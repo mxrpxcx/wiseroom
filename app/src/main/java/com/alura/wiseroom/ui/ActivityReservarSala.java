@@ -84,7 +84,7 @@ public class ActivityReservarSala extends AppCompatActivity {
     }
 
     public void verificaSala(final String idSala){
-        String url = "http://172.30.248.130/listaSala.php";
+        String url = "http://172.30.248.130/listaSalaPorId.php";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
