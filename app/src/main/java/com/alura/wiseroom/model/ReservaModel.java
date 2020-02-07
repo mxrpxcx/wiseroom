@@ -8,10 +8,10 @@ public class ReservaModel implements Serializable {
     private ColaboradorModel colaboradorReserva;
 
     private String
-    descricaoData,
-    dataMarcada,
-    horaInicio,
-    horaFim;
+    descricaoReserva,
+    dataReserva,
+    horaInicioReserva,
+    horaFimReserva;
 
 
     public String getIdReserva() {
@@ -38,36 +38,36 @@ public class ReservaModel implements Serializable {
         this.colaboradorReserva = colaboradorReserva;
     }
 
-    public String getDataMarcada() {
-        return dataMarcada;
+    public String getDescricaoReserva() {
+        return descricaoReserva;
     }
 
-    public void setDataMarcada(String dataMarcada) {
-        this.dataMarcada = dataMarcada;
+    public void setDescricaoReserva(String descricaoReserva) {
+        this.descricaoReserva = descricaoReserva;
     }
 
-    public String getHoraInicio() {
-        return horaInicio;
+    public String getDataReserva() {
+        return dataReserva;
     }
 
-    public void setHoraInicio(String horaInicio) {
-        this.horaInicio = horaInicio;
+    public void setDataReserva(String dataReserva) {
+        this.dataReserva = dataReserva;
     }
 
-    public String getHoraFim() {
-        return horaFim;
+    public String getHoraInicioReserva() {
+        return horaInicioReserva;
     }
 
-    public void setHoraFim(String horaFim) {
-        this.horaFim = horaFim;
+    public void setHoraInicioReserva(String horaInicioReserva) {
+        this.horaInicioReserva = horaInicioReserva;
     }
 
-    public String getDescricaoData() {
-        return descricaoData;
+    public String getHoraFimReserva() {
+        return horaFimReserva;
     }
 
-    public void setDescricaoData(String descricaoData) {
-        this.descricaoData = descricaoData;
+    public void setHoraFimReserva(String horaFimReserva) {
+        this.horaFimReserva = horaFimReserva;
     }
 
     @Override

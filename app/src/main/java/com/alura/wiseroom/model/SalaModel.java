@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class SalaModel implements Serializable {
     private String idSala;
-    private String nome;
-    private int capacidade;
-    private double areaDaSala;
+    private String nomeSala;
+    private int capacidadeSala;
+    private double areaSala;
     private String descricaoSala;
 
     public SalaModel() {
@@ -20,28 +20,28 @@ public class SalaModel implements Serializable {
         this.idSala = idSala;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeSala() {
+        return nomeSala;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeSala(String nomeSala) {
+        this.nomeSala = nomeSala;
     }
 
-    public int getCapacidade() {
-        return capacidade;
+    public int getCapacidadeSala() {
+        return capacidadeSala;
     }
 
-    public void setCapacidade(int capacidade) {
-        this.capacidade = capacidade;
+    public void setCapacidadeSala(int capacidadeSala) {
+        this.capacidadeSala = capacidadeSala;
     }
 
-    public double getAreaDaSala() {
-        return areaDaSala;
+    public double getAreaSala() {
+        return areaSala;
     }
 
-    public void setAreaDaSala(double areaDaSala) {
-        this.areaDaSala = areaDaSala;
+    public void setAreaSala(double areaSala) {
+        this.areaSala = areaSala;
     }
 
     public String getDescricaoSala() {
@@ -50,15 +50,5 @@ public class SalaModel implements Serializable {
 
     public void setDescricaoSala(String descricaoSala) {
         this.descricaoSala = descricaoSala;
-    }
-
-    @Override
-    public String toString() {
-        return "SalaModel{" +
-                ", nome='" + nome + '\'' +
-                ", capacidade=" + capacidade +
-                ", areaDaSala=" + areaDaSala +
-                ", descricaoSala='" + descricaoSala + '\'' +
-                '}';
     }
 }

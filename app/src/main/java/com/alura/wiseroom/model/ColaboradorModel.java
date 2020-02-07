@@ -5,31 +5,15 @@ import java.io.Serializable;
 public class ColaboradorModel implements Serializable {
 
    private String idColaborador;
-   private String nome;
-   private String organizacao="null";
-   private String email;
+   private String nomeColaborador;
+   private String organizacaoColaborador="null";
+   private String emailColaborador;
    private boolean administrador=false;
-   private String senha;
+   private String senhaColaborador;
 
 
 
    public ColaboradorModel() {
-   }
-
-   public String getOrganizacao() {
-      return organizacao;
-   }
-
-   public void setOrganizacao(String organizacao) {
-      this.organizacao = organizacao;
-   }
-
-   public String getSenha() {
-      return senha;
-   }
-
-   public void setSenha(String senha) {
-      this.senha = senha;
    }
 
    public String getIdColaborador() {
@@ -40,28 +24,28 @@ public class ColaboradorModel implements Serializable {
       this.idColaborador = idColaborador;
    }
 
-   public String getNome() {
-      return nome;
+   public String getNomeColaborador() {
+      return nomeColaborador;
    }
 
-   public void setNome(String nome) {
-      this.nome = nome;
+   public void setNomeColaborador(String nomeColaborador) {
+      this.nomeColaborador = nomeColaborador;
    }
 
-   public String getIdOrganizacao() {
-      return organizacao;
+   public String getOrganizacaoColaborador() {
+      return organizacaoColaborador;
    }
 
-   public void setIdOrganizacao(String idOrganizacao) {
-      this.organizacao = idOrganizacao;
+   public void setOrganizacaoColaborador(String organizacaoColaborador) {
+      this.organizacaoColaborador = organizacaoColaborador;
    }
 
-   public String getEmail() {
-      return email;
+   public String getEmailColaborador() {
+      return emailColaborador;
    }
 
-   public void setEmail(String email) {
-      this.email = email;
+   public void setEmailColaborador(String emailColaborador) {
+      this.emailColaborador = emailColaborador;
    }
 
    public boolean isAdministrador() {
@@ -72,14 +56,11 @@ public class ColaboradorModel implements Serializable {
       this.administrador = administrador;
    }
 
-   @Override
-   public String toString() {
-      return "ColaboradorModel{" +
-              ", nome='" + nome + '\'' +
-              ", idOrganizacao=" + organizacao +
-              ", email='" + email + '\'' +
-              ", administrador=" + administrador +
-              ", senha='" + senha + '\'' +
-              '}';
+   public String getSenhaColaborador() {
+      return senhaColaborador;
+   }
+
+   public void setSenhaColaborador(String senhaColaborador) {
+      this.senhaColaborador = senhaColaborador;
    }
 }

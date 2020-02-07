@@ -24,6 +24,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ActivityVerificarSala extends AppCompatActivity {
     final Activity activity = this;
     ColaboradorModel colaboradorLogado;
@@ -80,8 +83,8 @@ public class ActivityVerificarSala extends AppCompatActivity {
         }
     }
 
-    public void verificaSala(String idSala){
-        String url = "http://172.30.248.130:3000/sala?id="+idSala;
+    public void verificaSala(final String idSala){
+        String url = "http://172.30.248.130/listaSala.php";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -117,7 +120,15 @@ public class ActivityVerificarSala extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
             }
-        });
+        }) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("idSala", idSala);
+                return params;
+            }
+        };
         mQueue.add(request);
     }
 
