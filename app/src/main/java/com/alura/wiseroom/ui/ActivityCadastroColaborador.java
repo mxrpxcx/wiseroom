@@ -63,19 +63,6 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                 colaboradorEnviar.setOrganizacaoColaborador(dominioAtual);
                 enviarColaboradoresServer(colaboradorEnviar);
 
-                final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityCadastroColaborador.this);
-                builder.setTitle("Sucesso");
-                builder.setMessage("Sua conta foi criada com sucesso");
-                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        finish();
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
 
             }
         });
@@ -93,16 +80,27 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                 {
                     @Override
                     public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityCadastroColaborador.this);
+                        builder.setTitle("Sucesso");
+                        builder.setMessage("Sua conta foi criada com sucesso");
+                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                                finish();
+                            }
+                        });
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        Log.i("TESTE RESPONSE", response.toString());
                     }
                 },
                 new Response.ErrorListener()
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // error
-                        Log.d("Error.Response", "bugou");
+                        error.printStackTrace();
                     }
                 }
         )
