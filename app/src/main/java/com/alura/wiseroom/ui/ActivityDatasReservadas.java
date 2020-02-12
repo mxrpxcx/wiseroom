@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.adapter.ReservaAdapter;
 import com.alura.wiseroom.model.ColaboradorModel;
+import com.alura.wiseroom.model.OrganizacaoModel;
 import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
 import com.android.volley.Request;
@@ -165,10 +166,14 @@ public class ActivityDatasReservadas extends AppCompatActivity {
 
                                     colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getString("idColaborador"));
                                     colaboradorRecebidoJson.setNomeColaborador(colaboradorJson.getString("nomeColaborador"));
-                                    colaboradorRecebidoJson.setOrganizacaoColaborador(colaboradorJson.getString("organizacaoColaborador"));
                                     colaboradorRecebidoJson.setEmailColaborador(colaboradorJson.getString("emailColaborador"));
                                     colaboradorRecebidoJson.setAdministrador(colaboradorJson.getBoolean("administrador"));
-
+                                    JSONObject organizacaoJson = colaboradorJson.getJSONObject("organizacaoColaborador");
+                                    OrganizacaoModel organizacaoModel = new OrganizacaoModel();
+                                    organizacaoModel.setIdOrganizacao(organizacaoJson.getString("idOrganizacao"));
+                                    organizacaoModel.setNomeOrganizacao(organizacaoJson.getString("nomeOrganizacao"));
+                                    organizacaoModel.setDominioOrganizacao(organizacaoJson.getString("dominioOrganizacao"));
+                                    colaboradorRecebidoJson.setOrganizacaoColaborador(organizacaoModel);
 
                                     listaColaboradores.add(colaboradorRecebidoJson);
 

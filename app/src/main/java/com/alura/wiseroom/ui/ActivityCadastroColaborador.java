@@ -60,7 +60,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                 int indexPonto = colaboradorEnviar.getEmailColaborador().indexOf(".");
                 String dominioAtual = colaboradorEnviar.getEmailColaborador().substring(indexArroba + 1, indexPonto);
 
-                colaboradorEnviar.setOrganizacaoColaborador(dominioAtual);
+                colaboradorEnviar.getOrganizacaoColaborador().setDominioOrganizacao(dominioAtual);
                 enviarColaboradoresServer(colaboradorEnviar);
 
 
@@ -112,7 +112,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("nomeColaborador", colaboradorModel.getNomeColaborador());
                 params.put("emailColaborador", colaboradorModel.getEmailColaborador());
-                params.put("organizacaoColaborador", colaboradorModel.getOrganizacaoColaborador());
+                params.put("organizacaoColaborador", colaboradorModel.getOrganizacaoColaborador().getDominioOrganizacao());
                 params.put("administrador", String.valueOf(colaboradorModel.isAdministrador()));
                 params.put("senhaColaborador", colaboradorModel.getSenhaColaborador());
                 return params;
