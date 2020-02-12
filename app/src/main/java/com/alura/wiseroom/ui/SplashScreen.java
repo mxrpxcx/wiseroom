@@ -26,7 +26,7 @@ public class SplashScreen extends AppCompatActivity {
                     .withHeaderText("")
                     .withFooterText("")
                     .withBeforeLogoText("")
-                   // .withLogo(R.drawable.logo2)
+                    .withLogo(R.drawable.logo2)
                     .withAfterLogoText("")
                     .create();
         setContentView(easySplashScreenView);
