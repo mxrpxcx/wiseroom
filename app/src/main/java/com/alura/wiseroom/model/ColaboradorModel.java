@@ -6,12 +6,10 @@ public class ColaboradorModel implements Serializable {
 
    private String idColaborador;
    private String nomeColaborador;
-   private String organizacaoColaborador="null";
+   private OrganizacaoModel organizacaoColaborador;
    private String emailColaborador;
    private boolean administrador=false;
    private String senhaColaborador;
-
-
 
    public ColaboradorModel() {
    }
@@ -32,11 +30,11 @@ public class ColaboradorModel implements Serializable {
       this.nomeColaborador = nomeColaborador;
    }
 
-   public String getOrganizacaoColaborador() {
+   public OrganizacaoModel getOrganizacaoColaborador() {
       return organizacaoColaborador;
    }
 
-   public void setOrganizacaoColaborador(String organizacaoColaborador) {
+   public void setOrganizacaoColaborador(OrganizacaoModel organizacaoColaborador) {
       this.organizacaoColaborador = organizacaoColaborador;
    }
 
