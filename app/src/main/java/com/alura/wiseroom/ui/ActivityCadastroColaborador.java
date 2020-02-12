@@ -2,6 +2,7 @@ package com.alura.wiseroom.ui;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,19 +14,26 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.model.ColaboradorModel;
+import com.alura.wiseroom.model.OrganizacaoModel;
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ActivityCadastroColaborador extends AppCompatActivity {
 
     RequestQueue mQueue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +68,23 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                 int indexPonto = colaboradorEnviar.getEmailColaborador().indexOf(".");
                 String dominioAtual = colaboradorEnviar.getEmailColaborador().substring(indexArroba + 1, indexPonto);
 
-                colaboradorEnviar.getOrganizacaoColaborador().setDominioOrganizacao(dominioAtual);
-                enviarColaboradoresServer(colaboradorEnviar);
+                OrganizacaoModel organizacaoModel = new OrganizacaoModel();
+                organizacaoModel.setDominioOrganizacao(dominioAtual);
+
+                colaboradorEnviar.setOrganizacaoColaborador(organizacaoModel);
+
+
+                Gson gson  = new Gson();
+
+                try {
+                    String userCoded = new String(Base64.encodeToString(gson.toJson(colaboradorEnviar).getBytes("UTF-8"), Base64.NO_WRAP));
+                    enviarColaboradoresServer(userCoded);
+                    Log.i("teste coded", userCoded);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+
 
 
             }
@@ -72,7 +95,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
 
 
-    public void enviarColaboradoresServer(final ColaboradorModel colaboradorModel){
+    public void enviarColaboradoresServer(final String code){
         String url = "http://172.30.248.130:8080/ReservaDeSala/rest/colaborador/cadastro";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -82,7 +105,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                     public void onResponse(String response) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityCadastroColaborador.this);
                         builder.setTitle("Sucesso");
-                        builder.setMessage("Sua conta foi criada com sucesso");
+                        builder.setMessage(response);
                         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -107,14 +130,12 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
         {
             @Override
-            protected Map<String, String> getParams()
+            public Map<String, String> getHeaders() throws AuthFailureError
             {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("nomeColaborador", colaboradorModel.getNomeColaborador());
-                params.put("emailColaborador", colaboradorModel.getEmailColaborador());
-                params.put("organizacaoColaborador", colaboradorModel.getOrganizacaoColaborador().getDominioOrganizacao());
-                params.put("administrador", String.valueOf(colaboradorModel.isAdministrador()));
-                params.put("senhaColaborador", colaboradorModel.getSenhaColaborador());
+                params.put("authorization", "secret");
+                params.put("novoColaborador", code);
+
                 return params;
             }
         };
