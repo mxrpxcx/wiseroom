@@ -1,4 +1,4 @@
-/*
+
 
 package com.alura.wiseroom.database;
 
@@ -148,4 +148,3 @@ public class WiseRoomDB extends SQLiteOpenHelper {
     }
 
 }
-*/
