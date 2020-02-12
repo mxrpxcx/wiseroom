@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.model.ColaboradorModel;
+import com.alura.wiseroom.model.OrganizacaoModel;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -105,7 +106,12 @@ public class ActivityLogin extends AppCompatActivity {
 
                                     colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getString("idColaborador"));
                                     colaboradorRecebidoJson.setNomeColaborador(colaboradorJson.getString("nomeColaborador"));
-                                    colaboradorRecebidoJson.setOrganizacaoColaborador(colaboradorJson.getString("organizacaoColaborador"));
+                                    JSONObject organizacaoJson = colaboradorJson.getJSONObject("organizacaoColaborador");
+                                    OrganizacaoModel organizacaoModel = new OrganizacaoModel();
+                                    organizacaoModel.setIdOrganizacao(organizacaoJson.getString("idOrganizacao"));
+                                    organizacaoModel.setNomeOrganizacao(organizacaoJson.getString("nomeOrganizacao"));
+                                    organizacaoModel.setDominioOrganizacao(organizacaoJson.getString("dominioOrganizacao"));
+                                    colaboradorRecebidoJson.setOrganizacaoColaborador(organizacaoModel);
                                     colaboradorRecebidoJson.setEmailColaborador(colaboradorJson.getString("emailColaborador"));
                                     colaboradorRecebidoJson.setAdministrador(colaboradorJson.getBoolean("administrador"));
                                     colaboradorRecebidoJson.setSenhaColaborador(colaboradorJson.getString("senhaColaborador"));

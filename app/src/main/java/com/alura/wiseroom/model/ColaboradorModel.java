@@ -61,4 +61,5 @@ public class ColaboradorModel implements Serializable {
    public void setSenhaColaborador(String senhaColaborador) {
       this.senhaColaborador = senhaColaborador;
    }
+
 }
