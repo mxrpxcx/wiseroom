@@ -106,15 +106,15 @@ public class ActivityLogin extends AppCompatActivity {
 
                                     colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getString("idColaborador"));
                                     colaboradorRecebidoJson.setNomeColaborador(colaboradorJson.getString("nomeColaborador"));
+                                    colaboradorRecebidoJson.setEmailColaborador(colaboradorJson.getString("emailColaborador"));
+                                    colaboradorRecebidoJson.setAdministrador(colaboradorJson.getBoolean("administrador"));
+                                    colaboradorRecebidoJson.setSenhaColaborador(colaboradorJson.getString("senhaColaborador"));
                                     JSONObject organizacaoJson = colaboradorJson.getJSONObject("organizacaoColaborador");
                                     OrganizacaoModel organizacaoModel = new OrganizacaoModel();
                                     organizacaoModel.setIdOrganizacao(organizacaoJson.getString("idOrganizacao"));
                                     organizacaoModel.setNomeOrganizacao(organizacaoJson.getString("nomeOrganizacao"));
                                     organizacaoModel.setDominioOrganizacao(organizacaoJson.getString("dominioOrganizacao"));
                                     colaboradorRecebidoJson.setOrganizacaoColaborador(organizacaoModel);
-                                    colaboradorRecebidoJson.setEmailColaborador(colaboradorJson.getString("emailColaborador"));
-                                    colaboradorRecebidoJson.setAdministrador(colaboradorJson.getBoolean("administrador"));
-                                    colaboradorRecebidoJson.setSenhaColaborador(colaboradorJson.getString("senhaColaborador"));
 
                                     Log.i("TESTE RODANDO ?? ", "model objeto " + colaboradorRecebidoJson.toString());
 
