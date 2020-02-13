@@ -60,6 +60,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
                 ColaboradorModel colaboradorEnviar = new ColaboradorModel();
 
+                colaboradorEnviar.setIdColaborador("230");
                 colaboradorEnviar.setNomeColaborador(nome);
                 colaboradorEnviar.setEmailColaborador(email);
                 colaboradorEnviar.setSenhaColaborador(senha);
