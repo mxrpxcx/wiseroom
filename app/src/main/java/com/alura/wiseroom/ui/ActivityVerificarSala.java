@@ -11,12 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.SalaModel;
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -84,47 +87,45 @@ public class ActivityVerificarSala extends AppCompatActivity {
     }
 
     public void verificaSala(final String idSala){
-        String url = "http://172.30.248.130/listaSalaPorId.php";
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
+        String url = "http://172.30.248.130:8080/ReservaDeSala/rest/getSalaId";
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONArray resposta) {
-                        if (resposta.length() > 0) {
-                            try {
-                                for (int i = 0; i < resposta.length(); i++) {
+                    public void onResponse(String resposta) {
+                        Log.i("teste repsponse sala", resposta);
 
-                                    JSONObject salaJson = resposta.getJSONObject(i);
-                                    SalaModel salaRecebidaJson = new SalaModel();
+                        Gson gson = new Gson();
 
-                                    salaRecebidaJson.setIdSala(salaJson.getString("idSala"));
-                                    salaRecebidaJson.setNomeSala(salaJson.getString("nomeSala"));
-                                    salaRecebidaJson.setCapacidadeSala(salaJson.getInt("capacidadeSala"));
-                                    salaRecebidaJson.setDescricaoSala(salaJson.getString("descricaoSala"));
-                                    salaRecebidaJson.setAreaSala(salaJson.getDouble("areaSala"));
+                        SalaModel salaJson = gson.fromJson(resposta, SalaModel.class);
+                        SalaModel salaRecebidaJson = new SalaModel();
 
-                                    Log.i("TESTE RODANDO ?? ", "model objeto " + salaRecebidaJson.toString());
+                        salaRecebidaJson.setIdSala(salaJson.getIdSala());
+                        salaRecebidaJson.setNomeSala(salaJson.getNomeSala());
+                        salaRecebidaJson.setCapacidadeSala(salaJson.getCapacidadeSala());
+                        salaRecebidaJson.setDescricaoSala(salaJson.getDescricaoSala());
+                        salaRecebidaJson.setAreaSala(salaJson.getAreaSala());
 
-                                    Intent intent = new Intent(ActivityVerificarSala.this, ActivityDatasReservadas.class);
-                                    intent.putExtra("colaboradorLogado", colaboradorLogado);
-                                    intent.putExtra("salaSelecionada", salaRecebidaJson);
-                                    startActivity(intent);
+                        Log.i("TESTE RODANDO ?? ", "model objeto " + salaRecebidaJson.toString());
 
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }}
+                        Intent intent = new Intent(ActivityVerificarSala.this, ActivityDatasReservadas.class);
+                        intent.putExtra("colaboradorLogado", colaboradorLogado);
+                        intent.putExtra("salaSelecionada", salaRecebidaJson);
+                        startActivity(intent);
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.i("teste repsponse sala error", String.valueOf(error));
+
                 error.printStackTrace();
             }
         }) {
             @Override
-            protected Map<String, String> getParams()
+            public Map<String, String> getHeaders() throws AuthFailureError
             {
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("authorization", "secret");
                 params.put("idSala", idSala);
                 return params;
             }
