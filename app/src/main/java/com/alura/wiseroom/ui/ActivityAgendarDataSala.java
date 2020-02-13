@@ -345,7 +345,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     }
 
     public void enviarReservasServer(final ReservaModel reservaModel){
-        String url = "http://172.30.248.130/insereReserva";
+        String url = "http://172.30.248.130/rest/reservasala/reserva/cadastro";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()

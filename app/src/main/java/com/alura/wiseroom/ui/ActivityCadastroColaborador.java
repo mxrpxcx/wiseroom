@@ -85,9 +85,6 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-
-
-
             }
         });
 
