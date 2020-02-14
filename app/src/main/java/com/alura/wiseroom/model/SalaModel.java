@@ -8,6 +8,7 @@ public class SalaModel implements Serializable {
     private int capacidadeSala;
     private double areaSala;
     private String descricaoSala;
+    private OrganizacaoModel organizacaoDaSala;
 
     public SalaModel() {
     }
@@ -50,5 +51,13 @@ public class SalaModel implements Serializable {
 
     public void setDescricaoSala(String descricaoSala) {
         this.descricaoSala = descricaoSala;
+    }
+
+    public OrganizacaoModel getOrganizacaoDaSala() {
+        return organizacaoDaSala;
+    }
+
+    public void setOrganizacaoDaSala(OrganizacaoModel organizacaoDaSala) {
+        this.organizacaoDaSala = organizacaoDaSala;
     }
 }

@@ -6,6 +6,7 @@ public class ReservaModel implements Serializable {
     private String idReserva;
     private SalaModel salaReserva;
     private ColaboradorModel colaboradorReserva;
+    private String ativo;
 
     private String
     descricaoReserva,
@@ -68,6 +69,14 @@ public class ReservaModel implements Serializable {
 
     public void setHoraFimReserva(String horaFimReserva) {
         this.horaFimReserva = horaFimReserva;
+    }
+
+    public String getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(String ativo) {
+        this.ativo = ativo;
     }
 
     @Override
