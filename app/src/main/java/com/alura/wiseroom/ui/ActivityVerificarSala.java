@@ -87,7 +87,7 @@ public class ActivityVerificarSala extends AppCompatActivity {
     }
 
     public void verificaSala(final String idSala){
-        String url = "http://172.30.248.130:8080/ReservaDeSala/rest/getSalaId";
+        String url = "http://172.30.248.130:8080/ReservaDeSala/rest/sala/getSalaId";
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
