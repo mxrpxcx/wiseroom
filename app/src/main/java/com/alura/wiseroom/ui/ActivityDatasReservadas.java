@@ -82,11 +82,13 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     }
 
     private void fetchDatabaseToArrayList() {
-        listaReservas.clear();
-        listIds.clear();
-        verificaReserva(salaSelecioanda.getIdSala());
-        reservaAdapter = new ReservaAdapter(ActivityDatasReservadas.this, R.layout.item_lista_reserva, listaReservas);
-        listView.setAdapter(reservaAdapter);
+
+            listaReservas.clear();
+            listIds.clear();
+            verificaReserva(salaSelecioanda.getIdSala());
+            reservaAdapter = new ReservaAdapter(ActivityDatasReservadas.this, R.layout.item_lista_reserva, listaReservas);
+            listView.setAdapter(reservaAdapter);
+
 
     }
 
@@ -140,20 +142,20 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                             reservaRecebidaJson = reservas.get(i);
                             Log.i("teste reserva ", reservas.get(i).toString());
 
-                   /*         reservaRecebidaJson.setIdReserva(reservas.get(i).getIdReserva());
+                            reservaRecebidaJson.setIdReserva(reservas.get(i).getIdReserva());
                             reservaRecebidaJson.setDescricaoReserva(reservas.get(i).getDescricaoReserva());
                             reservaRecebidaJson.setDataReserva(reservas.get(i).getDataReserva());
                             reservaRecebidaJson.setHoraInicioReserva(reservas.get(i).getHoraInicioReserva());
                             reservaRecebidaJson.setHoraFimReserva(reservas.get(i).getHoraFimReserva());
-                            reservaRecebidaJson.setIdColaborador(reservas.get(i).getIdColaboradorReserva()); */
+                            reservaRecebidaJson.setIdColaborador(reservas.get(i).getIdColaboradorReserva());
 
-                      //      recebeColaborador(reservaRecebidaJson.getIdColaboradorReserva());
+                            recebeColaborador(reservaRecebidaJson.getIdColaboradorReserva());
 
 
-                     //       reservaRecebidaJson.setColaboradorReserva(colaboradorBodega);
+                            reservaRecebidaJson.setColaboradorReserva(colaboradorBodega);
                             reservaRecebidaJson.setSalaReserva(salaSelecioanda);
 
-
+                            Log.i("teste bodega", reservaRecebidaJson.getSalaReserva().toString());
                             listaReservas.add(reservaRecebidaJson);
                             listIds.add(reservaRecebidaJson.getIdReserva());
 
@@ -209,6 +211,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                               //      organizacaoModel.setDominioOrganizacao(organizacaoJson.getDominioOrganizacao());
                               //      colaboradorRecebidoJson.setOrganizacaoColaborador(organizacaoModel);
 
+                        colaboradorBodega = new ColaboradorModel();
                         colaboradorBodega = colaboradorRecebidoJson;
 
                     }

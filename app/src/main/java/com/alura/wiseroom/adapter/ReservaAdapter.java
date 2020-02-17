@@ -1,6 +1,7 @@
 package com.alura.wiseroom.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,10 +39,12 @@ public class ReservaAdapter extends ArrayAdapter {
 
         ReservaModel reservaModel = listaReservas.get(position);
 
-    //    ((TextView) view.findViewById(R.id.tvNomeColaborador)).setText(reservaModel.getColaboradorReserva().getNomeColaborador());
         ((TextView) view.findViewById(R.id.tvHoraReservadaInicio)).setText(reservaModel.getHoraInicioReserva());
         ((TextView) view.findViewById(R.id.tvHoraReservadaFim)).setText(reservaModel.getHoraFimReserva());
         ((TextView) view.findViewById(R.id.tvDataReservada)).setText(reservaModel.getDataReserva());
+
+        ((TextView) view.findViewById(R.id.tvNomeColaborador)).setText(reservaModel.getIdColaboradorReserva());
+
 
         return view;
     }
