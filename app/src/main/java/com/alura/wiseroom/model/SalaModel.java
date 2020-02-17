@@ -60,4 +60,16 @@ public class SalaModel implements Serializable {
     public void setOrganizacaoDaSala(OrganizacaoModel organizacaoDaSala) {
         this.organizacaoDaSala = organizacaoDaSala;
     }
+
+    @Override
+    public String toString() {
+        return "SalaModel{" +
+                "idSala='" + idSala + '\'' +
+                ", nomeSala='" + nomeSala + '\'' +
+                ", capacidadeSala=" + capacidadeSala +
+                ", areaSala=" + areaSala +
+                ", descricaoSala='" + descricaoSala + '\'' +
+                ", organizacaoDaSala=" + organizacaoDaSala +
+                '}';
+    }
 }

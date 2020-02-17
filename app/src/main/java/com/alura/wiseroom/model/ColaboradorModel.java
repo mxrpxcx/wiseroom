@@ -62,4 +62,15 @@ public class ColaboradorModel implements Serializable {
       this.senhaColaborador = senhaColaborador;
    }
 
+   @Override
+   public String toString() {
+      return "ColaboradorModel{" +
+              "idColaborador='" + idColaborador + '\'' +
+              ", nomeColaborador='" + nomeColaborador + '\'' +
+              ", organizacaoColaborador=" + organizacaoColaborador +
+              ", emailColaborador='" + emailColaborador + '\'' +
+              ", administrador=" + administrador +
+              ", senhaColaborador='" + senhaColaborador + '\'' +
+              '}';
+   }
 }
