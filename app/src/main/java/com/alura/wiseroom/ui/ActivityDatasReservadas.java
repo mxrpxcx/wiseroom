@@ -16,18 +16,26 @@ import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.OrganizacaoModel;
 import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ActivityDatasReservadas extends AppCompatActivity {
 
@@ -35,11 +43,12 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     ReservaAdapter reservaAdapter;
     ArrayList<ReservaModel> listaReservas = new ArrayList<>();
     ArrayList<String> listIds = new ArrayList<>();
-    ArrayList<ColaboradorModel> listaColaboradores = new ArrayList<>();
+   // ArrayList<ColaboradorModel> listaColaboradores = new ArrayList<>();
     boolean flagEditAlarm = false;
     SalaModel salaSelecioanda;
     ColaboradorModel colaboradorLogado;
     RequestQueue mQueue;
+    ColaboradorModel colaboradorBodega;
 
 
 
@@ -49,7 +58,6 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         setContentView(R.layout.activity_datas_reservadas);
         mQueue = Volley.newRequestQueue(this);
         recebeDados();
-        recebeColaborador();
         Log.i("Reservas ID COL", colaboradorLogado.toString());
         Log.i("Reservas ID SAL", salaSelecioanda.toString());
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -110,77 +118,98 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         }
     }
 
-    public void verificaReserva(String idSala){
-        String url = "http://172.30.248.130:8080/ReservaDeSala/rest/reserva/ReservaIdSala";
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
+    public void verificaReserva(final String idSala){
+        String url = "http://172.30.248.130:8080/ReservaDeSala/rest/reserva/byIdSala";
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONArray resposta) {
-                        if (resposta.length() > 0) {
-                            try {
-                                for (int i = 0; i < resposta.length(); i++) {
+                    public void onResponse(String resposta) {
+                        Log.i("teste responsee", resposta);
 
-                                    JSONObject reservaJson = resposta.getJSONObject(i);
-                                    ReservaModel reservaRecebidaJson = new ReservaModel();
+                        Gson gson = new Gson();
 
-                                    reservaRecebidaJson.setIdReserva(reservaJson.getString("idReserva"));
-                                    reservaRecebidaJson.setDescricaoReserva(reservaJson.getString("descricaoReserva"));
-                                    reservaRecebidaJson.setDataReserva(reservaJson.getString("dataReserva"));
-                                    reservaRecebidaJson.setHoraInicioReserva(reservaJson.getString("horaInicioReserva"));
-                                    reservaRecebidaJson.setHoraFimReserva(reservaJson.getString("horaFimReserva"));
-                                    reservaRecebidaJson.setColaboradorReserva(listaColaboradores.get(Integer.parseInt(reservaJson.getString("idColaborador"))-1));
-                                    reservaRecebidaJson.setSalaReserva(salaSelecioanda);
 
-                                    Log.i("TESTE COL SALA", reservaRecebidaJson.getColaboradorReserva().toString());
+                        Type listType = new TypeToken<List<ReservaModel>>(){}.getType();
+                        List<ReservaModel> reservas = gson.fromJson(resposta, listType);
 
-                                    listaReservas.add(reservaRecebidaJson);
-                                    listIds.add(reservaRecebidaJson.getIdReserva());
 
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }}
+                        for(int i=0; i<reservas.size();i++) {
+
+                            ReservaModel reservaRecebidaJson = new ReservaModel();
+
+                            reservaRecebidaJson = reservas.get(i);
+                            Log.i("teste reserva ", reservas.get(i).toString());
+
+                   /*         reservaRecebidaJson.setIdReserva(reservas.get(i).getIdReserva());
+                            reservaRecebidaJson.setDescricaoReserva(reservas.get(i).getDescricaoReserva());
+                            reservaRecebidaJson.setDataReserva(reservas.get(i).getDataReserva());
+                            reservaRecebidaJson.setHoraInicioReserva(reservas.get(i).getHoraInicioReserva());
+                            reservaRecebidaJson.setHoraFimReserva(reservas.get(i).getHoraFimReserva());
+                            reservaRecebidaJson.setIdColaborador(reservas.get(i).getIdColaboradorReserva()); */
+
+                      //      recebeColaborador(reservaRecebidaJson.getIdColaboradorReserva());
+
+
+                     //       reservaRecebidaJson.setColaboradorReserva(colaboradorBodega);
+                            reservaRecebidaJson.setSalaReserva(salaSelecioanda);
+
+
+                            listaReservas.add(reservaRecebidaJson);
+                            listIds.add(reservaRecebidaJson.getIdReserva());
+
+                        }
 
                     }
+
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
             }
-        });
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("authorization", "secret");
+                params.put("idSala", idSala);
+
+                return params;
+            }
+        };
+
+
         mQueue.add(request);
     }
 
-    public void recebeColaborador(){
-        String url = "http://172.30.248.130/listaTudoColaborador.php";
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
+    public void recebeColaborador(final String idColaborador){
+        String url = "http://172.30.248.130:8080/ReservaDeSala/rest/colaborador/byIdColaborador";
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONArray resposta) {
-                        if (resposta.length() > 0) {
-                            try {
-                                for (int i = 0; i < resposta.length(); i++) {
+                    public void onResponse(String resposta) {
 
-                                    JSONObject colaboradorJson = resposta.getJSONObject(i);
+                        Log.i("response col ", resposta );
+                        Gson gson = new Gson();
+
+                                    ColaboradorModel colaboradorJson = gson.fromJson(resposta, ColaboradorModel.class);
                                     ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
 
-                                    colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getString("idColaborador"));
-                                    colaboradorRecebidoJson.setNomeColaborador(colaboradorJson.getString("nomeColaborador"));
-                                    colaboradorRecebidoJson.setEmailColaborador(colaboradorJson.getString("emailColaborador"));
-                                    colaboradorRecebidoJson.setAdministrador(colaboradorJson.getBoolean("administrador"));
-                                    JSONObject organizacaoJson = colaboradorJson.getJSONObject("organizacaoColaborador");
-                                    OrganizacaoModel organizacaoModel = new OrganizacaoModel();
-                                    organizacaoModel.setIdOrganizacao(organizacaoJson.getString("idOrganizacao"));
-                                    organizacaoModel.setNomeOrganizacao(organizacaoJson.getString("nomeOrganizacao"));
-                                    organizacaoModel.setDominioOrganizacao(organizacaoJson.getString("dominioOrganizacao"));
-                                    colaboradorRecebidoJson.setOrganizacaoColaborador(organizacaoModel);
+                                    colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getIdColaborador());
+                                    colaboradorRecebidoJson.setNomeColaborador(colaboradorJson.getNomeColaborador());
+                                    colaboradorRecebidoJson.setEmailColaborador(colaboradorJson.getEmailColaborador());
+                                    colaboradorRecebidoJson.setAdministrador(colaboradorJson.isAdministrador());
 
-                                    listaColaboradores.add(colaboradorRecebidoJson);
+                                  //  OrganizacaoModel organizacaoJson = colaboradorJson.getOrganizacaoColaborador();
+                              //      OrganizacaoModel organizacaoModel = new OrganizacaoModel();
 
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }}
+                              //      organizacaoModel.setIdOrganizacao(organizacaoJson.getIdOrganizacao());
+                              //      organizacaoModel.setNomeOrganizacao(organizacaoJson.getNomeOrganizacao());
+                              //      organizacaoModel.setDominioOrganizacao(organizacaoJson.getDominioOrganizacao());
+                              //      colaboradorRecebidoJson.setOrganizacaoColaborador(organizacaoModel);
+
+                        colaboradorBodega = colaboradorRecebidoJson;
 
                     }
                 }, new Response.ErrorListener() {
@@ -188,9 +217,28 @@ public class ActivityDatasReservadas extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
             }
-        });
+        })
+
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("authorization", "secret");
+                params.put("idColaborador", idColaborador);
+
+                return params;
+            }
+        };
         mQueue.add(request);
+
     }
 
 }
+
+
+
+
+
+
 

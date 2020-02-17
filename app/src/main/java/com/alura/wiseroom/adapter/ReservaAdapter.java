@@ -38,7 +38,7 @@ public class ReservaAdapter extends ArrayAdapter {
 
         ReservaModel reservaModel = listaReservas.get(position);
 
-        ((TextView) view.findViewById(R.id.tvNomeColaborador)).setText(reservaModel.getColaboradorReserva().getNomeColaborador());
+    //    ((TextView) view.findViewById(R.id.tvNomeColaborador)).setText(reservaModel.getColaboradorReserva().getNomeColaborador());
         ((TextView) view.findViewById(R.id.tvHoraReservadaInicio)).setText(reservaModel.getHoraInicioReserva());
         ((TextView) view.findViewById(R.id.tvHoraReservadaFim)).setText(reservaModel.getHoraFimReserva());
         ((TextView) view.findViewById(R.id.tvDataReservada)).setText(reservaModel.getDataReserva());

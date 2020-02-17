@@ -10,6 +10,8 @@ public class ReservaModel implements Serializable {
 
     private String
     descricaoReserva,
+    idColaboradorReserva,
+    idSalaReserva,
     dataReserva,
     horaInicioReserva,
     horaFimReserva;
@@ -79,11 +81,40 @@ public class ReservaModel implements Serializable {
         this.ativo = ativo;
     }
 
+    public String getIdColaboradorReserva() {
+        return idColaboradorReserva;
+    }
+
+    public void setIdColaborador(String idColaboradorReserva) {
+        this.idColaboradorReserva = idColaboradorReserva;
+    }
+
+    public void setIdColaboradorReserva(String idColaboradorReserva) {
+        this.idColaboradorReserva = idColaboradorReserva;
+    }
+
+    public String getIdSalaReserva() {
+        return idSalaReserva;
+    }
+
+    public void setIdSalaReserva(String idSalaReserva) {
+        this.idSalaReserva = idSalaReserva;
+    }
+
+
     @Override
     public String toString() {
         return "ReservaModel{" +
+                "idReserva='" + idReserva + '\'' +
                 ", salaReserva=" + salaReserva +
                 ", colaboradorReserva=" + colaboradorReserva +
+                ", ativo='" + ativo + '\'' +
+                ", descricaoReserva='" + descricaoReserva + '\'' +
+                ", idColaboradorReserva='" + idColaboradorReserva + '\'' +
+                ", idSalaReserva='" + idSalaReserva + '\'' +
+                ", dataReserva='" + dataReserva + '\'' +
+                ", horaInicioReserva='" + horaInicioReserva + '\'' +
+                ", horaFimReserva='" + horaFimReserva + '\'' +
                 '}';
     }
 }
