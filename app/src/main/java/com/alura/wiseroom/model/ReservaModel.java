@@ -11,6 +11,7 @@ public class ReservaModel implements Serializable {
     private String
     descricaoReserva,
     idColaboradorReserva,
+    nomeColaborador,
     idSalaReserva,
     dataReserva,
     horaInicioReserva,
@@ -101,6 +102,13 @@ public class ReservaModel implements Serializable {
         this.idSalaReserva = idSalaReserva;
     }
 
+    public String getNomeColaborador() {
+        return nomeColaborador;
+    }
+
+    public void setNomeColaborador(String nomeColaborador) {
+        this.nomeColaborador = nomeColaborador;
+    }
 
     @Override
     public String toString() {

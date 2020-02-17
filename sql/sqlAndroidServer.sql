@@ -41,6 +41,7 @@ CREATE TABLE tbReserva(
 idReserva int(8) AUTO_INCREMENT, 
 descricaoReserva varchar(500), 
 dataReserva varchar(12), 
+nomeColaborador varchar(100),
 horaInicioReserva varchar(6),
 horaFimReserva varchar(6),
 idColaboradorReserva int(8), 
@@ -52,7 +53,7 @@ CONSTRAINT fkTbReservaZ FOREIGN KEY (idSalaReserva) REFERENCES tbSala(idSala) ON
 
 );
 
-
+SELECT * FROM tbReserva INNER JOIN tbsala ON tbReserva.idSalaReserva = tbSala.idSala WHERE tbReserva.idSalaReserva = 14;
 
 
 

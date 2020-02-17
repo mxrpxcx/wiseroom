@@ -126,41 +126,43 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String resposta) {
-                        Log.i("teste responsee", resposta);
+                        try {
+                            Log.i("teste responsee", resposta);
 
-                        Gson gson = new Gson();
-
-
-                        Type listType = new TypeToken<List<ReservaModel>>(){}.getType();
-                        List<ReservaModel> reservas = gson.fromJson(resposta, listType);
+                            Gson gson = new Gson();
 
 
-                        for(int i=0; i<reservas.size();i++) {
-
-                            ReservaModel reservaRecebidaJson = new ReservaModel();
-
-                            reservaRecebidaJson = reservas.get(i);
-                            Log.i("teste reserva ", reservas.get(i).toString());
-
-                            reservaRecebidaJson.setIdReserva(reservas.get(i).getIdReserva());
-                            reservaRecebidaJson.setDescricaoReserva(reservas.get(i).getDescricaoReserva());
-                            reservaRecebidaJson.setDataReserva(reservas.get(i).getDataReserva());
-                            reservaRecebidaJson.setHoraInicioReserva(reservas.get(i).getHoraInicioReserva());
-                            reservaRecebidaJson.setHoraFimReserva(reservas.get(i).getHoraFimReserva());
-                            reservaRecebidaJson.setIdColaborador(reservas.get(i).getIdColaboradorReserva());
-
-                            recebeColaborador(reservaRecebidaJson.getIdColaboradorReserva());
+                            Type listType = new TypeToken<List<ReservaModel>>() {
+                            }.getType();
+                            List<ReservaModel> reservas = gson.fromJson(resposta, listType);
 
 
-                            reservaRecebidaJson.setColaboradorReserva(colaboradorBodega);
-                            reservaRecebidaJson.setSalaReserva(salaSelecioanda);
+                            for (int i = 0; i < reservas.size(); i++) {
 
-                            Log.i("teste bodega", reservaRecebidaJson.getSalaReserva().toString());
-                            listaReservas.add(reservaRecebidaJson);
-                            listIds.add(reservaRecebidaJson.getIdReserva());
+                                ReservaModel reservaRecebidaJson = new ReservaModel();
 
-                        }
+                                reservaRecebidaJson = reservas.get(i);
+                                Log.i("teste reserva ", reservas.get(i).toString());
 
+                                reservaRecebidaJson.setIdReserva(reservas.get(i).getIdReserva());
+                                reservaRecebidaJson.setDescricaoReserva(reservas.get(i).getDescricaoReserva());
+                                reservaRecebidaJson.setDataReserva(reservas.get(i).getDataReserva());
+                                reservaRecebidaJson.setHoraInicioReserva(reservas.get(i).getHoraInicioReserva());
+                                reservaRecebidaJson.setHoraFimReserva(reservas.get(i).getHoraFimReserva());
+                                reservaRecebidaJson.setIdColaborador(reservas.get(i).getIdColaboradorReserva());
+
+                           //     recebeColaborador(reservaRecebidaJson.getIdColaboradorReserva());
+
+
+                             //   reservaRecebidaJson.setColaboradorReserva(colaboradorBodega);
+                                reservaRecebidaJson.setSalaReserva(salaSelecioanda);
+
+                                Log.i("teste bodega", reservaRecebidaJson.getSalaReserva().toString());
+                                listaReservas.add(reservaRecebidaJson);
+                                listIds.add(reservaRecebidaJson.getIdReserva());
+
+                            }
+                        } catch (Exception e){e.printStackTrace();}
                     }
 
                 }, new Response.ErrorListener() {
@@ -185,35 +187,35 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         mQueue.add(request);
     }
 
-    public void recebeColaborador(final String idColaborador){
+    /* public void recebeColaborador(final String idColaborador){
         String url = "http://172.30.248.130:8080/ReservaDeSala/rest/colaborador/byIdColaborador";
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String resposta) {
+                        try {
+                            Log.i("response col ", resposta);
+                            Gson gson = new Gson();
 
-                        Log.i("response col ", resposta );
-                        Gson gson = new Gson();
+                            ColaboradorModel colaboradorJson = gson.fromJson(resposta, ColaboradorModel.class);
+                            ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
 
-                                    ColaboradorModel colaboradorJson = gson.fromJson(resposta, ColaboradorModel.class);
-                                    ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
+                            colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getIdColaborador());
+                            colaboradorRecebidoJson.setNomeColaborador(colaboradorJson.getNomeColaborador());
+                            colaboradorRecebidoJson.setEmailColaborador(colaboradorJson.getEmailColaborador());
+                            colaboradorRecebidoJson.setAdministrador(colaboradorJson.isAdministrador());
 
-                                    colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getIdColaborador());
-                                    colaboradorRecebidoJson.setNomeColaborador(colaboradorJson.getNomeColaborador());
-                                    colaboradorRecebidoJson.setEmailColaborador(colaboradorJson.getEmailColaborador());
-                                    colaboradorRecebidoJson.setAdministrador(colaboradorJson.isAdministrador());
+                            //  OrganizacaoModel organizacaoJson = colaboradorJson.getOrganizacaoColaborador();
+                            //      OrganizacaoModel organizacaoModel = new OrganizacaoModel();
 
-                                  //  OrganizacaoModel organizacaoJson = colaboradorJson.getOrganizacaoColaborador();
-                              //      OrganizacaoModel organizacaoModel = new OrganizacaoModel();
+                            //      organizacaoModel.setIdOrganizacao(organizacaoJson.getIdOrganizacao());
+                            //      organizacaoModel.setNomeOrganizacao(organizacaoJson.getNomeOrganizacao());
+                            //      organizacaoModel.setDominioOrganizacao(organizacaoJson.getDominioOrganizacao());
+                            //      colaboradorRecebidoJson.setOrganizacaoColaborador(organizacaoModel);
 
-                              //      organizacaoModel.setIdOrganizacao(organizacaoJson.getIdOrganizacao());
-                              //      organizacaoModel.setNomeOrganizacao(organizacaoJson.getNomeOrganizacao());
-                              //      organizacaoModel.setDominioOrganizacao(organizacaoJson.getDominioOrganizacao());
-                              //      colaboradorRecebidoJson.setOrganizacaoColaborador(organizacaoModel);
-
-                        colaboradorBodega = new ColaboradorModel();
-                        colaboradorBodega = colaboradorRecebidoJson;
-
+                            colaboradorBodega = new ColaboradorModel();
+                            colaboradorBodega = colaboradorRecebidoJson;
+                        } catch(Exception e){e.printStackTrace();}
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -235,7 +237,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         };
         mQueue.add(request);
 
-    }
+    } */
 
 }
 
