@@ -62,7 +62,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     String etHoraInicio, etHoraFim, etData, etNome;
     ReservaAdapter reservaAdapter;
     ArrayList<ReservaModel> listaReservas = new ArrayList<>();
-    ArrayList<String> listaIds = new ArrayList<>();
     AlarmManager alarmManager;
     boolean flagDeleteAlarm = false;
     boolean flagEditAlarm = false;
@@ -179,7 +178,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
     private void fetchDatabaseToArrayList() {
         listaReservas.clear();
-        listaIds.clear();
         verificaReserva(salaSelecioanda.getIdSala(), colaboradorLogado.getIdColaborador());
         reservaAdapter = new ReservaAdapter(ActivityAgendarDataSala.this, R.layout.item_lista_reserva, listaReservas);
         listView.setAdapter(reservaAdapter);
@@ -243,9 +241,9 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                     confirmaApagar(pos);
                 }
                 else {
-                    String id = listaIds.get(Integer.parseInt(pos));
+                    ReservaModel reservaModel = listaReservas.get(Integer.parseInt(pos));
                     Intent i = new Intent(ActivityAgendarDataSala.this, ActivityEditarDataAgendada.class);
-                    i.putExtra("idReserva", id);
+                    i.putExtra("idReserva", reservaModel.getIdReserva());
                     flagEditAlarm=true;
                     startActivity(i);
                 }
@@ -262,8 +260,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String id = listaIds.get(Integer.parseInt(position));
-                deletarReserva(id);
+                ReservaModel reservaModel = listaReservas.get(Integer.parseInt(position));
+                deletarReserva(reservaModel.getIdReserva());
 
             }
         });
