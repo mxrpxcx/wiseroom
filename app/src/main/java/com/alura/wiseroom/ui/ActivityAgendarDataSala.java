@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -29,6 +30,7 @@ import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -43,6 +45,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -152,10 +155,23 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         reservaModel.setDataReserva(etData);
         reservaModel.setHoraInicioReserva(etHoraInicio);
         reservaModel.setHoraFimReserva(etHoraFim);
-        reservaModel.setSalaReserva(salaSelecioanda);
-        reservaModel.setColaboradorReserva(colaboradorLogado);
+        reservaModel.setIdSalaReserva(salaSelecioanda.getIdSala());
+        reservaModel.setIdColaboradorReserva(colaboradorLogado.getIdColaborador());
+        reservaModel.setNomeColaborador(colaboradorLogado.getNomeColaborador());
 
-        enviarReservasServer(reservaModel);
+      //  reservaModel.setColaboradorReserva(colaboradorLogado);
+      //  reservaModel.setSalaReserva(salaSelecioanda);
+
+
+        Gson gson  = new Gson();
+
+        try {
+            String reservaCoded = new String(Base64.encodeToString(gson.toJson(reservaModel).getBytes("UTF-8"), Base64.NO_WRAP));
+            enviarReservasServer(reservaCoded);
+            Log.i("teste coded", reservaCoded);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -375,7 +391,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         mQueue.add(request);
     }
 
-    public void enviarReservasServer(final ReservaModel reservaModel){
+    public void enviarReservasServer(final String reservaCoded){
         String url = "http://172.30.248.130/rest/reservasala/reserva/cadastrar";
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -392,7 +408,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
-                        Log.d("Error.Response", "bugou");
+                        Log.d("Error.Response", error.toString());
                     }
                 }
         )
@@ -403,12 +419,10 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("descricaoReserva",reservaModel.getDescricaoReserva());
-                params.put("dataReserva", reservaModel.getDataReserva());
-                params.put("horaInicioReserva",reservaModel.getHoraInicioReserva());
-                params.put("horaFimReserva", reservaModel.getHoraFimReserva());
-                params.put("idSala", reservaModel.getSalaReserva().getIdSala());
-                params.put("idColaborador", reservaModel.getColaboradorReserva().getIdColaborador());
+                params.put("authorization","secret");
+                params.put("novaReserva", reservaCoded);
+                Log.i("teste coded", reservaCoded);
+
                 return params;
             }
         };
