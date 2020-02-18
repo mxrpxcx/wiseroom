@@ -352,7 +352,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
     public void deletarReserva(final String idReserva){
 
-        StringRequest request = new StringRequest(Request.Method.POST, "172.30.248.130/removeReserva.php",
+        StringRequest request = new StringRequest(Request.Method.POST, "http://172.30.248.130:8080/ReservaDeSala/rest/reserva/deleteById",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -365,10 +365,11 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             }
         }){
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> p = new HashMap<>();
-                p.put("idReserva", idReserva);
-                return p;
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("authorization", "secret");
+                params.put("idReserva", idReserva);
+                return params;
             }
         };
         mQueue.add(request);
