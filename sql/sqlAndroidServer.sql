@@ -56,7 +56,10 @@ CONSTRAINT fkTbReservaZ FOREIGN KEY (idSalaReserva) REFERENCES tbSala(idSala) ON
 SELECT * FROM tbReserva INNER JOIN tbsala ON tbReserva.idSalaReserva = tbSala.idSala WHERE tbReserva.idSalaReserva = 14;
 
 
-
+INSERT INTO tbOrganizacao VALUES (1, "ORG", "b");
+INSERT INTO tbSala VALUES (14, 1, "SALA 1", 50, 40.4, "DESCRICAO");
+INSERT INTO tbReserva VALUES (4, "RESERVA 1", "10-02-2020", "b", "10:40", "12:50", 2, 14);
+INSERT INTO tbReserva VALUES (3, "RESERVA 2", "10-02-2020", "b", "10:40", "12:50", 1, 14);
 
 
 

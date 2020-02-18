@@ -28,6 +28,7 @@ import com.alura.wiseroom.adapter.ReservaAdapter;
 import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -35,14 +36,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ActivityAgendarDataSala extends AppCompatActivity {
@@ -123,8 +128,12 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 } else if (txtHoraFim.equals("Selecione a hora de fim")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário de término", Toast.LENGTH_SHORT).show();
                 }else {
-                    inserirBanco();
-                    fetchDatabaseToArrayList();
+                    if(1==2){// se já existir uma reserva, mostrar erro
+                         }
+                    else {
+                        inserirBanco();
+                        fetchDatabaseToArrayList();
+                    }
                 }
             }
         });
@@ -279,44 +288,65 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         }
     }
 
-    public void verificaReserva(String idSala, String idColaborador){
-        String url = "http://172.30.248.130/listaReservaPorColaboradorSala";
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
+    public void verificaReserva(final String idSala, final String idColaborador){
+        String url = "http://172.30.248.130:8080/ReservaDeSala/rest/reserva/byIdColaboradorSala";
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONArray resposta) {
-                        if (resposta.length() > 0) {
-                            try {
-                                for (int i = 0; i < resposta.length(); i++) {
+                    public void onResponse(String resposta) {
+                        try {
+                            Log.i("teste responsee", resposta);
 
-                                    JSONObject reservaJson = resposta.getJSONObject(i);
-                                    ReservaModel reservaRecebidaJson = new ReservaModel();
-
-                                    reservaRecebidaJson.setIdReserva(reservaJson.getString("idReserva"));
-                                    reservaRecebidaJson.setDescricaoReserva(reservaJson.getString("descricaoReserva"));
-                                    reservaRecebidaJson.setDataReserva(reservaJson.getString("dataReserva"));
-                                    reservaRecebidaJson.setHoraInicioReserva(reservaJson.getString("horaInicioReserva"));
-                                    reservaRecebidaJson.setHoraFimReserva(reservaJson.getString("horaFimReserva"));
-                                    reservaRecebidaJson.setColaboradorReserva(colaboradorLogado);
-                                    reservaRecebidaJson.setSalaReserva(salaSelecioanda);
+                            Gson gson = new Gson();
 
 
+                            Type listType = new TypeToken<List<ReservaModel>>() {
+                            }.getType();
+                            List<ReservaModel> reservas = gson.fromJson(resposta, listType);
 
-                                    listaReservas.add(reservaRecebidaJson);
-                                    listaIds.add(reservaRecebidaJson.getIdReserva());
 
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }}
+                            for (int i = 0; i < reservas.size(); i++) {
 
+                                ReservaModel reservaRecebidaJson = new ReservaModel();
+
+                                reservaRecebidaJson = reservas.get(i);
+                                Log.i("teste reserva ", reservas.get(i).toString());
+
+                                reservaRecebidaJson.setIdReserva(reservas.get(i).getIdReserva());
+                                reservaRecebidaJson.setDescricaoReserva(reservas.get(i).getDescricaoReserva());
+                                reservaRecebidaJson.setDataReserva(reservas.get(i).getDataReserva());
+                                reservaRecebidaJson.setHoraInicioReserva(reservas.get(i).getHoraInicioReserva());
+                                reservaRecebidaJson.setHoraFimReserva(reservas.get(i).getHoraFimReserva());
+                                reservaRecebidaJson.setIdColaborador(reservas.get(i).getIdColaboradorReserva());
+
+                                //     recebeColaborador(reservaRecebidaJson.getIdColaboradorReserva());
+
+
+                                //   reservaRecebidaJson.setColaboradorReserva(colaboradorBodega);
+                                reservaRecebidaJson.setSalaReserva(salaSelecioanda);
+
+                                Log.i("teste bodega", reservaRecebidaJson.getSalaReserva().toString());
+                                listaReservas.add(reservaRecebidaJson);
+
+                            }
+                        } catch (Exception e){e.printStackTrace();}
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("authorization", "secret");
+                params.put("idSala", idSala);
+                params.put("idColaborador", idColaborador);
+                return params;
+            }
+        };
         mQueue.add(request);
     }
 
