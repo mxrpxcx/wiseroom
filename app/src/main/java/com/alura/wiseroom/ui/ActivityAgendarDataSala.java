@@ -91,13 +91,14 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+
     }
+
 
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
-
 
     private void init() {
         listView = (ListView) findViewById(R.id.listViewX);
@@ -139,11 +140,11 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
                 if (etNome.equals("")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione uma descricao", Toast.LENGTH_SHORT).show();
-                } else if (txtData.equals("Selecione a data")) {
+                } else if (txtData.equalsIgnoreCase("Inserir data")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione uma data", Toast.LENGTH_SHORT).show();
-                } else if (txtHoraInicio.equals("Selecione a hora de inicio")) {
+                } else if (txtHoraInicio.equalsIgnoreCase("hora inicio")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário de inicio", Toast.LENGTH_SHORT).show();
-                } else if (txtHoraFim.equals("Selecione a hora de fim")) {
+                } else if (txtHoraFim.equalsIgnoreCase("hora fim")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário de término", Toast.LENGTH_SHORT).show();
                 }else {
                     if(1==2){// se já existir uma reserva, mostrar erro
@@ -252,6 +253,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int position) {
                 if(position==0) {
                     confirmaApagar(pos);
+                    fetchDatabaseToArrayList();
                 }
                 else {
                     ReservaModel reservaModel = listaReservas.get(Integer.parseInt(pos));
@@ -325,7 +327,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     }
 
     public void deletarReserva(final String idReserva){
-
         try {
             Map<String, String> params = new HashMap<String, String>();
             params.put("authorization", "secret");
@@ -364,7 +365,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         if (event.getEventName().equals("EnviaReserva" + Constants.eventSuccessLabel)) {
             Log.i("teste", event.getEventMsg().toString());
         } else if (event.getEventName().equals("EnviaReserva" + Constants.eventErrorLabel)) {
-            Snackbar snackbar = Snackbar.make(null, "Erro ao cadastrar reserva", Snackbar.LENGTH_LONG);
+            Log.i("teste erro cadastro", event.getEventMsg());
+            Snackbar snackbar = Snackbar.make(btHoraFim, "Erro ao cadastrar reserva", Snackbar.LENGTH_LONG);
             snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
             snackbar.show();
         }

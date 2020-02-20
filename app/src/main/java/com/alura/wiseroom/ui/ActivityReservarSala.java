@@ -53,8 +53,7 @@ public class ActivityReservarSala extends AppCompatActivity {
                 intentIntegrator.setPrompt("Escolha a sala");
                 intentIntegrator.setCameraId(0);
                 intentIntegrator.initiateScan();
-
-        recebeDados();
+                recebeDados();
 
         Log.i("Teste id col", colaboradorLogado.toString());
     }
@@ -82,12 +81,8 @@ public class ActivityReservarSala extends AppCompatActivity {
 
                         verificaSala(idSalas);
 
-            }else{
-
-                Log.i("TESTE REDIRECIONAMENTO  ", "REDIRECIOAAWFOAWFO");
-                Intent intent = new Intent(ActivityReservarSala.this, ActivityPerfil.class);
-                startActivity(intent);
             }
+
         }else{
             Log.i("TESTE REDIRECIONAMENTO MAIS DEBAIXO ", "REDIRECIOAAWFOAWFO");
 
@@ -121,11 +116,9 @@ public class ActivityReservarSala extends AppCompatActivity {
 
     }
 
-
-
     @Subscribe
     public void customEventReceived(Event event) {
-        if (event.getEventName().equals("VerificaSala" + Constants.eventSuccessLabel)) {
+        if (event.getEventName().equals("ReservaSala" + Constants.eventSuccessLabel)) {
             Log.i("teste repsponse sala", event.getEventMsg());
 
             Gson gson = new Gson();
@@ -146,7 +139,8 @@ public class ActivityReservarSala extends AppCompatActivity {
             intent.putExtra("salaSelecionada", salaRecebidaJson);
             startActivity(intent);
 
-        } else if (event.getEventName().equals("VerificaSala" + Constants.eventErrorLabel)) {
+        } else if (event.getEventName().equals("ReservaSala" + Constants.eventErrorLabel)) {
+            Log.i("teste error sala rel", event.getEventMsg());
             Snackbar snackbar = Snackbar.make(null, "Erro ao receber salas", Snackbar.LENGTH_LONG);
             snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
             snackbar.show();

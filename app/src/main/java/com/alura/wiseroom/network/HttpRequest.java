@@ -64,7 +64,7 @@ public class HttpRequest {
 									String errorResult = new String(error.networkResponse.data, "UTF-8");
 									EventBus.getDefault().post(new Event(eventName + Constants.eventErrorLabel, errorResult));
 								} else {
-									EventBus.getDefault().post(new Event(eventName + Constants.eventErrorLabel, "Sem resposta do servidor"));
+									EventBus.getDefault().post(new Event(eventName + Constants.eventErrorLabel, "Sem resposta do servidor"+error.toString()));
 								}
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -78,7 +78,7 @@ public class HttpRequest {
 			};
 
 			stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-					15000,
+					10000,
 					DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
 					DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 			VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
