@@ -1,10 +1,12 @@
 package com.alura.wiseroom.ui;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -13,8 +15,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
+import com.alura.wiseroom.constants.Constants;
 import com.alura.wiseroom.model.ColaboradorModel;
+import com.alura.wiseroom.model.Event;
 import com.alura.wiseroom.model.OrganizacaoModel;
+import com.alura.wiseroom.network.HttpRequest;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,9 +27,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -34,8 +41,8 @@ import java.util.Map;
 public class ActivityCadastroColaborador extends AppCompatActivity {
 
     RequestQueue mQueue;
-
-
+    Button btnCadastrar;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +55,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         final EditText txtNome = (EditText) findViewById(R.id.editNomeCadastro);
         final EditText txtEmail = (EditText) findViewById(R.id.editEmailCadastro);
         final EditText txtSenha = (EditText) findViewById(R.id.editSenhaCadastro);
-        Button btnCadastrar = (Button) findViewById(R.id.btCadastro);
+        btnCadastrar = (Button) findViewById(R.id.btCadastro);
 
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +64,6 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                 String nome = txtNome.getText().toString();
                 String email = txtEmail.getText().toString();
                 String senha = txtSenha.getText().toString();
-
 
                 ColaboradorModel colaboradorEnviar = new ColaboradorModel();
 
@@ -74,7 +80,6 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
                 organizacaoModel.setDominioOrganizacao(dominioAtual);
 
                 colaboradorEnviar.setOrganizacaoColaborador(organizacaoModel);
-
 
                 Gson gson  = new Gson();
 
@@ -101,51 +106,45 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-
     public void enviarColaboradoresServer(final String code){
-        String url = "http://172.30.248.130:8080/ReservaDeSala/rest/colaborador/cadastro";
+        try {
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("authorization", "secret");
+            params.put("novoColaborador", code);
+            String url = "http://172.30.248.130:8080/ReservaDeSala/rest/colaborador/cadastro";
 
-        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityCadastroColaborador.this);
-                        builder.setTitle("Sucesso");
-                        builder.setMessage(response);
-                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                finish();
-                            }
-                        });
-
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                }
-        )
-
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError
-            {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("authorization", "secret");
-                params.put("novoColaborador", code);
-
-                return params;
-            }
-        };
-        mQueue.add(postRequest);
+            new HttpRequest(
+                    getApplicationContext(),
+                    params,
+                    url,
+                    "POST", "Cadastro").doRequest();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    @Subscribe
+    public void customEventReceived(Event event) {
+        if (event.getEventName().equals("Cadastro" + Constants.eventSuccessLabel)) {
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityCadastroColaborador.this);
+            builder.setTitle("Sucesso");
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    finish();
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+        } else if (event.getEventName().equals("Cadastro" + Constants.eventErrorLabel)) {
+            Snackbar snackbar = Snackbar.make(btnCadastrar, "Erro ao realizar login", Snackbar.LENGTH_LONG);
+            snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            snackbar.show();
+        }
+    }
+
 }
