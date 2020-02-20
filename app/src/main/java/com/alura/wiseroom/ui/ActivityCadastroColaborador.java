@@ -42,7 +42,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
     RequestQueue mQueue;
     Button btnCadastrar;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,7 +141,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
             dialog.show();
 
         } else if (event.getEventName().equals("Cadastro" + Constants.eventErrorLabel)) {
-            Snackbar snackbar = Snackbar.make(btnCadastrar, "Erro ao realizar login", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(btnCadastrar, "Erro ao realizar cadastro", Snackbar.LENGTH_LONG);
             snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
             snackbar.show();
         }

@@ -1,19 +1,25 @@
 package com.alura.wiseroom.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
+import com.alura.wiseroom.constants.Constants;
 import com.alura.wiseroom.model.ColaboradorModel;
+import com.alura.wiseroom.model.Event;
 import com.alura.wiseroom.model.OrganizacaoModel;
+import com.alura.wiseroom.network.HttpRequest;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,8 +29,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,8 +48,7 @@ public class ActivityLogin extends AppCompatActivity {
     private EditText tvEmail;
     private EditText tvSenha;
     RequestQueue mQueue;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +64,20 @@ public class ActivityLogin extends AppCompatActivity {
         setListenerColaborador(colaborador);
     }
 
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
     private void logaColaborador(ColaboradorModel colaborador) {
         colaborador.setEmailColaborador(tvEmail.getText().toString());
         colaborador.setSenhaColaborador(tvSenha.getText().toString());
         verificaRegistro(colaborador.getEmailColaborador(), colaborador.getSenhaColaborador());
-        finish();
 
     }
 
@@ -69,7 +86,6 @@ public class ActivityLogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logaColaborador(colaborador);
-
             }
         });
     }
@@ -96,60 +112,58 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     public void verificaRegistro(final String email, final String senha){
-        String url = "http://172.30.248.130:8080/ReservaDeSala/rest/colaborador/login";
-        StringRequest request = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String resposta){
-                                    Log.i("teste response", resposta);
-                                    Gson gson = new Gson();
 
+        try {
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("authorization", "secret");
+            params.put("emailColaborador", email);
+            params.put("senhaColaborador", senha);
+            String url = "http://172.30.248.130:8080/ReservaDeSala/rest/colaborador/login";
 
-                                    ColaboradorModel colaboradorJson = gson.fromJson(resposta, ColaboradorModel.class);
-                                    ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
-
-
-                                        colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getIdColaborador());
-                                        colaboradorRecebidoJson.setNomeColaborador(colaboradorJson.getNomeColaborador());
-                                        colaboradorRecebidoJson.setEmailColaborador(colaboradorJson.getEmailColaborador());
-                                        colaboradorRecebidoJson.setAdministrador(colaboradorJson.isAdministrador());
-                                        colaboradorRecebidoJson.setSenhaColaborador(colaboradorJson.getSenhaColaborador());
-                                 //       OrganizacaoModel organizacaoJson = colaboradorJson.getOrganizacaoColaborador();
-                                   //     OrganizacaoModel organizacaoModel = new OrganizacaoModel();
-                                   //     organizacaoModel.setIdOrganizacao(organizacaoJson.getIdOrganizacao());
-                                  //      organizacaoModel.setNomeOrganizacao(organizacaoJson.getNomeOrganizacao());
-                                    //    organizacaoModel.setDominioOrganizacao(organizacaoJson.getDominioOrganizacao());
-                                  //      colaboradorRecebidoJson.setOrganizacaoColaborador(organizacaoModel);
-
-
-                                    Log.i("TESTE RODANDO ?? ", "model objeto " + colaboradorRecebidoJson.toString());
-
-                                    Intent intent = new Intent(ActivityLogin.this, ActivityPerfil.class);
-                                    intent.putExtra("colaboradorLogado", colaboradorRecebidoJson);
-                                    startActivity(intent);
-
-
-                            }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        })
-
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError
-            {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("authorization", "secret");
-                params.put("emailColaborador", email);
-                params.put("senhaColaborador", senha);
-                return params;
-            }
-        };
-
-        mQueue.add(request);
+            new HttpRequest(
+                    getApplicationContext(),
+                    params,
+                    url,
+                    "GET", "Login").doRequest();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    @Subscribe
+    public void customEventReceived(Event event) {
+        if (event.getEventName().equals("Login" + Constants.eventSuccessLabel)) {
+
+            Gson gson = new Gson();
+
+            ColaboradorModel colaboradorJson = gson.fromJson(event.getEventMsg(), ColaboradorModel.class);
+            ColaboradorModel colaboradorRecebidoJson = new ColaboradorModel();
+
+            colaboradorRecebidoJson.setIdColaborador(colaboradorJson.getIdColaborador());
+            colaboradorRecebidoJson.setNomeColaborador(colaboradorJson.getNomeColaborador());
+            colaboradorRecebidoJson.setEmailColaborador(colaboradorJson.getEmailColaborador());
+            colaboradorRecebidoJson.setAdministrador(colaboradorJson.isAdministrador());
+            colaboradorRecebidoJson.setSenhaColaborador(colaboradorJson.getSenhaColaborador());
+            //    OrganizacaoModel organizacaoJson = colaboradorJson.getOrganizacaoColaborador();
+            //    OrganizacaoModel organizacaoModel = new OrganizacaoModel();
+            //    organizacaoModel.setIdOrganizacao(organizacaoJson.getIdOrganizacao());
+            //    organizacaoModel.setNomeOrganizacao(organizacaoJson.getNomeOrganizacao());
+            //    organizacaoModel.setDominioOrganizacao(organizacaoJson.getDominioOrganizacao());
+            //    colaboradorRecebidoJson.setOrganizacaoColaborador(organizacaoModel);
+
+            Log.i("TESTE RODANDO ?? ", "model objeto " + colaboradorRecebidoJson.toString());
+
+            Intent intent = new Intent(ActivityLogin.this, ActivityPerfil.class);
+            intent.putExtra("colaboradorLogado", colaboradorRecebidoJson);
+            startActivity(intent);
+
+        } else if (event.getEventName().equals("Login" + Constants.eventErrorLabel)) {
+            Snackbar snackbar = Snackbar.make(btLogin, "Erro ao realizar login", Snackbar.LENGTH_LONG);
+            snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            snackbar.show();
+        }
+    }
+
+
 
 }
