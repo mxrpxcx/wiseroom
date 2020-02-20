@@ -4,13 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
+import com.alura.wiseroom.constants.Constants;
 import com.alura.wiseroom.model.ColaboradorModel;
+import com.alura.wiseroom.model.Event;
 import com.alura.wiseroom.model.SalaModel;
+import com.alura.wiseroom.network.HttpRequest;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,10 +23,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +57,16 @@ public class ActivityReservarSala extends AppCompatActivity {
         recebeDados();
 
         Log.i("Teste id col", colaboradorLogado.toString());
+    }
+
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -86,51 +103,54 @@ public class ActivityReservarSala extends AppCompatActivity {
         }
     }
 
-    public void verificaSala(final String idSala){
-        String url = "http://172.30.248.130:8080/ReservaDeSala/rest/sala/getSalaId";
-        StringRequest request = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String resposta) {
-                        Log.i("teste repsponse sala", resposta);
+    public void verificaSala(final String idSala) {
+        try {
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("authorization", "secret");
+            params.put("idSala", idSala);
+            String url = "http://172.30.248.130:8080/ReservaDeSala/rest/sala/getSalaId";
 
-                        Gson gson = new Gson();
+            new HttpRequest(
+                    getApplicationContext(),
+                    params,
+                    url,
+                    "GET", "ReservaSala").doRequest();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-                        SalaModel salaJson = gson.fromJson(resposta, SalaModel.class);
-                        SalaModel salaRecebidaJson = new SalaModel();
+    }
 
-                        salaRecebidaJson.setIdSala(salaJson.getIdSala());
-                        salaRecebidaJson.setNomeSala(salaJson.getNomeSala());
-                        salaRecebidaJson.setCapacidadeSala(salaJson.getCapacidadeSala());
-                        salaRecebidaJson.setDescricaoSala(salaJson.getDescricaoSala());
-                        salaRecebidaJson.setAreaSala(salaJson.getAreaSala());
 
-                        Log.i("TESTE RODANDO ?? ", "model objeto " + salaRecebidaJson.toString());
 
-                        Intent intent = new Intent(ActivityReservarSala.this, ActivityAgendarDataSala.class);
-                        intent.putExtra("colaboradorLogado", colaboradorLogado);
-                        intent.putExtra("salaSelecionada", salaRecebidaJson);
-                        startActivity(intent);
+    @Subscribe
+    public void customEventReceived(Event event) {
+        if (event.getEventName().equals("VerificaSala" + Constants.eventSuccessLabel)) {
+            Log.i("teste repsponse sala", event.getEventMsg());
 
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("teste repsponse sala error", String.valueOf(error));
+            Gson gson = new Gson();
 
-                error.printStackTrace();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError
-            {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("authorization", "secret");
-                params.put("idSala", idSala);
-                return params;
-            }
-        };
-        mQueue.add(request);
+            SalaModel salaJson = gson.fromJson(event.getEventMsg(), SalaModel.class);
+            SalaModel salaRecebidaJson = new SalaModel();
+
+            salaRecebidaJson.setIdSala(salaJson.getIdSala());
+            salaRecebidaJson.setNomeSala(salaJson.getNomeSala());
+            salaRecebidaJson.setCapacidadeSala(salaJson.getCapacidadeSala());
+            salaRecebidaJson.setDescricaoSala(salaJson.getDescricaoSala());
+            salaRecebidaJson.setAreaSala(salaJson.getAreaSala());
+
+            Log.i("TESTE RODANDO ?? ", "model objeto " + salaRecebidaJson.toString());
+
+            Intent intent = new Intent(ActivityReservarSala.this, ActivityAgendarDataSala.class);
+            intent.putExtra("colaboradorLogado", colaboradorLogado);
+            intent.putExtra("salaSelecionada", salaRecebidaJson);
+            startActivity(intent);
+
+        } else if (event.getEventName().equals("VerificaSala" + Constants.eventErrorLabel)) {
+            Snackbar snackbar = Snackbar.make(null, "Erro ao receber salas", Snackbar.LENGTH_LONG);
+            snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            snackbar.show();
+        }
     }
 
 }

@@ -34,7 +34,6 @@ public class ActivityPerfil extends AppCompatActivity {
         btDisponibilidadeSala = findViewById(R.id.btVerificaQR);
         btReservarSala = findViewById(R.id.btReservaQR);
 
-
         btReservarSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

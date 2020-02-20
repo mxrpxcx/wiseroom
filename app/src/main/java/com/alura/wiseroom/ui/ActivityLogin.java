@@ -48,7 +48,7 @@ public class ActivityLogin extends AppCompatActivity {
     private EditText tvEmail;
     private EditText tvSenha;
     RequestQueue mQueue;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,8 +97,6 @@ public class ActivityLogin extends AppCompatActivity {
                 startActivity(new Intent(ActivityLogin.this, ActivityCadastroColaborador.class));
             }
         });
-
-
     }
 
     private void setarValores() {
@@ -144,12 +142,6 @@ public class ActivityLogin extends AppCompatActivity {
             colaboradorRecebidoJson.setEmailColaborador(colaboradorJson.getEmailColaborador());
             colaboradorRecebidoJson.setAdministrador(colaboradorJson.isAdministrador());
             colaboradorRecebidoJson.setSenhaColaborador(colaboradorJson.getSenhaColaborador());
-            //    OrganizacaoModel organizacaoJson = colaboradorJson.getOrganizacaoColaborador();
-            //    OrganizacaoModel organizacaoModel = new OrganizacaoModel();
-            //    organizacaoModel.setIdOrganizacao(organizacaoJson.getIdOrganizacao());
-            //    organizacaoModel.setNomeOrganizacao(organizacaoJson.getNomeOrganizacao());
-            //    organizacaoModel.setDominioOrganizacao(organizacaoJson.getDominioOrganizacao());
-            //    colaboradorRecebidoJson.setOrganizacaoColaborador(organizacaoModel);
 
             Log.i("TESTE RODANDO ?? ", "model objeto " + colaboradorRecebidoJson.toString());
 
@@ -163,7 +155,6 @@ public class ActivityLogin extends AppCompatActivity {
             snackbar.show();
         }
     }
-
 
 
 }
