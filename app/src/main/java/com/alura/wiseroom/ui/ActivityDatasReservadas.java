@@ -51,7 +51,6 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     ArrayList<ReservaModel> listaReservas = new ArrayList<>();
     ArrayList<String> listIds = new ArrayList<>();
     // ArrayList<ColaboradorModel> listaColaboradores = new ArrayList<>();
-    boolean flagEditAlarm = false;
     SalaModel salaSelecioanda;
     ColaboradorModel colaboradorLogado;
     RequestQueue mQueue;
@@ -82,10 +81,6 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        if (flagEditAlarm == true) {
-            fetchDatabaseToArrayList();
-            flagEditAlarm = false;
-        }
     }
 
     public void onStop() {
@@ -129,7 +124,6 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         }
     }
 
-
     public void verificaReserva(final String idSala) {
 
         try {
@@ -150,7 +144,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
 
     @Subscribe
     public void customEventReceived(Event event) {
-        if (event.getEventName().equals("Login" + Constants.eventSuccessLabel)) {
+        if (event.getEventName().equals("DataReservada" + Constants.eventSuccessLabel)) {
             Log.i("teste responsee", event.getEventMsg());
 
             Gson gson = new Gson();
@@ -184,18 +178,10 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                 listIds.add(reservaRecebidaJson.getIdReserva());
 
             }
-        } else if (event.getEventName().equals("Login" + Constants.eventErrorLabel)) {
-                Snackbar snackbar = Snackbar.make(null, "Erro ao realizar login", Snackbar.LENGTH_LONG);
+        } else if (event.getEventName().equals("DataReservada" + Constants.eventErrorLabel)) {
+                Snackbar snackbar = Snackbar.make(null, "Erro ao receber dados", Snackbar.LENGTH_LONG);
                 snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
                 snackbar.show();
             }
         }
     }
-
-
-
-
-
-
-
-
