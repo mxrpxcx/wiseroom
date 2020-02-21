@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.adapter.ReservaAdapter;
@@ -63,6 +64,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     SalaModel salaSelecioanda;
     ColaboradorModel colaboradorLogado;
     RequestQueue mQueue;
+    View v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +152,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                showListDialog(String.valueOf(position));
+                showListDialog(position);
             }
         });
     }
@@ -212,8 +214,15 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityAgendarDataSala.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hora, int minuto) {
+                if(hora<10){
+                    btHoraInicio.setText(""+"0"+hora+":"+minuto);
+                    etHoraInicio =""+"0"+hora+":"+minuto;
+                } else if (hora < 10 && minuto < 10) {
+                    btHoraInicio.setText(""+"0"+hora+":"+"0"+minuto);
+                    etHoraInicio =""+"0"+hora+":"+"0"+minuto;
+                } else {
                 btHoraInicio.setText(""+hora+":"+minuto);
-                etHoraInicio =""+hora+":"+minuto;
+                etHoraInicio =""+hora+":"+minuto; }
             }
         },hora,minuto,true);
         timePickerDialog.show();
@@ -226,14 +235,21 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityAgendarDataSala.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hora, int minuto) {
-                btHoraFim.setText(""+hora+":"+minuto);
-                etHoraFim = ""+hora+":"+minuto;
+                if(hora<10){
+                    btHoraFim.setText(""+"0"+hora+":"+minuto);
+                    etHoraFim =""+"0"+hora+":"+minuto;
+                } else if (hora < 10 && minuto < 10) {
+                    btHoraFim.setText(""+"0"+hora+":"+"0"+minuto);
+                    etHoraFim =""+"0"+hora+":"+"0"+minuto;
+                } else {
+                    btHoraFim.setText(""+hora+":"+minuto);
+                    etHoraFim =""+hora+":"+minuto; }
             }
         },hora,minuto,true);
         timePickerDialog.show();
     }
 
-    private void showListDialog(final String pos) {
+    private void showListDialog(final int pos) {
 
         String[] arr = {"Deletar"};
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityAgendarDataSala.this);
@@ -243,7 +259,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int position) {
                 if(position==0) {
                     confirmaApagar(pos);
-                    fetchDatabaseToArrayList();
                 }
             }
         });
@@ -251,16 +266,15 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         dialog.show();
     }
 
-    public void confirmaApagar(final String position) {
+    public void confirmaApagar(final int position) {
         AlertDialog.Builder builder= new AlertDialog.Builder(ActivityAgendarDataSala.this);
         builder.setTitle("Confirmação");
         builder.setMessage("Deseja cancelar?");
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ReservaModel reservaModel = listaReservas.get(Integer.parseInt(position));
+                ReservaModel reservaModel = listaReservas.get(position);
                 deletarReserva(reservaModel.getIdReserva());
-
             }
         });
         builder.setNeutralButton("Não", new DialogInterface.OnClickListener() {
@@ -348,19 +362,26 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     public void customEventReceived(Event event) {
         if (event.getEventName().equals("EnviaReserva" + Constants.eventSuccessLabel)) {
             Log.i("teste", event.getEventMsg().toString());
+            fetchDatabaseToArrayList();
+
         } else if (event.getEventName().equals("EnviaReserva" + Constants.eventErrorLabel)) {
             Log.i("teste erro cadastro", event.getEventMsg());
-            Snackbar snackbar = Snackbar.make(btHoraFim, "Erro ao cadastrar reserva", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(listView, "Erro ao cadastrar reserva", Snackbar.LENGTH_LONG);
             snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
             snackbar.show();
+            fetchDatabaseToArrayList();
         }
 
         if (event.getEventName().equals("DeletaReserva" + Constants.eventSuccessLabel)) {
             Log.i("teste", event.getEventMsg().toString());
+            fetchDatabaseToArrayList();
+
         } else if (event.getEventName().equals("DeletaReserva" + Constants.eventErrorLabel)) {
-            Snackbar snackbar = Snackbar.make(null, "Erro ao deletar reserva", Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(listView, "Erro ao deletar reserva", Snackbar.LENGTH_LONG);
             snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
             snackbar.show();
+            fetchDatabaseToArrayList();
+
         }
 
         if (event.getEventName().equals("ListaReserva" + Constants.eventSuccessLabel)) {
@@ -395,12 +416,16 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 Log.i("teste bodega", reservaRecebidaJson.getSalaReserva().toString());
                 listaReservas.add(reservaRecebidaJson);
 
-                }
-            } else if (event.getEventName().equals("ListaReserva" + Constants.eventErrorLabel)) {
-                Snackbar snackbar = Snackbar.make(null, "Erro ao listar reservas", Snackbar.LENGTH_LONG);
-                snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-                snackbar.show();
+
             }
+
+                } else if (event.getEventName().equals("ListaReserva" + Constants.eventErrorLabel)) {
+                Log.i("teste erro cadastro", event.getEventMsg());
+                Snackbar snackbar = Snackbar.make(listView, "Erro ao listar reservas ", Snackbar.LENGTH_LONG);
+                    snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+                    snackbar.show();
+
+        }
 
         }
     }
