@@ -214,16 +214,32 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityAgendarDataSala.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hora, int minuto) {
-                if(hora<10){
-                    btHoraInicio.setText(""+"0"+hora+":"+minuto);
-                    etHoraInicio =""+"0"+hora+":"+minuto;
-                } else if (hora < 10 && minuto < 10) {
-                    btHoraInicio.setText(""+"0"+hora+":"+"0"+minuto);
-                    etHoraInicio =""+"0"+hora+":"+"0"+minuto;
-                } else {
+                if(hora<10 || minuto < 10){
+
+                    if(hora<10) {
+                        btHoraInicio.setText(""+"0"+hora+":"+minuto);
+                        etHoraInicio = ""+"0"+hora+":"+minuto;
+                    }
+
+                    if ( hora <10 && minuto < 10) {
+                        btHoraInicio.setText(""+"0"+hora+":"+"0"+minuto);
+                        etHoraInicio =""+"0"+hora+":"+"0"+minuto;
+                    }
+
+                    if ( minuto < 10 && hora >= 10) {
+                        btHoraInicio.setText(""+""+hora+":"+"0"+minuto);
+                        etHoraInicio =""+""+hora+":"+"0"+minuto;
+                    }
+
+                }
+
+                else {
                 btHoraInicio.setText(""+hora+":"+minuto);
-                etHoraInicio =""+hora+":"+minuto; }
+                etHoraInicio =""+hora+":"+minuto;
+                }
+
             }
+
         },hora,minuto,true);
         timePickerDialog.show();
     }
@@ -235,15 +251,29 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityAgendarDataSala.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hora, int minuto) {
-                if(hora<10){
-                    btHoraFim.setText(""+"0"+hora+":"+minuto);
-                    etHoraFim =""+"0"+hora+":"+minuto;
-                } else if (hora < 10 && minuto < 10) {
-                    btHoraFim.setText(""+"0"+hora+":"+"0"+minuto);
-                    etHoraFim =""+"0"+hora+":"+"0"+minuto;
-                } else {
+                if(hora<10 || minuto < 10){
+
+                    if(hora<10) {
+                        btHoraFim.setText(""+"0"+hora+":"+minuto);
+                        etHoraFim = ""+"0"+hora+":"+minuto;
+                    }
+
+                    if ( hora <10 && minuto < 10) {
+                        btHoraFim.setText(""+"0"+hora+":"+"0"+minuto);
+                        etHoraFim =""+"0"+hora+":"+"0"+minuto;
+                    }
+
+                    if ( minuto < 10 && hora >= 10) {
+                        btHoraFim.setText(""+""+hora+":"+"0"+minuto);
+                        etHoraFim =""+""+hora+":"+"0"+minuto;
+                    }
+
+                }
+
+                else {
                     btHoraFim.setText(""+hora+":"+minuto);
-                    etHoraFim =""+hora+":"+minuto; }
+                    etHoraFim =""+hora+":"+minuto;
+                }
             }
         },hora,minuto,true);
         timePickerDialog.show();
