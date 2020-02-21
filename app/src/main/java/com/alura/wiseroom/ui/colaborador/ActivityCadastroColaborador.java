@@ -1,7 +1,6 @@
-package com.alura.wiseroom.ui;
+package com.alura.wiseroom.ui.colaborador;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -20,19 +19,13 @@ import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.Event;
 import com.alura.wiseroom.model.OrganizacaoModel;
 import com.alura.wiseroom.network.HttpRequest;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -111,7 +104,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
             Map<String, String> params = new HashMap<String, String>();
             params.put("authorization", "secret");
             params.put("novoColaborador", code);
-            String url = "http://172.30.248.130:8080/ReservaDeSala/rest/colaborador/cadastro";
+            String url = Constants.url+"/colaborador/cadastro";
 
             new HttpRequest(
                     getApplicationContext(),

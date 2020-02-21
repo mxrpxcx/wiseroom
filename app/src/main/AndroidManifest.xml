@@ -14,21 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.SplashScreen">
+        <activity android:name=".ui.splash.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ActivityVerificarSala" />
-        <activity android:name=".ui.ActivityAgendarDataSala" />
-        <activity android:name=".ui.ActivityDatasReservadas" />
-        <activity android:name=".ui.ActivityEditarDataAgendada" />
-        <activity android:name=".ui.ActivityCadastroColaborador" />
-        <activity android:name=".ui.ActivityReservarSala" />
-        <activity android:name=".ui.ActivityPerfil" />
-        <activity android:name=".ui.ActivityLogin">
+        <activity android:name=".ui.qrcode.ActivityVerificarSala" />
+        <activity android:name=".ui.reserva.ActivityAgendarDataSala" />
+        <activity android:name=".ui.reserva.ActivityDatasReservadas" />
+        <activity android:name=".ui.reserva.ActivityEditarDataAgendada" />
+        <activity android:name=".ui.colaborador.ActivityCadastroColaborador" />
+        <activity android:name=".ui.qrcode.ActivityReservarSala" />
+        <activity android:name=".ui.colaborador.ActivityPerfil" />
+        <activity android:name=".ui.colaborador.ActivityLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

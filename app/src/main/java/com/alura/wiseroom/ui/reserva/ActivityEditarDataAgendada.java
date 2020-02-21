@@ -1,4 +1,4 @@
-package com.alura.wiseroom.ui;
+package com.alura.wiseroom.ui.reserva;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;

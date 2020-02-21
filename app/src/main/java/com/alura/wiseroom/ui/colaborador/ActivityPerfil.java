@@ -1,4 +1,4 @@
-package com.alura.wiseroom.ui;
+package com.alura.wiseroom.ui.colaborador;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.model.ColaboradorModel;
+import com.alura.wiseroom.ui.qrcode.ActivityReservarSala;
+import com.alura.wiseroom.ui.qrcode.ActivityVerificarSala;
 
 public class ActivityPerfil extends AppCompatActivity {
     private Button btDisponibilidadeSala;

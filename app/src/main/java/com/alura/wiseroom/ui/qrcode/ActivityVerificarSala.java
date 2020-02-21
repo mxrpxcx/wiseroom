@@ -1,4 +1,4 @@
-package com.alura.wiseroom.ui;
+package com.alura.wiseroom.ui.qrcode;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,13 +15,9 @@ import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.Event;
 import com.alura.wiseroom.model.SalaModel;
 import com.alura.wiseroom.network.HttpRequest;
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
+import com.alura.wiseroom.ui.colaborador.ActivityPerfil;
+import com.alura.wiseroom.ui.reserva.ActivityDatasReservadas;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -30,9 +26,6 @@ import com.google.zxing.integration.android.IntentResult;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -109,7 +102,7 @@ public class ActivityVerificarSala extends AppCompatActivity {
             Map<String, String> params = new HashMap<String, String>();
             params.put("authorization", "secret");
             params.put("idSala", idSala);
-            String url = "http://172.30.248.130:8080/ReservaDeSala/rest/sala/getSalaId";
+            String url = Constants.url+"/sala/getSalaId";
 
             new HttpRequest(
                     getApplicationContext(),

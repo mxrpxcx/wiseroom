@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".ui.ActivityPerfil">
+    tools:context=".ui.colaborador.ActivityPerfil">
 
     <Button
         android:id="@+id/btVerificaQR"
