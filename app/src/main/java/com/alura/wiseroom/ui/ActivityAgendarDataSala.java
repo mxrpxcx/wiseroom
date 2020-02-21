@@ -348,7 +348,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             Map<String, String> params = new HashMap<String, String>();
             params.put("authorization", "secret");
             params.put("novaReserva", reservaCoded);
-            String url = "http://172.30.248.130/rest/reservasala/reserva/cadastrar";
+            String url = "http://172.30.248.130:8080/ReservaDeSala/rest/reserva/cadastrar";
 
             new HttpRequest(
                     getApplicationContext(),
