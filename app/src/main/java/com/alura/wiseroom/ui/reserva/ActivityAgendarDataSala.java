@@ -235,7 +235,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
     private void showListDialog(final String pos) {
 
-        String[] arr = {"Deletar","Editar"};
+        String[] arr = {"Deletar"};
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityAgendarDataSala.this);
         builder.setTitle("Opções");
         builder.setItems(arr, new DialogInterface.OnClickListener() {
@@ -244,12 +244,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 if(position==0) {
                     confirmaApagar(pos);
                     fetchDatabaseToArrayList();
-                }
-                else {
-                    ReservaModel reservaModel = listaReservas.get(Integer.parseInt(pos));
-                    Intent i = new Intent(ActivityAgendarDataSala.this, ActivityEditarDataAgendada.class);
-                    i.putExtra("idReserva", reservaModel.getIdReserva());
-                    startActivity(i);
                 }
             }
         });

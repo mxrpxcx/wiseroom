@@ -24,7 +24,6 @@
         <activity android:name=".ui.qrcode.ActivityVerificarSala" />
         <activity android:name=".ui.reserva.ActivityAgendarDataSala" />
         <activity android:name=".ui.reserva.ActivityDatasReservadas" />
-        <activity android:name=".ui.reserva.ActivityEditarDataAgendada" />
         <activity android:name=".ui.colaborador.ActivityCadastroColaborador" />
         <activity android:name=".ui.qrcode.ActivityReservarSala" />
         <activity android:name=".ui.colaborador.ActivityPerfil" />
