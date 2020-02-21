@@ -9,13 +9,13 @@ public class ReservaModel implements Serializable {
     private String ativo;
 
     private String
-    descricaoReserva,
-    idColaboradorReserva,
-    nomeColaborador,
-    idSalaReserva,
-    dataReserva,
-    horaInicioReserva,
-    horaFimReserva;
+            descricaoReserva,
+            idColaboradorReserva,
+            nomeColaborador,
+            idSalaReserva,
+            dataReserva,
+            horaInicioReserva,
+            horaFimReserva;
 
 
     public String getIdReserva() {
@@ -86,11 +86,11 @@ public class ReservaModel implements Serializable {
         return idColaboradorReserva;
     }
 
-    public void setIdColaborador(String idColaboradorReserva) {
+    public void setIdColaboradorReserva(String idColaboradorReserva) {
         this.idColaboradorReserva = idColaboradorReserva;
     }
 
-    public void setIdColaboradorReserva(String idColaboradorReserva) {
+    public void setIdColaborador(String idColaboradorReserva) {
         this.idColaboradorReserva = idColaboradorReserva;
     }
 

@@ -58,7 +58,7 @@ public class ActivityPerfil extends AppCompatActivity {
 
         textLogout = findViewById(R.id.textViewLogOut);
 
-        textLogout.setOnClickListener(new View.OnClickListener(){
+        textLogout.setOnClickListener(new View.OnClickListener() {
                                           @Override
                                           public void onClick(View v) {
                                               Intent intentLogOut = new Intent(ActivityPerfil.this, ActivityLogin.class);
@@ -70,13 +70,13 @@ public class ActivityPerfil extends AppCompatActivity {
     }
 
     private void recebeDados() {
-            Intent intentMain = getIntent();
+        Intent intentMain = getIntent();
 
-            if(intentMain.hasExtra("colaboradorLogado")){
+        if (intentMain.hasExtra("colaboradorLogado")) {
 
-                ColaboradorModel col = (ColaboradorModel) intentMain.getSerializableExtra("colaboradorLogado");
-                colaboradorLogado = col;
+            ColaboradorModel col = (ColaboradorModel) intentMain.getSerializableExtra("colaboradorLogado");
+            colaboradorLogado = col;
 
-            }
+        }
     }
 }

@@ -30,11 +30,11 @@ import java.util.Map;
 
 
 public class ActivityLogin extends AppCompatActivity {
+    RequestQueue mQueue;
     private Button btLogin;
     private TextView etCadastro;
     private EditText tvEmail;
     private EditText tvSenha;
-    RequestQueue mQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void setListenersDoBotao() {
-       etCadastro.setOnClickListener(new View.OnClickListener() {
+        etCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ActivityLogin.this, ActivityCadastroColaborador.class));
@@ -89,21 +89,21 @@ public class ActivityLogin extends AppCompatActivity {
     private void setarValores() {
         btLogin = findViewById(R.id.btLogin);
         etCadastro = findViewById(R.id.textViewCadastroVddeiro);
-        tvEmail = (EditText) findViewById(R.id.editEmail);
-        tvSenha = (EditText) findViewById(R.id.editSenha);
+        tvEmail = findViewById(R.id.editEmail);
+        tvSenha = findViewById(R.id.editSenha);
         tvEmail.setText("b@b.b");
         tvSenha.setText("b");
     }
 
 
-    public void verificaRegistro(final String email, final String senha){
+    public void verificaRegistro(final String email, final String senha) {
 
         try {
             Map<String, String> params = new HashMap<String, String>();
             params.put("authorization", "secret");
             params.put("emailColaborador", email);
             params.put("senhaColaborador", senha);
-            String url = Constants.url+"/colaborador/login";
+            String url = Constants.url + "/colaborador/login";
 
             new HttpRequest(
                     getApplicationContext(),

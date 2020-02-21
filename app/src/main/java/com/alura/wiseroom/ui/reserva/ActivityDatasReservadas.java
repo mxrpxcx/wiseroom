@@ -120,7 +120,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
             Map<String, String> params = new HashMap<String, String>();
             params.put("authorization", "secret");
             params.put("idSala", idSala);
-            String url = Constants.url+"/reserva/byIdSala";
+            String url = Constants.url + "/reserva/byIdSala";
 
             new HttpRequest(
                     getApplicationContext(),
@@ -167,11 +167,14 @@ public class ActivityDatasReservadas extends AppCompatActivity {
                 listaReservas.add(reservaRecebidaJson);
                 listIds.add(reservaRecebidaJson.getIdReserva());
 
+
             }
+            reservaAdapter = new ReservaAdapter(ActivityDatasReservadas.this, R.layout.item_lista_reserva, listaReservas);
+            listView.setAdapter(reservaAdapter);
         } else if (event.getEventName().equals("DataReservada" + Constants.eventErrorLabel)) {
-                Snackbar snackbar = Snackbar.make(null, "Erro ao receber dados", Snackbar.LENGTH_LONG);
-                snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-                snackbar.show();
-            }
+            Snackbar snackbar = Snackbar.make(null, "Erro ao receber dados", Snackbar.LENGTH_LONG);
+            snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            snackbar.show();
         }
     }
+}

@@ -1,19 +1,18 @@
 package com.alura.wiseroom.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.model.ReservaModel;
-
-
 
 import java.util.ArrayList;
 
@@ -25,7 +24,7 @@ public class ReservaAdapter extends ArrayAdapter {
     private LayoutInflater inflater;
 
     public ReservaAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<ReservaModel> listaReservas) {
-        super(context, resource,listaReservas);
+        super(context, resource, listaReservas);
         layoutRes = resource;
         this.listaReservas = listaReservas;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -35,7 +34,7 @@ public class ReservaAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        View view = inflater.inflate(layoutRes,null);
+        View view = inflater.inflate(layoutRes, null);
 
         ReservaModel reservaModel = listaReservas.get(position);
 

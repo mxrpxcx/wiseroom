@@ -52,24 +52,23 @@ public class ActivityVerificarSala extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
 
-
-        if(intentResult != null){
-            if (intentResult.getContents() !=  null){
+        if (intentResult != null) {
+            if (intentResult.getContents() != null) {
 
                 Log.i("teste qr ", intentResult.getContents());
                 String idSalas = intentResult.getContents();
 
                 verificaSala(idSalas);
 
-            }else{
+            } else {
 
                 Intent intent = new Intent(ActivityVerificarSala.this, ActivityPerfil.class);
                 startActivity(intent);
             }
-        }else{
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
 
@@ -88,7 +87,7 @@ public class ActivityVerificarSala extends AppCompatActivity {
     private void recebeDados() {
         Intent intentMain = getIntent();
 
-        if(intentMain.hasExtra("colaboradorLogado")){
+        if (intentMain.hasExtra("colaboradorLogado")) {
 
             ColaboradorModel col = (ColaboradorModel) intentMain.getSerializableExtra("colaboradorLogado");
             colaboradorLogado = col;
@@ -96,13 +95,13 @@ public class ActivityVerificarSala extends AppCompatActivity {
         }
     }
 
-    public void verificaSala(final String idSala){
+    public void verificaSala(final String idSala) {
 
         try {
             Map<String, String> params = new HashMap<String, String>();
             params.put("authorization", "secret");
             params.put("idSala", idSala);
-            String url = Constants.url+"/sala/getSalaId";
+            String url = Constants.url + "/sala/getSalaId";
 
             new HttpRequest(
                     getApplicationContext(),

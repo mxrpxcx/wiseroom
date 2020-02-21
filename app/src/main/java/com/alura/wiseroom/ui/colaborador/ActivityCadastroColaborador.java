@@ -28,6 +28,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,10 +46,10 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         ab.hide();
 
 
-        final EditText txtNome = (EditText) findViewById(R.id.editNomeCadastro);
-        final EditText txtEmail = (EditText) findViewById(R.id.editEmailCadastro);
-        final EditText txtSenha = (EditText) findViewById(R.id.editSenhaCadastro);
-        btnCadastrar = (Button) findViewById(R.id.btCadastro);
+        final EditText txtNome = findViewById(R.id.editNomeCadastro);
+        final EditText txtEmail = findViewById(R.id.editEmailCadastro);
+        final EditText txtSenha = findViewById(R.id.editSenhaCadastro);
+        btnCadastrar = findViewById(R.id.btCadastro);
 
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,15 +75,11 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
                 colaboradorEnviar.setOrganizacaoColaborador(organizacaoModel);
 
-                Gson gson  = new Gson();
+                Gson gson = new Gson();
 
-                try {
-                    String userCoded = new String(Base64.encodeToString(gson.toJson(colaboradorEnviar).getBytes("UTF-8"), Base64.NO_WRAP));
-                    enviarColaboradoresServer(userCoded);
-                    Log.i("teste coded", userCoded);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+                String userCoded = new String(Base64.encodeToString(gson.toJson(colaboradorEnviar).getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP));
+                enviarColaboradoresServer(userCoded);
+                Log.i("teste coded", userCoded);
 
             }
         });
@@ -99,12 +96,12 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    public void enviarColaboradoresServer(final String code){
+    public void enviarColaboradoresServer(final String code) {
         try {
             Map<String, String> params = new HashMap<String, String>();
             params.put("authorization", "secret");
             params.put("novoColaborador", code);
-            String url = Constants.url+"/colaborador/cadastro";
+            String url = Constants.url + "/colaborador/cadastro";
 
             new HttpRequest(
                     getApplicationContext(),

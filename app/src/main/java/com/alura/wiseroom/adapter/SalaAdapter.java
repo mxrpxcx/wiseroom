@@ -16,20 +16,8 @@ import java.util.List;
 
 public class SalaAdapter extends RecyclerView.Adapter<SalaAdapter.MyViewHolder> {
 
-    private Context context;
     private final List<SalaModel> listaSalas;
-
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView sala;
-        public TextView capacidade;
-
-        public MyViewHolder(View view) {
-            super(view);
-            sala = view.findViewById(R.id.sala);
-            capacidade = view.findViewById(R.id.capacidade);
-        }
-    }
+    private Context context;
 
 
     public SalaAdapter(Context context, List<SalaModel> listaSalas) {
@@ -49,7 +37,7 @@ public class SalaAdapter extends RecyclerView.Adapter<SalaAdapter.MyViewHolder> 
     public void onBindViewHolder(MyViewHolder holder, int position) {
         SalaModel sala = listaSalas.get(position);
 
-        Log.i("TesteSala", "Sala "+sala.getNomeSala());
+        Log.i("TesteSala", "Sala " + sala.getNomeSala());
 
         holder.sala.setText(sala.getNomeSala());
         holder.capacidade.setText(sala.getCapacidadeSala());
@@ -58,6 +46,17 @@ public class SalaAdapter extends RecyclerView.Adapter<SalaAdapter.MyViewHolder> 
     @Override
     public int getItemCount() {
         return listaSalas.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView sala;
+        public TextView capacidade;
+
+        public MyViewHolder(View view) {
+            super(view);
+            sala = view.findViewById(R.id.sala);
+            capacidade = view.findViewById(R.id.capacidade);
+        }
     }
 
 }

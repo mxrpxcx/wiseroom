@@ -4,73 +4,73 @@ import java.io.Serializable;
 
 public class ColaboradorModel implements Serializable {
 
-   private String idColaborador;
-   private String nomeColaborador;
-   private OrganizacaoModel organizacaoColaborador;
-   private String emailColaborador;
-   private boolean administrador=false;
-   private String senhaColaborador;
+    private String idColaborador;
+    private String nomeColaborador;
+    private OrganizacaoModel organizacaoColaborador;
+    private String emailColaborador;
+    private boolean administrador = false;
+    private String senhaColaborador;
 
-   public ColaboradorModel() {
-   }
+    public ColaboradorModel() {
+    }
 
-   public String getIdColaborador() {
-      return idColaborador;
-   }
+    public String getIdColaborador() {
+        return idColaborador;
+    }
 
-   public void setIdColaborador(String idColaborador) {
-      this.idColaborador = idColaborador;
-   }
+    public void setIdColaborador(String idColaborador) {
+        this.idColaborador = idColaborador;
+    }
 
-   public String getNomeColaborador() {
-      return nomeColaborador;
-   }
+    public String getNomeColaborador() {
+        return nomeColaborador;
+    }
 
-   public void setNomeColaborador(String nomeColaborador) {
-      this.nomeColaborador = nomeColaborador;
-   }
+    public void setNomeColaborador(String nomeColaborador) {
+        this.nomeColaborador = nomeColaborador;
+    }
 
-   public OrganizacaoModel getOrganizacaoColaborador() {
-      return organizacaoColaborador;
-   }
+    public OrganizacaoModel getOrganizacaoColaborador() {
+        return organizacaoColaborador;
+    }
 
-   public void setOrganizacaoColaborador(OrganizacaoModel organizacaoColaborador) {
-      this.organizacaoColaborador = organizacaoColaborador;
-   }
+    public void setOrganizacaoColaborador(OrganizacaoModel organizacaoColaborador) {
+        this.organizacaoColaborador = organizacaoColaborador;
+    }
 
-   public String getEmailColaborador() {
-      return emailColaborador;
-   }
+    public String getEmailColaborador() {
+        return emailColaborador;
+    }
 
-   public void setEmailColaborador(String emailColaborador) {
-      this.emailColaborador = emailColaborador;
-   }
+    public void setEmailColaborador(String emailColaborador) {
+        this.emailColaborador = emailColaborador;
+    }
 
-   public boolean isAdministrador() {
-      return administrador;
-   }
+    public boolean isAdministrador() {
+        return administrador;
+    }
 
-   public void setAdministrador(boolean administrador) {
-      this.administrador = administrador;
-   }
+    public void setAdministrador(boolean administrador) {
+        this.administrador = administrador;
+    }
 
-   public String getSenhaColaborador() {
-      return senhaColaborador;
-   }
+    public String getSenhaColaborador() {
+        return senhaColaborador;
+    }
 
-   public void setSenhaColaborador(String senhaColaborador) {
-      this.senhaColaborador = senhaColaborador;
-   }
+    public void setSenhaColaborador(String senhaColaborador) {
+        this.senhaColaborador = senhaColaborador;
+    }
 
-   @Override
-   public String toString() {
-      return "ColaboradorModel{" +
-              "idColaborador='" + idColaborador + '\'' +
-              ", nomeColaborador='" + nomeColaborador + '\'' +
-              ", organizacaoColaborador=" + organizacaoColaborador +
-              ", emailColaborador='" + emailColaborador + '\'' +
-              ", administrador=" + administrador +
-              ", senhaColaborador='" + senhaColaborador + '\'' +
-              '}';
-   }
+    @Override
+    public String toString() {
+        return "ColaboradorModel{" +
+                "idColaborador='" + idColaborador + '\'' +
+                ", nomeColaborador='" + nomeColaborador + '\'' +
+                ", organizacaoColaborador=" + organizacaoColaborador +
+                ", emailColaborador='" + emailColaborador + '\'' +
+                ", administrador=" + administrador +
+                ", senhaColaborador='" + senhaColaborador + '\'' +
+                '}';
+    }
 }

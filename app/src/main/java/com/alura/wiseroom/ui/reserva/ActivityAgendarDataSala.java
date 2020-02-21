@@ -297,7 +297,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     }
 
     public void confirmaApagar(final int position) {
-        AlertDialog.Builder builder= new AlertDialog.Builder(ActivityAgendarDataSala.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityAgendarDataSala.this);
         builder.setTitle("Confirmação");
         builder.setMessage("Deseja cancelar?");
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
