@@ -136,6 +136,8 @@ public class ActivityLogin extends AppCompatActivity {
             intent.putExtra("colaboradorLogado", colaboradorRecebidoJson);
             startActivity(intent);
 
+            finish();
+
         } else if (event.getEventName().equals("Login" + Constants.eventErrorLabel)) {
             Snackbar snackbar = Snackbar.make(btLogin, "Erro ao realizar login", Snackbar.LENGTH_LONG);
             snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;

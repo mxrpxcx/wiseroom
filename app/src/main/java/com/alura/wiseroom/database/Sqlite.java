@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class WiseRoomDB extends SQLiteOpenHelper {
+public class Sqlite extends SQLiteOpenHelper {
 
     // Colaborador
     public static final String TABELA_NOME_COLABORADOR = "tbColaborador";
@@ -81,7 +81,7 @@ public class WiseRoomDB extends SQLiteOpenHelper {
                     + ")";
 
 
-    public WiseRoomDB(Context context) {
+    public Sqlite(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

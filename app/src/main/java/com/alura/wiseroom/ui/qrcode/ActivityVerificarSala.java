@@ -135,6 +135,7 @@ public class ActivityVerificarSala extends AppCompatActivity {
             intent.putExtra("colaboradorLogado", colaboradorLogado);
             intent.putExtra("salaSelecionada", salaRecebidaJson);
             startActivity(intent);
+            finish();
 
         } else if (event.getEventName().equals("VerificaSala" + Constants.eventErrorLabel)) {
             Snackbar snackbar = Snackbar.make(null, "Erro ao receber salas", Snackbar.LENGTH_LONG);
@@ -142,5 +143,12 @@ public class ActivityVerificarSala extends AppCompatActivity {
             snackbar.show();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ActivityVerificarSala.this, ActivityPerfil.class);
+        intent.putExtra("colaboradorLogado", colaboradorLogado);
+    }
+
 
 }

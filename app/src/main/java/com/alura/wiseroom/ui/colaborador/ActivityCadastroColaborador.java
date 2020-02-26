@@ -136,5 +136,4 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
             snackbar.show();
         }
     }
-
 }

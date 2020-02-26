@@ -20,6 +20,8 @@ public class ActivityPerfil extends AppCompatActivity {
     private Button btReservarSala;
     private ColaboradorModel colaboradorLogado;
     private TextView textLogout;
+    long millis = 0L;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class ActivityPerfil extends AppCompatActivity {
                 Intent intent = new Intent(ActivityPerfil.this, ActivityReservarSala.class);
                 intent.putExtra("colaboradorLogado", colaboradorLogado);
                 startActivity(intent);
-                finish();
+
             }
         });
 
@@ -52,7 +54,7 @@ public class ActivityPerfil extends AppCompatActivity {
                 Intent intent = new Intent(ActivityPerfil.this, ActivityVerificarSala.class);
                 intent.putExtra("colaboradorLogado", colaboradorLogado);
                 startActivity(intent);
-                finish();
+
             }
         });
 
@@ -79,4 +81,19 @@ public class ActivityPerfil extends AppCompatActivity {
 
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        if (millis == 0) {
+            millis = System.currentTimeMillis();
+        } else {
+            long end = System.currentTimeMillis() - millis;
+            if (end < 2000) {
+                moveTaskToBack(true);
+            } else {
+                millis = System.currentTimeMillis();
+            }
+        }
+    }
+
 }
