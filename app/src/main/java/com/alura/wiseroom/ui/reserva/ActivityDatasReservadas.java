@@ -19,6 +19,7 @@ import com.alura.wiseroom.model.Event;
 import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
 import com.alura.wiseroom.network.HttpRequest;
+import com.alura.wiseroom.ui.colaborador.ActivityPerfil;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
@@ -177,4 +178,18 @@ public class ActivityDatasReservadas extends AppCompatActivity {
             snackbar.show();
         }
     }
+
+
+    @Override
+    public void onBackPressed() {
+        sair();
+    }
+
+    public void sair(){
+        Intent intent = new Intent(ActivityDatasReservadas.this, ActivityPerfil.class);
+        intent.putExtra("colaboradorLogado", colaboradorLogado);
+        startActivity(intent);
+        finish();
+    }
+
 }

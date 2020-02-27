@@ -1,5 +1,4 @@
 
-
 package com.alura.wiseroom.ui.reserva;
 
 import android.app.AlarmManager;
@@ -34,6 +33,8 @@ import com.alura.wiseroom.model.Event;
 import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
 import com.alura.wiseroom.network.HttpRequest;
+import com.alura.wiseroom.ui.colaborador.ActivityPerfil;
+import com.alura.wiseroom.ui.qrcode.ActivityVerificarSala;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
@@ -60,18 +61,14 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     String etHoraInicio, etHoraFim, etData, etNome;
     ReservaAdapter reservaAdapter;
     ArrayList<ReservaModel> listaReservas = new ArrayList<>();
-    AlarmManager alarmManager;
     SalaModel salaSelecioanda;
     ColaboradorModel colaboradorLogado;
-    RequestQueue mQueue;
-    View v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agendar_data_sala);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        mQueue = Volley.newRequestQueue(this);
         init();
         setListeners();
         fetchDatabaseToArrayList();
@@ -181,7 +178,6 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 
     private void fetchDatabaseToArrayList() {
         listaReservas.clear();
@@ -448,7 +444,8 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
 
             }
-
+            reservaAdapter = new ReservaAdapter(ActivityAgendarDataSala.this, R.layout.item_lista_reserva, listaReservas);
+            listView.setAdapter(reservaAdapter);
                 } else if (event.getEventName().equals("ListaReserva" + Constants.eventErrorLabel)) {
                 Log.i("teste erro cadastro", event.getEventMsg());
                 Snackbar snackbar = Snackbar.make(listView, "Erro ao listar reservas ", Snackbar.LENGTH_LONG);
@@ -457,5 +454,18 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
 
         }
 
-        }
     }
+
+    @Override
+    public void onBackPressed() {
+        sair();
+    }
+
+    public void sair(){
+        Intent intent = new Intent(ActivityAgendarDataSala.this, ActivityPerfil.class);
+        intent.putExtra("colaboradorLogado", colaboradorLogado);
+        startActivity(intent);
+        finish();
+    }
+
+}
