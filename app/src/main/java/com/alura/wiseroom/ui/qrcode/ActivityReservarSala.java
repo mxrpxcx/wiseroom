@@ -15,6 +15,7 @@ import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.Event;
 import com.alura.wiseroom.model.SalaModel;
 import com.alura.wiseroom.network.HttpRequest;
+import com.alura.wiseroom.ui.colaborador.ActivityPerfil;
 import com.alura.wiseroom.ui.reserva.ActivityAgendarDataSala;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -47,17 +48,6 @@ public class ActivityReservarSala extends AppCompatActivity {
         intentIntegrator.initiateScan();
         recebeDados();
 
-        Log.i("Teste id col", colaboradorLogado.toString());
-    }
-
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -74,12 +64,20 @@ public class ActivityReservarSala extends AppCompatActivity {
                 verificaSala(idSalas);
 
             }
-
         } else {
-            Log.i("TESTE REDIRECIONAMENTO MAIS DEBAIXO ", "REDIRECIOAAWFOAWFO");
-
+            sair();
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     private void recebeDados() {
@@ -130,6 +128,7 @@ public class ActivityReservarSala extends AppCompatActivity {
             intent.putExtra("colaboradorLogado", colaboradorLogado);
             intent.putExtra("salaSelecionada", salaRecebidaJson);
             startActivity(intent);
+            finish();
 
         } else if (event.getEventName().equals("ReservaSala" + Constants.eventErrorLabel)) {
             Log.i("teste error sala rel", event.getEventMsg());
@@ -139,4 +138,15 @@ public class ActivityReservarSala extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        sair();
+    }
+
+    public void sair(){
+        Intent intent = new Intent(ActivityReservarSala.this, ActivityPerfil.class);
+        intent.putExtra("colaboradorLogado", colaboradorLogado);
+        startActivity(intent);
+        finish();
+    }
 }

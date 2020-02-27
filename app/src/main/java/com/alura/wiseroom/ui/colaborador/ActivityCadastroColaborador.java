@@ -45,7 +45,6 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.hide();
 
-
         final EditText txtNome = findViewById(R.id.editNomeCadastro);
         final EditText txtEmail = findViewById(R.id.editEmailCadastro);
         final EditText txtSenha = findViewById(R.id.editSenhaCadastro);
@@ -61,7 +60,6 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
                 ColaboradorModel colaboradorEnviar = new ColaboradorModel();
 
-                colaboradorEnviar.setIdColaborador("230");
                 colaboradorEnviar.setNomeColaborador(nome);
                 colaboradorEnviar.setEmailColaborador(email);
                 colaboradorEnviar.setSenhaColaborador(senha);

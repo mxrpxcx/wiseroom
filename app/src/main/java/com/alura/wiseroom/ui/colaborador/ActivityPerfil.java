@@ -29,8 +29,8 @@ public class ActivityPerfil extends AppCompatActivity {
         setContentView(R.layout.activity_perfil);
         ActionBar ab = getSupportActionBar();
         ab.hide();
-        criarBotaoPlusAcoes();
         recebeDados();
+        criarBotaoPlusAcoes();
         Log.i("TESTE ESCOLHA COL ", colaboradorLogado.getNomeColaborador());
     }
 
@@ -44,6 +44,7 @@ public class ActivityPerfil extends AppCompatActivity {
                 Intent intent = new Intent(ActivityPerfil.this, ActivityReservarSala.class);
                 intent.putExtra("colaboradorLogado", colaboradorLogado);
                 startActivity(intent);
+                finish();
 
             }
         });
@@ -54,6 +55,7 @@ public class ActivityPerfil extends AppCompatActivity {
                 Intent intent = new Intent(ActivityPerfil.this, ActivityVerificarSala.class);
                 intent.putExtra("colaboradorLogado", colaboradorLogado);
                 startActivity(intent);
+                finish();
 
             }
         });

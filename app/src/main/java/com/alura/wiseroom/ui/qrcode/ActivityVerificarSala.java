@@ -47,13 +47,13 @@ public class ActivityVerificarSala extends AppCompatActivity {
         intentIntegrator.setCameraId(0);
         intentIntegrator.initiateScan();
         recebeDados();
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-
 
         if (intentResult != null) {
             if (intentResult.getContents() != null) {
@@ -63,15 +63,11 @@ public class ActivityVerificarSala extends AppCompatActivity {
 
                 verificaSala(idSalas);
 
-            } else {
-
-                Intent intent = new Intent(ActivityVerificarSala.this, ActivityPerfil.class);
-                startActivity(intent);
             }
         } else {
+            sair();
             super.onActivityResult(requestCode, resultCode, data);
         }
-
     }
 
     public void onStart() {
@@ -146,8 +142,14 @@ public class ActivityVerificarSala extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        sair();
+    }
+
+    public void sair(){
         Intent intent = new Intent(ActivityVerificarSala.this, ActivityPerfil.class);
         intent.putExtra("colaboradorLogado", colaboradorLogado);
+        startActivity(intent);
+        finish();
     }
 
 
