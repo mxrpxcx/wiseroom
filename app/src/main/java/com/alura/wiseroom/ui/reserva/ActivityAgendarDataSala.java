@@ -435,13 +435,12 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                 reservaRecebidaJson.setHoraInicioReserva(reservas.get(i).getHoraInicioReserva());
                 reservaRecebidaJson.setHoraFimReserva(reservas.get(i).getHoraFimReserva());
                 reservaRecebidaJson.setIdColaborador(reservas.get(i).getIdColaboradorReserva());
-                //     recebeColaborador(reservaRecebidaJson.getIdColaboradorReserva());
+                //   recebeColaborador(reservaRecebidaJson.getIdColaboradorReserva());
                 //   reservaRecebidaJson.setColaboradorReserva(colaboradorBodega);
                 reservaRecebidaJson.setSalaReserva(salaSelecioanda);
 
                 Log.i("teste bodega", reservaRecebidaJson.getSalaReserva().toString());
                 listaReservas.add(reservaRecebidaJson);
-
 
             }
             reservaAdapter = new ReservaAdapter(ActivityAgendarDataSala.this, R.layout.item_lista_reserva, listaReservas);
