@@ -15,20 +15,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.splash.SplashScreen">
+        <activity android:name=".ui.splash.SplashScreen"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.qrcode.ActivityVerificarSala" />
-        <activity android:name=".ui.reserva.ActivityAgendarDataSala" />
-        <activity android:name=".ui.reserva.ActivityDatasReservadas" />
-        <activity android:name=".ui.colaborador.ActivityCadastroColaborador" />
-        <activity android:name=".ui.qrcode.ActivityReservarSala" />
-        <activity android:name=".ui.colaborador.ActivityPerfil" />
-        <activity android:name=".ui.colaborador.ActivityLogin">
+        <activity android:name=".ui.qrcode.ActivityVerificarSala"
+                  android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.reserva.ActivityAgendarDataSala"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.reserva.ActivityDatasReservadas"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.colaborador.ActivityCadastroColaborador"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.qrcode.ActivityReservarSala"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.colaborador.ActivityPerfil"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.colaborador.ActivityLogin"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

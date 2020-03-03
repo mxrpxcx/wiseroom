@@ -247,6 +247,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityAgendarDataSala.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hora, int minuto) {
+
                 if(hora<10 || minuto < 10){
 
                     if(hora<10) {
@@ -254,10 +255,12 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                         etHoraFim = ""+"0"+hora+":"+minuto;
                     }
 
+
                     if ( hora <10 && minuto < 10) {
                         btHoraFim.setText(""+"0"+hora+":"+"0"+minuto);
                         etHoraFim =""+"0"+hora+":"+"0"+minuto;
                     }
+
 
                     if ( minuto < 10 && hora >= 10) {
                         btHoraFim.setText(""+""+hora+":"+"0"+minuto);
@@ -270,6 +273,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                     btHoraFim.setText(""+hora+":"+minuto);
                     etHoraFim =""+hora+":"+minuto;
                 }
+
             }
         },hora,minuto,true);
         timePickerDialog.show();

@@ -144,6 +144,4 @@ public class ActivityLogin extends AppCompatActivity {
             snackbar.show();
         }
     }
-
-
 }
