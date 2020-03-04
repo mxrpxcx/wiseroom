@@ -1,62 +1,50 @@
 package com.alura.wiseroom.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.alura.wiseroom.R;
+import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class SalaAdapter extends RecyclerView.Adapter<SalaAdapter.MyViewHolder> {
+public class SalaAdapter extends ArrayAdapter {
 
-    private final List<SalaModel> listaSalas;
-    private Context context;
+    private int layoutRes;
+    private ArrayList<SalaModel> listaSalas;
 
+    private LayoutInflater inflater;
 
-    public SalaAdapter(Context context, List<SalaModel> listaSalas) {
-        this.context = context;
+    public SalaAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<SalaModel> listaSalas) {
+        super(context, resource, listaSalas);
+        layoutRes = resource;
         this.listaSalas = listaSalas;
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.lista_salas, parent, false);
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        return new MyViewHolder(itemView);
-    }
+        View view = inflater.inflate(layoutRes, null);
 
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        SalaModel sala = listaSalas.get(position);
+        SalaModel salaModel = listaSalas.get(position);
 
-        Log.i("TesteSala", "Sala " + sala.getNomeSala());
+        ((TextView) view.findViewById(R.id.tvNomeSala)).setText(salaModel.getNomeSala());
+        ((TextView) view.findViewById(R.id.tvCapacidadeSala)).setText(salaModel.getCapacidadeSala());
+        ((TextView) view.findViewById(R.id.tvAreaSala)).setText(String.valueOf(salaModel.getAreaSala()));
 
-        holder.sala.setText(sala.getNomeSala());
-        holder.capacidade.setText(sala.getCapacidadeSala());
-    }
 
-    @Override
-    public int getItemCount() {
-        return listaSalas.size();
-    }
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView sala;
-        public TextView capacidade;
-
-        public MyViewHolder(View view) {
-            super(view);
-            sala = view.findViewById(R.id.sala);
-            capacidade = view.findViewById(R.id.capacidade);
-        }
+        return view;
     }
 
 }

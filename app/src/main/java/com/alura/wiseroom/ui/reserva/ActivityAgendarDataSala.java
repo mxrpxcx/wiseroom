@@ -74,13 +74,11 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         fetchDatabaseToArrayList();
         Log.i("Reservas ID COL", colaboradorLogado.toString());
         Log.i("Reservas ID SAL", salaSelecioanda.toString());
-
     }
 
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-
     }
 
 
