@@ -113,44 +113,44 @@ public class ActivityListarSalas extends AppCompatActivity {
 
     @Subscribe
     public void customEventReceived(Event event) {
-        if (event.getEventName().equals("DataReservada" + Constants.eventSuccessLabel)) {
+        if (event.getEventName().equals("ListaSala" + Constants.eventSuccessLabel)) {
             Log.i("teste responsee", event.getEventMsg());
 
             Gson gson = new Gson();
 
-            Type listType = new TypeToken<List<ReservaModel>>() {
+            Type listType = new TypeToken<List<SalaModel>>() {
             }.getType();
-            List<ReservaModel> reservas = gson.fromJson(event.getEventMsg(), listType);
+            List<SalaModel> salas = gson.fromJson(event.getEventMsg(), listType);
 
-            for (int i = 0; i < reservas.size(); i++) {
+            for (int i = 0; i < salas.size(); i++) {
 
-                ReservaModel reservaRecebidaJson = new ReservaModel();
+                SalaModel salaRecebidaJson = new SalaModel();
 
-                reservaRecebidaJson = reservas.get(i);
-                Log.i("teste reserva ", reservas.get(i).toString());
+                salaRecebidaJson = salas.get(i);
+                Log.i("teste reserva ", salas.get(i).toString());
 
-                reservaRecebidaJson.setIdReserva(reservas.get(i).getIdReserva());
-                reservaRecebidaJson.setDescricaoReserva(reservas.get(i).getDescricaoReserva());
-                reservaRecebidaJson.setDataReserva(reservas.get(i).getDataReserva());
-                reservaRecebidaJson.setHoraInicioReserva(reservas.get(i).getHoraInicioReserva());
-                reservaRecebidaJson.setHoraFimReserva(reservas.get(i).getHoraFimReserva());
-                reservaRecebidaJson.setIdColaborador(reservas.get(i).getIdColaboradorReserva());
+                salaRecebidaJson.setIdReserva(salas.get(i).getIdReserva());
+                salaRecebidaJson.setDescricaoReserva(salas.get(i).getDescricaoReserva());
+                salaRecebidaJson.setDataReserva(salas.get(i).getDataReserva());
+                salaRecebidaJson.setHoraInicioReserva(salas.get(i).getHoraInicioReserva());
+                salaRecebidaJson.setHoraFimReserva(salas.get(i).getHoraFimReserva());
+                salaRecebidaJson.setIdColaborador(salas.get(i).getIdColaboradorReserva());
 
                 //     recebeColaborador(reservaRecebidaJson.getIdColaboradorReserva());
 
 
                 //   reservaRecebidaJson.setColaboradorReserva(colaboradorBodega);
-                reservaRecebidaJson.setSalaReserva(salaSelecioanda);
 
-                Log.i("teste bodega", reservaRecebidaJson.getSalaReserva().toString());
-                listaReservas.add(reservaRecebidaJson);
-                listIds.add(reservaRecebidaJson.getIdReserva());
+
+
+                listaSalas.add(salaRecebidaJson);
+
 
 
             }
-            reservaAdapter = new ReservaAdapter(ActivityDatasReservadas.this, R.layout.item_lista_reserva, listaReservas);
-            listView.setAdapter(reservaAdapter);
-        } else if (event.getEventName().equals("DataReservada" + Constants.eventErrorLabel)) {
+            salaAdapter = new SalaAdapter(ActivityListarSalas.this, R.layout.item_lista_sala, listaSalas);
+            listView.setAdapter(salaAdapter);
+        } else if (event.getEventName().equals("ListaSala" + Constants.eventErrorLabel)) {
             Snackbar snackbar = Snackbar.make(null, "Erro ao receber dados", Snackbar.LENGTH_LONG);
             snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
             snackbar.show();
