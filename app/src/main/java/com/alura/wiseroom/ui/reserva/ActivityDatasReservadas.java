@@ -45,7 +45,6 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     SalaModel salaSelecioanda;
     ColaboradorModel colaboradorLogado;
     RequestQueue mQueue;
-    ColaboradorModel colaboradorBodega;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
