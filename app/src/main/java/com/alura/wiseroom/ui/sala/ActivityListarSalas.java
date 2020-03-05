@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.adapter.ReservaAdapter;
@@ -40,9 +42,10 @@ public class ActivityListarSalas extends AppCompatActivity {
     ListView listView;
     SalaAdapter salaAdapter;
     ArrayList<SalaModel> listaSalas = new ArrayList<>();
-
+    TextView tvNomeSala;
     ColaboradorModel colaboradorLogado;
     RequestQueue mQueue;
+
 
 
     @Override
@@ -54,8 +57,15 @@ public class ActivityListarSalas extends AppCompatActivity {
         recebeDados();
         init();
 
+        tvNomeSala.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View v) {
+                fetchDatabaseToArrayList();
+                return true;
+            }});
 
     }
+
+
 
     public void onStart() {
         super.onStart();
@@ -80,25 +90,28 @@ public class ActivityListarSalas extends AppCompatActivity {
 
     private void init() {
         listView = (ListView) findViewById(R.id.listViewSala);
+        tvNomeSala = findViewById(R.id.editBuscaSala);
     }
+
+
+
 
     private void fetchDatabaseToArrayList() {
 
         listaSalas.clear();
-
-        verificaSala(salaSelecioanda.getIdSala());
+        verificaSala(String.valueOf(tvNomeSala));
         salaAdapter = new SalaAdapter(ActivityListarSalas.this, R.layout.item_lista_sala, listaSalas);
         listView.setAdapter(salaAdapter);
 
     }
 
-    public void verificaSala(final String idSala) {
+    public void verificaSala(final String nomeSala) {
 
         try {
             Map<String, String> params = new HashMap<String, String>();
             params.put("authorization", "secret");
-            params.put("idSala", idSala);
-            String url = Constants.url + "/sala/getSalaId";
+            params.put("nomeSala", nomeSala);
+            String url = Constants.url + "/sala/getSalaByNome";
 
             new HttpRequest(
                     getApplicationContext(),
@@ -109,6 +122,7 @@ public class ActivityListarSalas extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
 
     @Subscribe
@@ -162,3 +176,6 @@ public class ActivityListarSalas extends AppCompatActivity {
     }
 
 }
+
+
+

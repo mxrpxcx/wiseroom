@@ -26,7 +26,7 @@
     </ListView>
 
     <EditText
-        android:id="@+id/editEmail"
+        android:id="@+id/editBuscaSala"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/round_corner"
