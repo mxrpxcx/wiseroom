@@ -14,10 +14,12 @@ import com.alura.wiseroom.R;
 import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.ui.qrcode.ActivityReservarSala;
 import com.alura.wiseroom.ui.qrcode.ActivityVerificarSala;
+import com.alura.wiseroom.ui.sala.ActivityListarSalas;
 
 public class ActivityPerfil extends AppCompatActivity {
     private Button btDisponibilidadeSala;
     private Button btReservarSala;
+    private Button btListarSalas;
     private ColaboradorModel colaboradorLogado;
     private TextView textLogout;
     long millis = 0L;
@@ -37,6 +39,8 @@ public class ActivityPerfil extends AppCompatActivity {
     private void criarBotaoPlusAcoes() {
         btDisponibilidadeSala = findViewById(R.id.btVerificaQR);
         btReservarSala = findViewById(R.id.btReservaQR);
+        btListarSalas = findViewById(R.id.btAcessaSala);
+
 
         btReservarSala.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +50,16 @@ public class ActivityPerfil extends AppCompatActivity {
                 startActivity(intent);
                 finish();
 
+            }
+        });
+
+        btListarSalas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityPerfil.this, ActivityListarSalas.class);
+                intent.putExtra("colaboradorLogado", colaboradorLogado);
+                startActivity(intent);
+                finish();
             }
         });
 

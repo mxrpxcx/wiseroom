@@ -40,7 +40,7 @@ public class ActivityListarSalas extends AppCompatActivity {
     ListView listView;
     SalaAdapter salaAdapter;
     ArrayList<SalaModel> listaSalas = new ArrayList<>();
-    SalaModel salaSelecioanda;
+
     ColaboradorModel colaboradorLogado;
     RequestQueue mQueue;
 
@@ -129,23 +129,13 @@ public class ActivityListarSalas extends AppCompatActivity {
                 salaRecebidaJson = salas.get(i);
                 Log.i("teste reserva ", salas.get(i).toString());
 
-                salaRecebidaJson.setIdReserva(salas.get(i).getIdReserva());
-                salaRecebidaJson.setDescricaoReserva(salas.get(i).getDescricaoReserva());
-                salaRecebidaJson.setDataReserva(salas.get(i).getDataReserva());
-                salaRecebidaJson.setHoraInicioReserva(salas.get(i).getHoraInicioReserva());
-                salaRecebidaJson.setHoraFimReserva(salas.get(i).getHoraFimReserva());
-                salaRecebidaJson.setIdColaborador(salas.get(i).getIdColaboradorReserva());
-
-                //     recebeColaborador(reservaRecebidaJson.getIdColaboradorReserva());
-
-
-                //   reservaRecebidaJson.setColaboradorReserva(colaboradorBodega);
-
-
+                salaRecebidaJson.setIdSala(salas.get(i).getIdSala());
+                salaRecebidaJson.setDescricaoSala(salas.get(i).getDescricaoSala());
+                salaRecebidaJson.setAreaSala(salas.get(i).getAreaSala());
+                salaRecebidaJson.setCapacidadeSala(salas.get(i).getCapacidadeSala());
+                salaRecebidaJson.setNomeSala(salas.get(i).getNomeSala());
 
                 listaSalas.add(salaRecebidaJson);
-
-
 
             }
             salaAdapter = new SalaAdapter(ActivityListarSalas.this, R.layout.item_lista_sala, listaSalas);
