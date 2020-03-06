@@ -1,7 +1,5 @@
 package com.alura.wiseroom.ui.sala;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,17 +9,16 @@ import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.alura.wiseroom.R;
-import com.alura.wiseroom.adapter.ReservaAdapter;
 import com.alura.wiseroom.adapter.SalaAdapter;
 import com.alura.wiseroom.constants.Constants;
 import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.model.Event;
-import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
 import com.alura.wiseroom.network.HttpRequest;
 import com.alura.wiseroom.ui.colaborador.ActivityPerfil;
-import com.alura.wiseroom.ui.reserva.ActivityDatasReservadas;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
@@ -47,7 +44,6 @@ public class ActivityListarSalas extends AppCompatActivity {
     RequestQueue mQueue;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +57,10 @@ public class ActivityListarSalas extends AppCompatActivity {
             public boolean onLongClick(View v) {
                 fetchDatabaseToArrayList();
                 return true;
-            }});
+            }
+        });
 
     }
-
 
 
     public void onStart() {
@@ -89,11 +85,9 @@ public class ActivityListarSalas extends AppCompatActivity {
     }
 
     private void init() {
-        listView = (ListView) findViewById(R.id.listViewSala);
+        listView = findViewById(R.id.listViewSala);
         tvNomeSala = findViewById(R.id.editBuscaSala);
     }
-
-
 
 
     private void fetchDatabaseToArrayList() {
@@ -122,7 +116,6 @@ public class ActivityListarSalas extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 
 
     @Subscribe
@@ -162,13 +155,12 @@ public class ActivityListarSalas extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onBackPressed() {
         sair();
     }
 
-    public void sair(){
+    public void sair() {
         Intent intent = new Intent(ActivityListarSalas.this, ActivityPerfil.class);
         intent.putExtra("colaboradorLogado", colaboradorLogado);
         startActivity(intent);
@@ -176,6 +168,4 @@ public class ActivityListarSalas extends AppCompatActivity {
     }
 
 }
-
-
 

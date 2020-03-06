@@ -17,13 +17,12 @@ import com.alura.wiseroom.ui.qrcode.ActivityVerificarSala;
 import com.alura.wiseroom.ui.sala.ActivityListarSalas;
 
 public class ActivityPerfil extends AppCompatActivity {
+    long millis = 0L;
     private Button btDisponibilidadeSala;
     private Button btReservarSala;
     private Button btListarSalas;
     private ColaboradorModel colaboradorLogado;
     private TextView textLogout;
-    long millis = 0L;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

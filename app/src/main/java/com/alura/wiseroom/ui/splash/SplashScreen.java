@@ -20,16 +20,16 @@ public class SplashScreen extends AppCompatActivity {
         ab.hide();
 
         View easySplashScreenView = new EasySplashScreen(SplashScreen.this)
-                    .withFullScreen()
-                    .withTargetActivity(ActivityLogin.class)
-                    .withSplashTimeOut(3000)
-                    .withBackgroundResource(R.color.colorPrimaryDark)
-                    .withHeaderText("")
-                    .withFooterText("")
-                    .withBeforeLogoText("")
-                    .withLogo(R.drawable.logo2)
-                    .withAfterLogoText("")
-                    .create();
+                .withFullScreen()
+                .withTargetActivity(ActivityLogin.class)
+                .withSplashTimeOut(3000)
+                .withBackgroundResource(R.color.colorPrimaryDark)
+                .withHeaderText("")
+                .withFooterText("")
+                .withBeforeLogoText("")
+                .withLogo(R.drawable.logo2)
+                .withAfterLogoText("")
+                .create();
         setContentView(easySplashScreenView);
     }
 }

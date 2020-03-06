@@ -145,7 +145,7 @@ public class ActivityVerificarSala extends AppCompatActivity {
         sair();
     }
 
-    public void sair(){
+    public void sair() {
         Intent intent = new Intent(ActivityVerificarSala.this, ActivityPerfil.class);
         intent.putExtra("colaboradorLogado", colaboradorLogado);
         startActivity(intent);

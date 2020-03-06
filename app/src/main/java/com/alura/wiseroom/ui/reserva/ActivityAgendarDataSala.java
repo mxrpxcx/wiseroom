@@ -1,7 +1,5 @@
-
 package com.alura.wiseroom.ui.reserva;
 
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -23,7 +21,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.alura.wiseroom.R;
 import com.alura.wiseroom.adapter.ReservaAdapter;
@@ -34,9 +31,6 @@ import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
 import com.alura.wiseroom.network.HttpRequest;
 import com.alura.wiseroom.ui.colaborador.ActivityPerfil;
-import com.alura.wiseroom.ui.qrcode.ActivityVerificarSala;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -46,6 +40,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -88,12 +83,12 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     }
 
     private void init() {
-        listView = (ListView) findViewById(R.id.listViewX);
-        btAdiciona = (ImageButton) findViewById(R.id.btAdiciona);
-        etSobre = (EditText) findViewById(R.id.etSobre);
-        btData = (Button) findViewById(R.id.btData);
-        btHoraInicio = (Button) findViewById(R.id.btHoraInicio);
-        btHoraFim = (Button) findViewById(R.id.btHoraFim);
+        listView = findViewById(R.id.listViewX);
+        btAdiciona = findViewById(R.id.btAdiciona);
+        etSobre = findViewById(R.id.etSobre);
+        btData = findViewById(R.id.btData);
+        btHoraInicio = findViewById(R.id.btHoraInicio);
+        btHoraFim = findViewById(R.id.btHoraFim);
         recebeDados();
     }
 
@@ -133,10 +128,9 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário de inicio", Toast.LENGTH_SHORT).show();
                 } else if (txtHoraFim.equalsIgnoreCase("hora fim")) {
                     Toast.makeText(ActivityAgendarDataSala.this, "Adicione um horário de término", Toast.LENGTH_SHORT).show();
-                }else {
-                    if(1==2){// se já existir uma reserva, mostrar erro
-                         }
-                    else {
+                } else {
+                    if (1 == 2) {// se já existir uma reserva, mostrar erro
+                    } else {
                         inserirBanco();
                         fetchDatabaseToArrayList();
                     }
@@ -162,19 +156,15 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         reservaModel.setIdColaboradorReserva(colaboradorLogado.getIdColaborador());
         reservaModel.setNomeColaborador(colaboradorLogado.getNomeColaborador());
 
-      //  reservaModel.setColaboradorReserva(colaboradorLogado);
-      //  reservaModel.setSalaReserva(salaSelecioanda);
+        //  reservaModel.setColaboradorReserva(colaboradorLogado);
+        //  reservaModel.setSalaReserva(salaSelecioanda);
 
 
-        Gson gson  = new Gson();
+        Gson gson = new Gson();
 
-        try {
-            String reservaCoded = new String(Base64.encodeToString(gson.toJson(reservaModel).getBytes("UTF-8"), Base64.NO_WRAP));
-            enviarReservasServer(reservaCoded);
-            Log.i("teste coded", reservaCoded);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        String reservaCoded = new String(Base64.encodeToString(gson.toJson(reservaModel).getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP));
+        enviarReservasServer(reservaCoded);
+        Log.i("teste coded", reservaCoded);
     }
 
     private void fetchDatabaseToArrayList() {
@@ -193,11 +183,11 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(ActivityAgendarDataSala.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int ano, int mes, int dia) {
-                mes=mes+1;
-                btData.setText(""+dia+"-"+mes+"-"+ano);
-                etData=""+dia+"-"+mes+"-"+ano;
+                mes = mes + 1;
+                btData.setText("" + dia + "-" + mes + "-" + ano);
+                etData = "" + dia + "-" + mes + "-" + ano;
             }
-        },ano,mes,dia);
+        }, ano, mes, dia);
         datePickerDialog.show();
     }
 
@@ -208,33 +198,31 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(ActivityAgendarDataSala.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hora, int minuto) {
-                if(hora<10 || minuto < 10){
+                if (hora < 10 || minuto < 10) {
 
-                    if(hora<10) {
-                        btHoraInicio.setText(""+"0"+hora+":"+minuto);
-                        etHoraInicio = ""+"0"+hora+":"+minuto;
+                    if (hora < 10) {
+                        btHoraInicio.setText("" + "0" + hora + ":" + minuto);
+                        etHoraInicio = "" + "0" + hora + ":" + minuto;
                     }
 
-                    if ( hora <10 && minuto < 10) {
-                        btHoraInicio.setText(""+"0"+hora+":"+"0"+minuto);
-                        etHoraInicio =""+"0"+hora+":"+"0"+minuto;
+                    if (hora < 10 && minuto < 10) {
+                        btHoraInicio.setText("" + "0" + hora + ":" + "0" + minuto);
+                        etHoraInicio = "" + "0" + hora + ":" + "0" + minuto;
                     }
 
-                    if ( minuto < 10 && hora >= 10) {
-                        btHoraInicio.setText(""+""+hora+":"+"0"+minuto);
-                        etHoraInicio =""+""+hora+":"+"0"+minuto;
+                    if (minuto < 10 && hora >= 10) {
+                        btHoraInicio.setText("" + "" + hora + ":" + "0" + minuto);
+                        etHoraInicio = "" + "" + hora + ":" + "0" + minuto;
                     }
 
-                }
-
-                else {
-                btHoraInicio.setText(""+hora+":"+minuto);
-                etHoraInicio =""+hora+":"+minuto;
+                } else {
+                    btHoraInicio.setText("" + hora + ":" + minuto);
+                    etHoraInicio = "" + hora + ":" + minuto;
                 }
 
             }
 
-        },hora,minuto,true);
+        }, hora, minuto, true);
         timePickerDialog.show();
     }
 
@@ -246,34 +234,32 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hora, int minuto) {
 
-                if(hora<10 || minuto < 10){
+                if (hora < 10 || minuto < 10) {
 
-                    if(hora<10) {
-                        btHoraFim.setText(""+"0"+hora+":"+minuto);
-                        etHoraFim = ""+"0"+hora+":"+minuto;
+                    if (hora < 10) {
+                        btHoraFim.setText("" + "0" + hora + ":" + minuto);
+                        etHoraFim = "" + "0" + hora + ":" + minuto;
                     }
 
 
-                    if ( hora <10 && minuto < 10) {
-                        btHoraFim.setText(""+"0"+hora+":"+"0"+minuto);
-                        etHoraFim =""+"0"+hora+":"+"0"+minuto;
+                    if (hora < 10 && minuto < 10) {
+                        btHoraFim.setText("" + "0" + hora + ":" + "0" + minuto);
+                        etHoraFim = "" + "0" + hora + ":" + "0" + minuto;
                     }
 
 
-                    if ( minuto < 10 && hora >= 10) {
-                        btHoraFim.setText(""+""+hora+":"+"0"+minuto);
-                        etHoraFim =""+""+hora+":"+"0"+minuto;
+                    if (minuto < 10 && hora >= 10) {
+                        btHoraFim.setText("" + "" + hora + ":" + "0" + minuto);
+                        etHoraFim = "" + "" + hora + ":" + "0" + minuto;
                     }
 
-                }
-
-                else {
-                    btHoraFim.setText(""+hora+":"+minuto);
-                    etHoraFim =""+hora+":"+minuto;
+                } else {
+                    btHoraFim.setText("" + hora + ":" + minuto);
+                    etHoraFim = "" + hora + ":" + minuto;
                 }
 
             }
-        },hora,minuto,true);
+        }, hora, minuto, true);
         timePickerDialog.show();
     }
 
@@ -285,7 +271,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         builder.setItems(arr, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int position) {
-                if(position==0) {
+                if (position == 0) {
                     confirmaApagar(pos);
                 }
             }
@@ -318,14 +304,14 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     private void recebeDados() {
         Intent intentMain = getIntent();
 
-        if(intentMain.hasExtra("colaboradorLogado")){
+        if (intentMain.hasExtra("colaboradorLogado")) {
 
             ColaboradorModel col = (ColaboradorModel) intentMain.getSerializableExtra("colaboradorLogado");
             colaboradorLogado = col;
 
         }
 
-        if(intentMain.hasExtra("salaSelecionada")){
+        if (intentMain.hasExtra("salaSelecionada")) {
 
             SalaModel sal = (SalaModel) intentMain.getSerializableExtra("salaSelecionada");
             salaSelecioanda = sal;
@@ -333,14 +319,14 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         }
     }
 
-    public void verificaReserva(final String idSala, final String idColaborador){
+    public void verificaReserva(final String idSala, final String idColaborador) {
 
         try {
             Map<String, String> params = new HashMap<String, String>();
             params.put("authorization", "secret");
             params.put("idSala", idSala);
             params.put("idColaborador", idColaborador);
-            String url = Constants.url+"/reserva/byIdColaboradorSala";
+            String url = Constants.url + "/reserva/byIdColaboradorSala";
 
             new HttpRequest(
                     getApplicationContext(),
@@ -352,12 +338,12 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         }
     }
 
-    public void deletarReserva(final String idReserva){
+    public void deletarReserva(final String idReserva) {
         try {
             Map<String, String> params = new HashMap<String, String>();
             params.put("authorization", "secret");
             params.put("idReserva", idReserva);
-            String url = Constants.url+"/reserva/deleteById";
+            String url = Constants.url + "/reserva/deleteById";
 
             new HttpRequest(
                     getApplicationContext(),
@@ -369,12 +355,12 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         }
     }
 
-    public void enviarReservasServer(final String reservaCoded){
+    public void enviarReservasServer(final String reservaCoded) {
         try {
             Map<String, String> params = new HashMap<String, String>();
             params.put("authorization", "secret");
             params.put("novaReserva", reservaCoded);
-            String url = Constants.url+"/reserva/cadastrar";
+            String url = Constants.url + "/reserva/cadastrar";
 
             new HttpRequest(
                     getApplicationContext(),
@@ -389,7 +375,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
     @Subscribe
     public void customEventReceived(Event event) {
         if (event.getEventName().equals("EnviaReserva" + Constants.eventSuccessLabel)) {
-            Log.i("teste", event.getEventMsg().toString());
+            Log.i("teste", event.getEventMsg());
             fetchDatabaseToArrayList();
 
         } else if (event.getEventName().equals("EnviaReserva" + Constants.eventErrorLabel)) {
@@ -401,7 +387,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         }
 
         if (event.getEventName().equals("DeletaReserva" + Constants.eventSuccessLabel)) {
-            Log.i("teste", event.getEventMsg().toString());
+            Log.i("teste", event.getEventMsg());
             fetchDatabaseToArrayList();
 
         } else if (event.getEventName().equals("DeletaReserva" + Constants.eventErrorLabel)) {
@@ -447,11 +433,11 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
             }
             reservaAdapter = new ReservaAdapter(ActivityAgendarDataSala.this, R.layout.item_lista_reserva, listaReservas);
             listView.setAdapter(reservaAdapter);
-                } else if (event.getEventName().equals("ListaReserva" + Constants.eventErrorLabel)) {
-                Log.i("teste erro cadastro", event.getEventMsg());
-                Snackbar snackbar = Snackbar.make(listView, "Erro ao listar reservas ", Snackbar.LENGTH_LONG);
-                    snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    snackbar.show();
+        } else if (event.getEventName().equals("ListaReserva" + Constants.eventErrorLabel)) {
+            Log.i("teste erro cadastro", event.getEventMsg());
+            Snackbar snackbar = Snackbar.make(listView, "Erro ao listar reservas ", Snackbar.LENGTH_LONG);
+            snackbar.getView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            snackbar.show();
 
         }
 
@@ -462,7 +448,7 @@ public class ActivityAgendarDataSala extends AppCompatActivity {
         sair();
     }
 
-    public void sair(){
+    public void sair() {
         Intent intent = new Intent(ActivityAgendarDataSala.this, ActivityPerfil.class);
         intent.putExtra("colaboradorLogado", colaboradorLogado);
         startActivity(intent);

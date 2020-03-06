@@ -12,10 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.alura.wiseroom.R;
-import com.alura.wiseroom.model.ReservaModel;
 import com.alura.wiseroom.model.SalaModel;
 
 import java.util.ArrayList;
+
 
 public class SalaAdapter extends ArrayAdapter {
 
@@ -43,8 +43,6 @@ public class SalaAdapter extends ArrayAdapter {
         ((TextView) view.findViewById(R.id.tvCapacidadeSala)).setText(salaModel.getCapacidadeSala());
         ((TextView) view.findViewById(R.id.tvAreaSala)).setText(String.valueOf(salaModel.getAreaSala()));
 
-
         return view;
     }
-
 }

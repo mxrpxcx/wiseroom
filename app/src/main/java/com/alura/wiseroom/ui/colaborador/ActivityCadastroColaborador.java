@@ -27,7 +27,6 @@ import com.google.gson.Gson;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -75,7 +74,7 @@ public class ActivityCadastroColaborador extends AppCompatActivity {
 
                 Gson gson = new Gson();
 
-                String userCoded = new String(Base64.encodeToString(gson.toJson(colaboradorEnviar).getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP));
+                String userCoded = Base64.encodeToString(gson.toJson(colaboradorEnviar).getBytes(StandardCharsets.UTF_8), Base64.NO_WRAP);
                 enviarColaboradoresServer(userCoded);
                 Log.i("teste coded", userCoded);
 

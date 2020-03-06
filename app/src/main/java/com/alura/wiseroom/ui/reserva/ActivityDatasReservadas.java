@@ -83,7 +83,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
     }
 
     private void init() {
-        listView = (ListView) findViewById(R.id.listViewY);
+        listView = findViewById(R.id.listViewY);
     }
 
     private void fetchDatabaseToArrayList() {
@@ -184,7 +184,7 @@ public class ActivityDatasReservadas extends AppCompatActivity {
         sair();
     }
 
-    public void sair(){
+    public void sair() {
         Intent intent = new Intent(ActivityDatasReservadas.this, ActivityPerfil.class);
         intent.putExtra("colaboradorLogado", colaboradorLogado);
         startActivity(intent);

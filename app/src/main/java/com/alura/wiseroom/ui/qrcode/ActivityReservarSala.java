@@ -143,7 +143,7 @@ public class ActivityReservarSala extends AppCompatActivity {
         sair();
     }
 
-    public void sair(){
+    public void sair() {
         Intent intent = new Intent(ActivityReservarSala.this, ActivityPerfil.class);
         intent.putExtra("colaboradorLogado", colaboradorLogado);
         startActivity(intent);
