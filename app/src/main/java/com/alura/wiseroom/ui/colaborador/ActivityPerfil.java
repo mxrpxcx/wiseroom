@@ -14,7 +14,7 @@ import com.alura.wiseroom.R;
 import com.alura.wiseroom.model.ColaboradorModel;
 import com.alura.wiseroom.ui.qrcode.ActivityReservarSala;
 import com.alura.wiseroom.ui.qrcode.ActivityVerificarSala;
-import com.alura.wiseroom.ui.sala.ActivityListarSalas;
+// import com.alura.wiseroom.ui.sala.ActivityListarSalas;
 
 public class ActivityPerfil extends AppCompatActivity {
     long millis = 0L;
@@ -52,7 +52,7 @@ public class ActivityPerfil extends AppCompatActivity {
             }
         });
 
-        btListarSalas.setOnClickListener(new View.OnClickListener() {
+       /* btListarSalas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityPerfil.this, ActivityListarSalas.class);
@@ -60,7 +60,7 @@ public class ActivityPerfil extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        });
+        }); */
 
         btDisponibilidadeSala.setOnClickListener(new View.OnClickListener() {
             @Override

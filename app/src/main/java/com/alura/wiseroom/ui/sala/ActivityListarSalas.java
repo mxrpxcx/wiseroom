@@ -1,4 +1,4 @@
-package com.alura.wiseroom.ui.sala;
+/* package com.alura.wiseroom.ui.sala;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -169,3 +169,4 @@ public class ActivityListarSalas extends AppCompatActivity {
 
 }
 
+*/
