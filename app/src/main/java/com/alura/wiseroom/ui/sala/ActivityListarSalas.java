@@ -1,4 +1,4 @@
-/* package com.alura.wiseroom.ui.sala;
+package com.alura.wiseroom.ui.sala;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -145,6 +145,7 @@ public class ActivityListarSalas extends AppCompatActivity {
                 listaSalas.add(salaRecebidaJson);
 
             }
+
             salaAdapter = new SalaAdapter(ActivityListarSalas.this, R.layout.item_lista_sala, listaSalas);
             listView.setAdapter(salaAdapter);
         } else if (event.getEventName().equals("ListaSala" + Constants.eventErrorLabel)) {
@@ -168,5 +169,3 @@ public class ActivityListarSalas extends AppCompatActivity {
     }
 
 }
-
-*/
